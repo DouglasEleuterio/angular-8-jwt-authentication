@@ -15,6 +15,7 @@ import { BoardModeratorComponent } from './board-moderator/board-moderator.compo
 import { ProfileComponent } from './profile/profile.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TableModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

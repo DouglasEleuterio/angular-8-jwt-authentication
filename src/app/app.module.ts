@@ -16,6 +16,8 @@ import { ProfileComponent } from './profile/profile.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import {TableModule} from 'primeng/table';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TipoDescarteComponent } from './tipo-descarte/tipo-descarte.component';
 
 @NgModule({
   declarations: [
@@ -26,14 +28,16 @@ import {TableModule} from 'primeng/table';
     BoardAdminComponent,
     BoardUserComponent,
     BoardModeratorComponent,
-    ProfileComponent
+    ProfileComponent,
+    TipoDescarteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    TableModule
+    TableModule,
+    BrowserAnimationsModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

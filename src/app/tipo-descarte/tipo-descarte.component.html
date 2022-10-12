@@ -61,6 +61,35 @@
           </form>
         </div>
         <!-- /.card -->
+
+
+<!--        Tabela  -->
+
+        <div class="card card-success">
+          <div class="card-header">
+            <h3 class="card-title">Lista</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th style="width: 40px">Ação</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let entity of entities">
+                <td> {{entity.nome}}</td>
+                <td>{{entity.valor}}</td>
+                <td></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+<!--        /. Tabela  -->
       </div>
       <!--/.col (left) -->
     </div>

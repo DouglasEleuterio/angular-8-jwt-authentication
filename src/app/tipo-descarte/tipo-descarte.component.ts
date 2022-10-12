@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TipoDescarteService} from '../_services/tipo-descarte.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import {TipoDescarteModel} from '../model/tipo-descarte-model';
+import {Customer} from '../model/Customer';
 
 @Component({
   selector: 'app-tipo-descarte',
@@ -10,6 +11,7 @@ import {TipoDescarteModel} from '../model/tipo-descarte-model';
 })
 export class TipoDescarteComponent implements OnInit {
 
+  entities: TipoDescarteModel[];
   form: FormGroup;
   errorMessage = '';
 
@@ -17,6 +19,7 @@ export class TipoDescarteComponent implements OnInit {
 
   ngOnInit() {
     this.createForm(new TipoDescarteModel());
+    this.obtemValor();
   }
 
   createForm(model: TipoDescarteModel) {
@@ -30,7 +33,7 @@ export class TipoDescarteComponent implements OnInit {
     this.tipoDescarteService.save(this.form).subscribe(
       data => {
         this.createForm(new TipoDescarteModel());
-        this.reloadPage();
+        this.obtemValor();
       }, err => {
         this.errorMessage = err.error.message;
       }
@@ -39,5 +42,14 @@ export class TipoDescarteComponent implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+
+  obtemValor() {
+    this.tipoDescarteService.get().subscribe(
+      data => {
+        this.entities = data;
+      }, err => {
+        this.errorMessage = err.error.message;
+      });
   }
 }

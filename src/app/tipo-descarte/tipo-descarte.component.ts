@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TipoDescarteService} from '../_services/tipo-descarte.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import {TipoDescarteModel} from '../model/tipo-descarte-model';
 import {Customer} from '../model/Customer';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-tipo-descarte',
@@ -11,32 +12,68 @@ import {Customer} from '../model/Customer';
 })
 export class TipoDescarteComponent implements OnInit {
 
+  @ViewChild('closebutton', {static: false}) closebutton;
+
   entities: TipoDescarteModel[];
   form: FormGroup;
-  errorMessage = '';
+  tipoDescarteExcluir: TipoDescarteModel ;
+  private readonly notifier: NotifierService;
+  isEdicao = false;
 
-  constructor(private tipoDescarteService: TipoDescarteService) { }
+
+  constructor(private tipoDescarteService: TipoDescarteService,
+              notifier: NotifierService) {
+    this.notifier = notifier;
+  }
 
   ngOnInit() {
     this.createForm(new TipoDescarteModel());
     this.obtemValor();
   }
 
+  tipoDescarteAexcluir(tipo: TipoDescarteModel): void {
+    this.tipoDescarteExcluir = tipo;
+  }
+
+  excluirTipoDescarte(): void {
+    this.tipoDescarteService.delete(this.tipoDescarteExcluir).subscribe(
+      data =>  {
+        this.closebutton.nativeElement.click();
+        this.notifier.notify('success', 'Tipo Descarte: ' + this.tipoDescarteExcluir.nome + ' excluido!');
+        this.obtemValor();
+      },
+      error => {
+        this.closebutton.nativeElement.click();
+        this.notifier.notify('error', error.error.message);
+      }
+    );
+  }
+
   createForm(model: TipoDescarteModel) {
     this.form = new FormGroup({
+      id: new FormControl(model.id),
       nome: new FormControl(model.nome),
       valor: new FormControl(model.valor)
     });
   }
 
+  private editar(entity: TipoDescarteModel): void {
+    this.isEdicao = true;
+    this.createForm(entity);
+  }
+
   onSubmit() {
     this.tipoDescarteService.save(this.form).subscribe(
       data => {
+        if (this.isEdicao) {
+          this.notifier.notify('warning', 'Tipo de Descarte: ' + this.form.value.nome + ' Alterado' );
+        } else {
+          this.notifier.notify('success', 'Tipo de Descarte: ' + this.form.value.nome + ' Cadastrado' );
+        }
         this.createForm(new TipoDescarteModel());
         this.obtemValor();
-      }, err => {
-        this.errorMessage = err.error.message;
-      }
+        this.isEdicao = false;
+      }, err => {}
     );
   }
 
@@ -48,8 +85,6 @@ export class TipoDescarteComponent implements OnInit {
     this.tipoDescarteService.get().subscribe(
       data => {
         this.entities = data;
-      }, err => {
-        this.errorMessage = err.error.message;
-      });
+      }, err => {});
   }
 }

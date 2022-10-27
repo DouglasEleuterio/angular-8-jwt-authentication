@@ -9,6 +9,7 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import {TipoDescarteComponent} from './tipo-descarte/tipo-descarte.component';
+import {FormaPagamentoComponent} from "./forma-pagamento/forma-pagamento.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'tipo-descarte', component: TipoDescarteComponent },
+  { path: 'forma-pagamento', component: FormaPagamentoComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

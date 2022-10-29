@@ -1,5 +1,5 @@
 export class FormaPagamentoModel {
   id: string;
   nome: string;
-  status: boolean;
+  ativo: boolean;
 }

@@ -66,16 +66,21 @@
               <thead>
               <tr>
                 <th>Nome</th>
-                <th>Situação</th>
+                <th style="width: 30%">Situação</th>
                 <th style="width: 10%; text-align: center">Ação</th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let entity of entities">
-                <td> {{entity.nome}}</td>
-                <td> {{entity.status}}</td>
-                <td>
-                  <button  title="Editar"  class="btn  btn-outline-warning">
+                <td style="height: 15px"> {{entity.nome}}</td>
+                <td><div class="form-group">
+                  <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                    <input type="checkbox" disabled class="custom-control-input" [checked]="entity.ativo" #customSwitch3 id="customSwitch3">
+                    <label class="custom-control-label" for="customSwitch3">{{situacao(entity.ativo)}}</label>
+                  </div>
+                </div></td>
+                <td align="center">
+                  <button title="Editar" (click)="prepararAlteracao(entity)"  class="btn  btn-outline-warning" data-toggle="modal" data-target="#modal-default">
                     <i class="fas fa-edit"></i>
                   </button>
                 </td>
@@ -92,4 +97,26 @@
   </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Alterar Forma de Pagamento</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Deseja {{formaPagamento.ativo ? 'Desativar' : 'Ativar' }}:  <b>{{formaPagamento.nome}}?</b></p>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" #closebutton data-dismiss="modal">Cancelar</button>
+        <button (click)="alterarSituacao()" id="closebutton" type="button" class="btn {{formaPagamento.ativo ? 'btn-danger' : 'btn-success' }}">{{formaPagamento.ativo ? 'Desativar' : 'Ativar' }}</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 

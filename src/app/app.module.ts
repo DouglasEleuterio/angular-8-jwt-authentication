@@ -21,6 +21,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TipoDescarteComponent } from './tipo-descarte/tipo-descarte.component';
 import { FormaPagamentoComponent } from './forma-pagamento/forma-pagamento.component';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
+import { PagamentoComponent } from './pagamento/pagamento.component';
 
 /**
  * Custom angular notifier options
@@ -77,7 +78,8 @@ const customNotifierOptions: NotifierOptions = {
     BoardModeratorComponent,
     ProfileComponent,
     TipoDescarteComponent,
-    FormaPagamentoComponent
+    FormaPagamentoComponent,
+    PagamentoComponent
   ],
   imports: [
     BrowserModule,

@@ -73,7 +73,9 @@ export class TipoDescarteComponent implements OnInit {
         this.createForm(new TipoDescarteModel());
         this.obtemValor();
         this.isEdicao = false;
-      }, err => {}
+      }, err => {
+        this.notifier.notify('error', err.error.message );
+      }
     );
   }
 

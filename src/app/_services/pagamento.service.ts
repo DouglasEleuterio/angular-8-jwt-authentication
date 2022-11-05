@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.prod';
+// import { environment } from '../../environments/environment.prod';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
@@ -16,7 +16,7 @@ export class PagamentoService {
 
   constructor(private http: HttpClient) { }
 
-  save(pagamento): Observable<any> {
+/*  save(pagamento): Observable<any> {
     this.http.post(environment.apiUrl + PAGAMENTO_RESOURCE, {
       id: pagamento.value.id,
       dataPagamento: pagamento.value.dataPagamento,
@@ -27,5 +27,5 @@ export class PagamentoService {
 
   cancelarPagamento(pagamento): Observable<any> {
     this.http.patch(environment.apiUrl + PAGAMENTO_RESOURCE + pagamento.id, {}, httpOptions);
-  }
+  }*/
 }

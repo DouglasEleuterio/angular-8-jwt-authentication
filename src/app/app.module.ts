@@ -22,6 +22,8 @@ import { TipoDescarteComponent } from './tipo-descarte/tipo-descarte.component';
 import { FormaPagamentoComponent } from './forma-pagamento/forma-pagamento.component';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
 import { PagamentoComponent } from './pagamento/pagamento.component';
+import { TransportadorComponent } from './transportador/transportador.component';
+import { VeiculoComponent } from './veiculo/veiculo.component';
 
 /**
  * Custom angular notifier options
@@ -79,7 +81,9 @@ const customNotifierOptions: NotifierOptions = {
     ProfileComponent,
     TipoDescarteComponent,
     FormaPagamentoComponent,
-    PagamentoComponent
+    PagamentoComponent,
+    TransportadorComponent,
+    VeiculoComponent
   ],
   imports: [
     BrowserModule,

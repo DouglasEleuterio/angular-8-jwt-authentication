@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormControlName, FormGroup, Validators} from '@angular/forms';
+import {TransportadorModel} from '../model/transportador-model';
+import {VeiculoService} from '../_services/veiculo.service';
+import {VeiculoModel} from '../model/veiculo-model';
+import {NotifierService} from 'angular-notifier';
+import {TransportadorService} from '../_services/transportador.service';
 
 @Component({
   selector: 'app-veiculo',
@@ -7,9 +13,97 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VeiculoComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('closebutton', {static: false}) closebutton;
+
+  transportadorService: TransportadorService;
+
+  form: FormGroup;
+  veiculo: VeiculoModel;
+  private readonly notifier: NotifierService;
+  transportadores: TransportadorModel[];
+  transportador = new TransportadorModel();
+  isEdicao: boolean;
+  transportadorSelecionado: TransportadorModel;
+  entities: VeiculoModel[];
+  veiculoExcluir: VeiculoModel;
+
+  constructor(private veiculoService: VeiculoService, notifier: NotifierService, transportadorService: TransportadorService) {
+    this.notifier = notifier;
+    this.createForm(new VeiculoModel());
+    this.transportadorService = transportadorService;
+  }
 
   ngOnInit() {
+    this.veiculo = new VeiculoModel();
+    this.transportador = new TransportadorModel();
+    this.createForm(new VeiculoModel());
+    this.carregarTransportadores();
+    this.carregarVeiculos();
+  }
+
+  carregarVeiculos() {
+    this.veiculoService.get().subscribe(
+      data => {
+        this.entities = data;
+      }, error => {}
+    );
+  }
+
+  onSubmit() {
+    this.veiculo.transportador = this.transportadorSelecionado;
+    this.veiculoService.save(this.veiculo).subscribe(
+      data => {
+        this.notifier.notify('success', 'Transportadora: ' + data.razaoSocial + ' criada!');
+        window.location.reload();
+      }, err => {
+        this.notifier.notify('error', err.error.message );
+      }
+    );
+  }
+
+  createForm(model: VeiculoModel) {
+    model.transportador = new TransportadorModel();
+    this.form = new FormGroup({
+      marca: new FormControl(model.marca),
+      modelo: new FormControl(model.modelo),
+      placa: new FormControl(model.placa),
+      transportador: new FormControl(model.transportador)
+    });
+  }
+
+  limpar() {
+    this.isEdicao = false;
+    this.veiculo = new VeiculoModel();
+    this.transportadorSelecionado = new TransportadorModel();
+  }
+
+  carregarTransportadores() {
+    this.transportadorService.get().subscribe( transportadores => {
+      this.transportadores = transportadores;
+    });
+  }
+
+  selecionarTransportador(transportador: TransportadorModel) {
+    console.log(transportador);
+  }
+
+  editar(entity: VeiculoModel): void {
+    this.isEdicao = true;
+    this.veiculo = entity;
+    this.transportadorSelecionado = entity.transportador;
+  }
+
+  prepararExclusao(entity: VeiculoModel) {
+    this.veiculoExcluir = entity;
+  }
+
+  excluir() {
+    this.veiculoService.delete(this.veiculoExcluir).subscribe(
+      data => {
+        this.closebutton.nativeElement.click();
+        this.notifier.notify('success', 'Transportadora: ' + this.transportador.nome + ' deletada' );
+        window.location.reload();
+      }, err => {});
   }
 
 }

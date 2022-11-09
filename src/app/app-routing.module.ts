@@ -11,6 +11,7 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import {TipoDescarteComponent} from './tipo-descarte/tipo-descarte.component';
 import {FormaPagamentoComponent} from './forma-pagamento/forma-pagamento.component';
 import {TransportadorComponent} from './transportador/transportador.component';
+import {VeiculoComponent} from './veiculo/veiculo.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'tipo-descarte', component: TipoDescarteComponent },
   { path: 'forma-pagamento', component: FormaPagamentoComponent },
   { path: 'transportador', component: TransportadorComponent },
+  { path: 'veiculo', component: VeiculoComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

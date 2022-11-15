@@ -1,0 +1,296 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Gerador</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Gerador</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Dados Cadastrais</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+
+            <div class="card-body">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="custom-control custom-radio">
+                      <input class="custom-control-input" type="radio" id="fisica" name="customRadio"
+                             (click)="pessoaFisica()" [checked]="fisica">
+                      <label for="fisica" class="custom-control-label">Pessoa Fisica</label>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="custom-control custom-radio">
+                      <input class="custom-control-input" type="radio" id="juridica" name="customRadio"
+                             (click)="pessoaJuridica()" [checked]="juridica">
+                      <label for="juridica" class="custom-control-label">Pessoa Juridica</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-8" *ngIf="fisica === true">
+                    <label for="nome">Nome</label>
+                    <input
+                      [(ngModel)]="gerador.nome"
+                      formControlName="nome"
+                      type="text"
+                      id="nome"
+                      class="form-control"
+                      name="nome"
+                      required
+                      placeholder="Nome"
+                    >
+                  </div>
+                  <div class="col-8" *ngIf="juridica === true">
+                    <label for="nome">Razão Social</label>
+                    <input
+                      [(ngModel)]="gerador.razaoSocial"
+                      formControlName="nome"
+                      type="text"
+                      id="razao"
+                      class="form-control"
+                      name="razao"
+                      required
+                      placeholder="Razão Social"
+                    >
+                  </div>
+                  <div class="col-4" *ngIf="juridica">
+                    <label for="cnpj">CNPJ</label>
+                    <input
+                      [(ngModel)]="gerador.cnpj"
+                      formControlName="cnpj"
+                      type="text"
+                      id="cnpj"
+                      class="form-control"
+                      name="cnpj"
+                      required
+                      placeholder="CNPJ"
+                    >
+                  </div>
+                  <div class="col-4" *ngIf="fisica">
+                    <label for="cpf">CPF</label>
+                    <input
+                      [(ngModel)]="gerador.cpf"
+                      formControlName="cnpj"
+                      type="text"
+                      id="cpf"
+                      class="form-control"
+                      name="cpf"
+                      required
+                      placeholder="CPF"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!--/.col (left) -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Endereço</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+
+            <div class="card-body">
+              <div class="form-group">
+                <label for="logradouro">Logradouro</label>
+                <input
+                  [(ngModel)]="gerador.retirada.logradouro"
+                  formControlName="logradouro"
+                  type="text"
+                  id="logradouro"
+                  class="form-control col-12"
+                  name="logradouro"
+                  required
+                  placeholder="Rua, Avenida, Área, Fazenda">
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-4">
+                    <label for="numero">Numero</label>
+                    <input
+                      [(ngModel)]="gerador.retirada.numero"
+                      formControlName="numero"
+                      type="text"
+                      id="numero"
+                      class="form-control"
+                      name="numero"
+                      required
+                      placeholder="numero"
+                    >
+                  </div>
+                  <div class="col-8">
+                    <label for="complemento">Complemento</label>
+                    <input
+                      [(ngModel)]="gerador.retirada.complemento"
+                      formControlName="complemento"
+                      type="text"
+                      id="complemento"
+                      class="form-control"
+                      name="complemento"
+                      required
+                      placeholder="Complemento"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-4">
+                    <label for="bairro">Bairro</label>
+                    <input
+                      [(ngModel)]="gerador.retirada.bairro"
+                      formControlName="bairro"
+                      type="text"
+                      id="bairro"
+                      class="form-control"
+                      name="bairro"
+                      required
+                      placeholder="Bairro"
+                    >
+                  </div>
+                  <div class="col-4">
+                    <label for="cidade">Cidade</label>
+                    <input
+                      [(ngModel)]="gerador.retirada.cidade"
+                      formControlName="cidade"
+                      type="text"
+                      id="cidade"
+                      class="form-control"
+                      name="cidade"
+                      required
+                      placeholder="Cidade"
+                    >
+                  </div>
+                  <div class="col-4">
+                    <label for="estado">Estado</label>
+                    <input
+                      [(ngModel)]="gerador.retirada.estado"
+                      formControlName="estado"
+                      type="text"
+                      id="estado"
+                      class="form-control"
+                      name="estado"
+                      required
+                      placeholder="Estado"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <label for="cep">CEP</label>
+                  <input
+                    [(ngModel)]="gerador.retirada.cep"
+                    formControlName="cep"
+                    type="text"
+                    id="cep"
+                    class="form-control"
+                    name="cep"
+                    required
+                    placeholder="CEP"
+                  >
+                </div>
+                <div class="col-8">
+                  <label for="observacao">Observação</label>
+                  <input
+                    [(ngModel)]="gerador.retirada.observacao"
+                    formControlName="observacao"
+                    type="text"
+                    id="observacao"
+                    class="form-control"
+                    name="observacao"
+                    required
+                    placeholder="Observação"
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit" (click)="onSubmit()"
+                      class="btn btn-success fa-pull-right">Salvar</button>
+              <span></span>
+              <button type="submit" style="margin-right: 10px;" (click)="limpar()"
+                      class="btn btn-secondary fa-pull-right">Limpar</button>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!--/.col (left) -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+</form>
+<section>
+  <div class="card card-success">
+    <div class="card-header">
+      <h3 class="card-title">Lista</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Tipo</th>
+          <th>CPF/CNPJ</th>
+          <th colspan="2" style="width: 10%; text-align: center">Ação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let entity of entities">
+          <td> {{entity.nome}} {{entity.razaoSocial}}</td>
+          <td> Pessoa {{entity.cnpj ? 'Juridica' : 'Fisica'}}</td>
+          <td> {{entity.cpf}} {{entity.cnpj}}</td>
+
+<!--          <td>-->
+<!--            <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i-->
+<!--              class="fas fa-edit" data-toggle="modal" data-target="#content"></i></button>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <button (click)="tipoDescarteAexcluir(entity)" title="Excluir" class="btn  btn-outline-danger"-->
+<!--                    data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i>-->
+<!--            </button>-->
+<!--          </td>-->
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import {EnderecoModel} from '../model/endereco-model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment.prod';
-// import {environment} from '../../environments/environment';
 import {TransportadorModel} from '../model/transportador-model';
-import {VeiculoModel} from "../model/veiculo-model";
+import {VeiculoModel} from '../model/veiculo-model';
+import {BaseService} from './BaseService';
 
 const VEICULO_RESOURCE = 'veiculo';
 
@@ -16,29 +14,30 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class VeiculoService {
+export class VeiculoService extends BaseService<VeiculoModel> {
 
   transportador: TransportadorModel;
 
-  constructor(private http: HttpClient) {
-    this.transportador = new TransportadorModel();
+  constructor(http: HttpClient) {
+   super(http);
+   this.transportador = new TransportadorModel();
   }
 
   save(veiculo): Observable<any> {
-    return this.http.post(environment.apiUrl + VEICULO_RESOURCE, {
+    return super.save(  {
       id: veiculo.id,
       marca: veiculo.marca,
       modelo: veiculo.modelo,
       placa: veiculo.placa,
       transportador: veiculo.transportador
-    }, httpOptions);
+    }, VEICULO_RESOURCE);
   }
 
   get(): Observable<any> {
-    return this.http.get<TransportadorModel>(environment.apiUrl + VEICULO_RESOURCE + '/all', {});
+    return super.get(VEICULO_RESOURCE);
   }
 
-  delete(veiculo: VeiculoModel): Observable<any> {
-    return this.http.delete(environment.apiUrl + VEICULO_RESOURCE + '/' + veiculo.id);
+  delete(id: string): Observable<any> {
+    return super.delete(id, VEICULO_RESOURCE);
   }
 }

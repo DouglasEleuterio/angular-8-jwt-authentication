@@ -65,8 +65,7 @@
         <!-- /.card -->
 
 
-<!--        Tabela  -->
-
+        <!--        Tabela  -->
         <div class="card card-success">
           <div class="card-header">
             <h3 class="card-title">Lista</h3>
@@ -85,9 +84,13 @@
               <tr *ngFor="let entity of entities">
                 <td> {{entity.nome}}</td>
                 <td> {{entity.valor | currency:'BRL'}}</td>
-                <td><button  title="Editar" (click)="editar(entity)"  class="btn  btn-outline-warning"><i class="fas fa-edit"  data-toggle="modal" data-target="#content"></i></button></td>
                 <td>
-                  <button (click)="tipoDescarteAexcluir(entity)" title="Excluir"  class="btn  btn-outline-danger" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i>
+                  <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
+                    class="fas fa-edit" data-toggle="modal" data-target="#content"></i></button>
+                </td>
+                <td>
+                  <button (click)="tipoDescarteAexcluir(entity)" title="Excluir" class="btn  btn-outline-danger"
+                          data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i>
                   </button>
                 </td>
               </tr>
@@ -95,7 +98,7 @@
             </table>
           </div>
         </div>
-<!--        /. Tabela  -->
+        <!--        /. Tabela  -->
       </div>
       <!--/.col (left) -->
     </div>
@@ -114,7 +117,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Deseja excluir:  <b>{{tipoDescarteExcluir.nome}}?</b></p>
+        <p>Deseja excluir: <b>{{tipoDescarteExcluir.nome}}?</b></p>
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" #closebutton data-dismiss="modal">Cancelar</button>

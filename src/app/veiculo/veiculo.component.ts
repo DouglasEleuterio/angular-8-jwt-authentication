@@ -98,7 +98,7 @@ export class VeiculoComponent implements OnInit {
   }
 
   excluir() {
-    this.veiculoService.delete(this.veiculoExcluir).subscribe(
+    this.veiculoService.delete(this.veiculoExcluir.id).subscribe(
       data => {
         this.closebutton.nativeElement.click();
         this.notifier.notify('success', 'Transportadora: ' + this.transportador.nome + ' deletada' );

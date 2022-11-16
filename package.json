@@ -12,7 +12,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod"
+    "heroku-postbuild": "ng build --prod",
+    "deploy:ghdocs": "ng build --prod --output-path docs --base-href /angular-8-jwt-authentication/"
   },
   "private": true,
   "dependencies": {
@@ -25,7 +26,8 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "angular-notifier": "^10.0.0",
+    "angular-cli-ghpages": "^0.6.2",
+    "angular-notifier": "^6.0.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.1",
     "primeicons": "^1.0.0",

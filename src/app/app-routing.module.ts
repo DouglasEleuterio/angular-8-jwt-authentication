@@ -13,6 +13,7 @@ import {FormaPagamentoComponent} from './forma-pagamento/forma-pagamento.compone
 import {TransportadorComponent} from './transportador/transportador.component';
 import {VeiculoComponent} from './veiculo/veiculo.component';
 import {GeradorComponent} from './gerador/gerador.component';
+import {CtrComponent} from './ctr/ctr.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'transportador', component: TransportadorComponent },
   { path: 'veiculo', component: VeiculoComponent },
   { path: 'gerador', component: GeradorComponent },
+  { path: 'ctr', component: CtrComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

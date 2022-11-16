@@ -57,7 +57,7 @@ export class TipoDescarteComponent implements OnInit {
     });
   }
 
-  private editar(entity: TipoDescarteModel): void {
+  editar(entity: TipoDescarteModel): void {
     this.isEdicao = true;
     this.createForm(entity);
   }

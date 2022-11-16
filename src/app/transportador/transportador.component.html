@@ -1,0 +1,298 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Transportador</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Transportador</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Dados Cadastrais</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+
+            <div class="card-body">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-8">
+                    <label for="nome">Nome</label>
+                    <input
+                      [(ngModel)]="transportador.nome"
+                      formControlName="nome"
+                      type="text"
+                      id="nome"
+                      class="form-control"
+                      name="nome"
+                      required
+                      placeholder="Nome"
+                    >
+                  </div>
+                  <div class="col-4">
+                    <label for="cnpj">CNPJ</label>
+                    <input
+                      [(ngModel)]="transportador.cnpj"
+                      formControlName="cnpj"
+                      type="text"
+                      id="cnpj"
+                      class="form-control"
+                      name="cnpj"
+                      required
+                      placeholder="CNPJ"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-12">
+                    <label for="razaoSocial">Razão Social</label>
+                    <input
+                      [(ngModel)]="transportador.razaoSocial"
+                      formControlName="razaoSocial"
+                      type="text"
+                      id="razaoSocial"
+                      class="form-control"
+                      name="razaoSocial"
+                      required
+                      placeholder="Razão Social"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!--/.col (left) -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Endereço</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+
+            <div class="card-body">
+              <div class="form-group">
+                <label for="logradouro">Logradouro</label>
+                <input
+                  [(ngModel)]="transportador.endereco.logradouro"
+                  formControlName="logradouro"
+                  type="text"
+                  id="logradouro"
+                  class="form-control col-12"
+                  name="logradouro"
+                  required
+                  placeholder="Rua, Avenida, Área, Fazenda">
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-4">
+                    <label for="numero">Numero</label>
+                    <input
+                      [(ngModel)]="transportador.endereco.numero"
+                      formControlName="numero"
+                      type="text"
+                      id="numero"
+                      class="form-control"
+                      name="numero"
+                      required
+                      placeholder="numero"
+                    >
+                  </div>
+                  <div class="col-8">
+                    <label for="complemento">Complemento</label>
+                    <input
+                      [(ngModel)]="transportador.endereco.complemento"
+                      formControlName="complemento"
+                      type="text"
+                      id="complemento"
+                      class="form-control"
+                      name="complemento"
+                      required
+                      placeholder="Complemento"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-4">
+                    <label for="bairro">Bairro</label>
+                    <input
+                      [(ngModel)]="transportador.endereco.bairro"
+                      formControlName="bairro"
+                      type="text"
+                      id="bairro"
+                      class="form-control"
+                      name="bairro"
+                      required
+                      placeholder="Bairro"
+                    >
+                  </div>
+                  <div class="col-4">
+                    <label for="cidade">Cidade</label>
+                    <input
+                      [(ngModel)]="transportador.endereco.cidade"
+                      formControlName="cidade"
+                      type="text"
+                      id="cidade"
+                      class="form-control"
+                      name="cidade"
+                      required
+                      placeholder="Cidade"
+                    >
+                  </div>
+                  <div class="col-4">
+                    <label for="estado">Estado</label>
+                    <input
+                      [(ngModel)]="transportador.endereco.estado"
+                      formControlName="estado"
+                      type="text"
+                      id="estado"
+                      class="form-control"
+                      name="estado"
+                      required
+                      placeholder="Estado"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <label for="cep">CEP</label>
+                  <input
+                    [(ngModel)]="transportador.endereco.cep"
+                    formControlName="cep"
+                    type="text"
+                    id="cep"
+                    class="form-control"
+                    name="cep"
+                    required
+                    placeholder="CEP"
+                  >
+                </div>
+                <div class="col-8">
+                  <label for="observacao">Observação</label>
+                  <input
+                    [(ngModel)]="transportador.endereco.observacao"
+                    formControlName="observacao"
+                    type="text"
+                    id="observacao"
+                    class="form-control"
+                    name="observacao"
+                    required
+                    placeholder="Observação"
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit"  (click)="onSubmit()" class="btn btn-{{isEdicao ? 'warning' : 'success'}} fa-pull-right">{{isEdicao ? 'Alterar' : 'Salvar'}}</button>
+              <span></span>
+              <button type="submit" style="margin-right: 10px;" (click)="limpar()" class="btn btn-secondary fa-pull-right">{{isEdicao ? 'Cancelar':'Limpar'}}</button>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!--/.col (left) -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+</form>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="card card-success">
+      <div class="card-header">
+        <h3 class="card-title">Lista</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th class="text-center">Nome</th>
+            <th class="text-center">Razão Social</th>
+            <th class="text-center">CNPJ</th>
+            <th class="text-center">Bairro</th>
+            <th class="text-center col-2" colspan="3">Ação</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let entity of entities">
+            <td> {{entity.nome}}</td>
+            <td> {{entity.razaoSocial}}</td>
+            <td> {{entity.cnpj}}</td>
+            <td> {{entity.endereco.bairro}}</td>
+            <td class="text-center">
+              <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
+                class="fas fa-edit"></i></button>
+            </td>
+            <td class="text-center">
+              <button title="Visualizar" class="btn  btn-outline-success"><i
+                class="fas fa-eye"></i></button>
+            </td>
+            <td class="text-center">
+              <button (click)="prepararExclusao(entity)" title="Excluir" class="btn  btn-outline-danger" data-toggle="modal"
+                      data-target="#modal-default"><i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Excluir Tipo de Descarte</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Deseja excluir: <b>{{transpExcluir.nome}} ?</b></p>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" #closebutton data-dismiss="modal">Cancelar</button>
+        <button (click)="excluir()" id="closebutton" type="button" class="btn btn-danger">Excluir</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

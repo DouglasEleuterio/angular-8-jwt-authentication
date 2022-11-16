@@ -1,0 +1,110 @@
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {TransportadorService} from '../_services/transportador.service';
+import {NotifierService} from 'angular-notifier';
+import {FormControl, FormGroup} from '@angular/forms';
+import {TransportadorModel} from '../model/transportador-model';
+import {EnderecoModel} from '../model/endereco-model';
+import {Router} from '@angular/router';
+
+@Component({
+  selector: 'app-transportador',
+  templateUrl: './transportador.component.html',
+  styleUrls: ['./transportador.component.css']
+})
+export class TransportadorComponent implements OnInit {
+
+  @ViewChild('closebutton', {static: false}) closebutton;
+
+  entities: TransportadorModel [];
+  private readonly notifier: NotifierService;
+  form: FormGroup;
+  isEdicao = false;
+  transportador: TransportadorModel;
+  transpExcluir: TransportadorModel;
+
+  constructor(private transportadorService: TransportadorService,
+              notifier: NotifierService) {
+    this.notifier = notifier;
+  }
+
+  ngOnInit() {
+    this.obtemValor();
+    this.transportador = new TransportadorModel();
+    this.createForm(new TransportadorModel());
+  }
+
+  createForm(model: TransportadorModel) {
+    this.form = new FormGroup({
+      id: new FormControl(model.id),
+      nome: new FormControl(model.nome),
+      razaoSocial: new FormControl(model.razaoSocial),
+      cnpj: new FormControl(model.cnpj),
+      logradouro: new FormControl(model.endereco.logradouro),
+      numero: new FormControl(model.endereco.numero),
+      complemento: new FormControl(model.endereco.complemento),
+      bairro: new FormControl(model.endereco.bairro),
+      cidade: new FormControl(model.endereco.cidade),
+      estado: new FormControl(model.endereco.estado),
+      cep: new FormControl(model.endereco.cep),
+      observacao: new FormControl(model.endereco.observacao),
+    });
+  }
+
+  onSubmit() {
+    this.criarEndereco();
+    this.transportadorService.save(this.transportador).subscribe(
+      data => {
+        this.createForm(new TransportadorModel());
+        this.isEdicao = false;
+        this.notifier.notify('success', 'Transportadora: ' + data.razaoSocial + ' criada!');
+      }, err => {
+        this.notifier.notify('error', err.error.message );
+      }
+    );
+  }
+
+  criarEndereco() {
+    this.transportadorService.endereco.logradouro = this.form.value.logradouro;
+    this.transportadorService.endereco.numero = this.form.value.numero;
+    this.transportadorService.endereco.complemento = this.form.value.complemento;
+    this.transportadorService.endereco.bairro = this.form.value.bairro;
+    this.transportadorService.endereco.cidade = this.form.value.cidade;
+    this.transportadorService.endereco.estado = this.form.value.estado;
+    this.transportadorService.endereco.cep = this.form.value.cep;
+    this.transportadorService.endereco.observacao = this.form.value.observacao;
+  }
+
+  obtemValor() {
+    this.transportadorService.get().subscribe(
+      data => {
+        this.entities = data;
+      }, err => {});
+  }
+
+  editar(entity: TransportadorModel): void {
+    this.isEdicao = true;
+    this.transportador = entity;
+  }
+
+  manipular(entity: TransportadorModel) {
+    this.transportador = entity;
+  }
+
+  excluir() {
+    this.transportadorService.delete(this.transpExcluir).subscribe(
+      data => {
+        this.closebutton.nativeElement.click();
+        this.notifier.notify('success', 'Transportadora: ' + this.transportador.nome + ' deletada' );
+        this.obtemValor();
+    }, err => {});
+  }
+
+  limpar() {
+    this.isEdicao = false;
+    this.transportador = new TransportadorModel();
+  }
+
+  prepararExclusao(entity: TransportadorModel) {
+    this.transpExcluir = entity;
+  }
+}

@@ -5,7 +5,7 @@ import {FormaPagamentoModel} from '../model/FormaPagamentoModel';
 import {TipoDescarteModel} from '../model/tipo-descarte-model';
 import {any} from 'codelyzer/util/function';
 import * as $ from 'jquery';
-import {NotifierService} from "angular-notifier";
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-forma-pagamento',

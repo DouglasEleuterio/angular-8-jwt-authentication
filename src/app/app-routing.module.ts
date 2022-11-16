@@ -9,7 +9,10 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import {TipoDescarteComponent} from './tipo-descarte/tipo-descarte.component';
-import {FormaPagamentoComponent} from "./forma-pagamento/forma-pagamento.component";
+import {FormaPagamentoComponent} from './forma-pagamento/forma-pagamento.component';
+import {TransportadorComponent} from './transportador/transportador.component';
+import {VeiculoComponent} from './veiculo/veiculo.component';
+import {GeradorComponent} from './gerador/gerador.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -21,6 +24,9 @@ const routes: Routes = [
   { path: 'admin', component: BoardAdminComponent },
   { path: 'tipo-descarte', component: TipoDescarteComponent },
   { path: 'forma-pagamento', component: FormaPagamentoComponent },
+  { path: 'transportador', component: TransportadorComponent },
+  { path: 'veiculo', component: VeiculoComponent },
+  { path: 'gerador', component: GeradorComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

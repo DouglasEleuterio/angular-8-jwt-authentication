@@ -65,7 +65,8 @@ export class CtrComponent implements OnInit {
               geradorService: GeradorService,
               destinatarioService: DestinatarioService,
               tipoDescarteService: TipoDescarteService,
-              formaPagamentoService: FormaPagamentoService
+              formaPagamentoService: FormaPagamentoService,
+              ctrService: CtrService
   ) {
     this.veiculoService = veiculoService;
     this.transportadorService = transportadorService;
@@ -73,6 +74,7 @@ export class CtrComponent implements OnInit {
     this.destinatarioService = destinatarioService;
     this.tipoDescarteService = tipoDescarteService;
     this.formaPagamentoService = formaPagamentoService;
+    this.ctrService = ctrService;
   }
 
   ngOnInit() {

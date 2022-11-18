@@ -24,6 +24,7 @@ export class CtrService extends BaseService<GeradorModel> {
   }
 
   save(ctr): Observable<any> {
+    debugger
     return super.save({
       id: ctr.id,
       gerador: ctr.gerador,

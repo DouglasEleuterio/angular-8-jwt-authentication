@@ -2,12 +2,14 @@ import {VeiculoModel} from './veiculo-model';
 import {TransportadorModel} from './transportador-model';
 import {GeradorModel} from './gerador-model';
 import {DestinatarioModel} from './destinatario-model';
-import {PagamentoModel} from "./pagamento-model";
+import {PagamentoModel} from './pagamento-model';
+import {TipoDescarteModel} from './tipo-descarte-model';
 
 export class CtrModel {
-  veiculo: VeiculoModel;
-  transportador: TransportadorModel;
-  gerador: GeradorModel;
-  destinatario: DestinatarioModel;
-  pagamentos: PagamentoModel[];
+  veiculo: VeiculoModel = new VeiculoModel();
+  transportador: TransportadorModel = new TransportadorModel();
+  gerador: GeradorModel = new GeradorModel();
+  destinatario: DestinatarioModel = new DestinatarioModel();
+  tipoDescarte: TipoDescarteModel = new TipoDescarteModel();
+  pagamentos: PagamentoModel[] = [];
 }

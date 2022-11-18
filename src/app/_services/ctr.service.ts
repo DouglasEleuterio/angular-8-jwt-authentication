@@ -26,11 +26,12 @@ export class CtrService extends BaseService<GeradorModel> {
   save(ctr): Observable<any> {
     return super.save({
       id: ctr.id,
-      veiculo: ctr.veiculo,
-      transportador: ctr.transportador,
       gerador: ctr.gerador,
+      veiculo: ctr.veiculo,
       destinatario: ctr.destinatario,
-      pagamentos: ctr.pagamentos
+      transportador: ctr.transportador,
+      pagamentos: ctr.pagamentos,
+      tipoDescarte: ctr.tipoDescarte
     }, CTR_RESOURCE);
   }
 }

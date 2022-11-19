@@ -14,6 +14,7 @@ import {TransportadorComponent} from './transportador/transportador.component';
 import {VeiculoComponent} from './veiculo/veiculo.component';
 import {GeradorComponent} from './gerador/gerador.component';
 import {CtrComponent} from './ctr/ctr.component';
+import {PainelFinanceiroComponent} from './painel-financeiro/painel-financeiro.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'veiculo', component: VeiculoComponent },
   { path: 'gerador', component: GeradorComponent },
   { path: 'ctr', component: CtrComponent },
+  { path: 'painel-financeiro', component: PainelFinanceiroComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

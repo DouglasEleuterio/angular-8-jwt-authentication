@@ -23,4 +23,8 @@ export class BaseService<T> {
     return this.http.delete(environment.apiUrl + resource + '/' + id);
   }
 
+  getSpecifiedPath(resource: string, path: string): Observable<any> {
+    return this.http.get<T>(environment.apiUrl + resource + path, {});
+  }
+
 }

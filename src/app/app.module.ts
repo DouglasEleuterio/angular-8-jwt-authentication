@@ -26,6 +26,7 @@ import { TransportadorComponent } from './transportador/transportador.component'
 import { VeiculoComponent } from './veiculo/veiculo.component';
 import { GeradorComponent } from './gerador/gerador.component';
 import { CtrComponent } from './ctr/ctr.component';
+import { PainelFinanceiroComponent } from './painel-financeiro/painel-financeiro.component';
 
 /**
  * Custom angular notifier options
@@ -87,7 +88,8 @@ const customNotifierOptions: NotifierOptions = {
     TransportadorComponent,
     VeiculoComponent,
     GeradorComponent,
-    CtrComponent
+    CtrComponent,
+    PainelFinanceiroComponent
   ],
   imports: [
     BrowserModule,

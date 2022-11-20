@@ -4,7 +4,6 @@ import {GeradorService} from '../_services/gerador.service';
 import {NotifierService} from 'angular-notifier';
 import {GeradorModel} from '../model/gerador-model';
 import {FormControl, FormGroup} from '@angular/forms';
-import {TransportadorModel} from '../model/transportador-model';
 
 @Component({
   selector: 'app-gerador',

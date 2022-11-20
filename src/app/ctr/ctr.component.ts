@@ -9,13 +9,13 @@ import {GeradorService} from '../_services/gerador.service';
 import {DestinatarioService} from '../_services/destinatario.service';
 import {TipoDescarteModel} from '../model/tipo-descarte-model';
 import {TipoDescarteService} from '../_services/tipo-descarte.service';
-import {PagamentoModel} from "../model/pagamento-model";
-import {FormaPagamentoModel} from "../model/FormaPagamentoModel";
-import {FormaPagamentoService} from "../_services/forma-pagamento.service";
-import {FormControl, FormGroup} from "@angular/forms";
-import {CtrModel} from "../model/ctr-model";
-import {CtrService} from "../_services/ctr.service";
-import {NotifierService} from "angular-notifier";
+import {PagamentoModel} from '../model/pagamento-model';
+import {FormaPagamentoModel} from '../model/FormaPagamentoModel';
+import {FormaPagamentoService} from '../_services/forma-pagamento.service';
+import {FormControl, FormGroup} from '@angular/forms';
+import {CtrModel} from '../model/ctr-model';
+import {CtrService} from '../_services/ctr.service';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-ctr',
@@ -66,7 +66,8 @@ export class CtrComponent implements OnInit {
               destinatarioService: DestinatarioService,
               tipoDescarteService: TipoDescarteService,
               formaPagamentoService: FormaPagamentoService,
-              ctrService: CtrService
+              ctrService: CtrService,
+              notifier: NotifierService
   ) {
     this.veiculoService = veiculoService;
     this.transportadorService = transportadorService;
@@ -75,9 +76,11 @@ export class CtrComponent implements OnInit {
     this.tipoDescarteService = tipoDescarteService;
     this.formaPagamentoService = formaPagamentoService;
     this.ctrService = ctrService;
+    this.notifier = notifier;
   }
 
   ngOnInit() {
+    this.notifier.notify('success', '');
     this.ctr = new CtrModel();
     this.carregarVeiculos();
     this.carregarTransportadores();
@@ -154,7 +157,7 @@ export class CtrComponent implements OnInit {
     this.ctrService.save(this.ctr).subscribe(
       data => {
         this.notifier.notify('success', 'CTR: criado!');
-        window.location.reload();
+        this.limpar();
       }, err => {
         this.notifier.notify('error', err.error.message );
       }

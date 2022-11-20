@@ -55,37 +55,44 @@
         </li>
         <li class="nav-item" *ngIf="showAdminBoard">
           <a href="/forma-pagamento" routerLink="forma-pagamento" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
+            <i class="nav-icon fas fa-money-check-alt"></i>
             <p>Forma de Pagamento</p>
           </a>
         </li>
         <li class="nav-item" *ngIf="showAdminBoard">
           <a href="/veiculo" routerLink="veiculo" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
+            <i class="nav-icon fas fa-truck"></i>
             <p>Veículo</p>
           </a>
         </li>
         <li class="nav-item" *ngIf="showAdminBoard">
           <a href="/gerador" class="nav-link" routerLink="gerador">
-            <i class="nav-icon fas fa-th"></i>
+            <i class="nav-icon fas fa-users"></i>
             <p>Gerador</p>
           </a>
         </li>
         <li class="nav-item" *ngIf="showAdminBoard">
           <a href="/transportador" class="nav-link" routerLink="transportador">
-            <i class="nav-icon fas fa-th"></i>
+            <i class="nav-icon fas fa-building"></i>
             <p>Transportador</p>
           </a>
         </li>
         <li class="nav-item" *ngIf="showAdminBoard">
           <a href="/ctr" class="nav-link" *ngIf="isLoggedIn" routerLink="ctr">
-            <i class="nav-icon fas fa-th"></i>
+            <i class="nav-icon fas fa-file-contract"></i>
             <p>CTR</p>
           </a>
         </li>
         <li class="nav-item" *ngIf="showAdminBoard">
+          <a href="/invoice" class="nav-link" *ngIf="isLoggedIn" routerLink="invoice">
+            <i class="nav-icon fas fa-file-contract"></i>
+            <p>Invoice</p>
+          </a>
+        </li>
+
+        <li class="nav-item" *ngIf="showAdminBoard">
           <a href="/login" class="nav-link" (click)="logout()">
-            <i class="nav-icon fas fa-th"></i>
+            <i class="nav-icon fas fa-sign-out-alt"></i>
             <p>Logout</p>
           </a>
         </li>
@@ -102,6 +109,7 @@
   <!-- Main content -->
   <div class="content">
     <div class="container-fluid">
+      <notifier-container></notifier-container>
       <router-outlet></router-outlet>
       <!-- /.row -->
     </div><!-- /.container-fluid -->

@@ -3,8 +3,6 @@ import {TransportadorService} from '../_services/transportador.service';
 import {NotifierService} from 'angular-notifier';
 import {FormControl, FormGroup} from '@angular/forms';
 import {TransportadorModel} from '../model/transportador-model';
-import {EnderecoModel} from '../model/endereco-model';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-transportador',
@@ -28,6 +26,7 @@ export class TransportadorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.notifier.notify('success', '' );
     this.obtemValor();
     this.transportador = new TransportadorModel();
     this.createForm(new TransportadorModel());

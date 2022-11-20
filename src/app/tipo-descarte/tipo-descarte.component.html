@@ -16,7 +16,6 @@
 </section>
 <!-- Main content -->
 <section class="content" id="content">
-  <notifier-container></notifier-container>
   <div class="container-fluid">
     <div class="row">
       <!-- left column -->
@@ -32,7 +31,7 @@
                 (ngSubmit)="onSubmit()"
           >
             <div class="card-body">
-              <div class="form-group">
+              <div class="form-group col-sm-12">
                 <label for="nome">Nome</label>
                 <input
                   formControlName="nome"
@@ -44,7 +43,7 @@
                   placeholder="Nome"
                 >
               </div>
-              <div class="form-group">
+              <div class="form-group col-sm-12 ">
                 <label for="valor">Valor</label>
                 <input
                   required
@@ -86,7 +85,7 @@
                 <td> {{entity.valor | currency:'BRL'}}</td>
                 <td>
                   <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
-                    class="fas fa-edit" data-toggle="modal" data-target="#content"></i></button>
+                    class="fas fa-edit"></i></button>
                 </td>
                 <td>
                   <button (click)="tipoDescarteAexcluir(entity)" title="Excluir" class="btn  btn-outline-danger"

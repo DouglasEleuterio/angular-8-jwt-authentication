@@ -2,9 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormaPagamentoService} from '../_services/forma-pagamento.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FormaPagamentoModel} from '../model/FormaPagamentoModel';
-import {TipoDescarteModel} from '../model/tipo-descarte-model';
-import {any} from 'codelyzer/util/function';
-import * as $ from 'jquery';
 import {NotifierService} from 'angular-notifier';
 
 @Component({
@@ -15,19 +12,23 @@ import {NotifierService} from 'angular-notifier';
 export class FormaPagamentoComponent implements OnInit {
 
   @ViewChild('closebutton', {static: false}) closebutton;
-  private readonly notifier: NotifierService;
 
   entities: FormaPagamentoModel[];
   form: FormGroup;
   errorMessage = '';
   formaPagamento: FormaPagamentoModel;
 
-  constructor(private formaPagamentoService: FormaPagamentoService,
+  formaPagamentoService: FormaPagamentoService;
+  private readonly notifier: NotifierService;
+
+  constructor(formaPagamentoService: FormaPagamentoService,
               notifier: NotifierService) {
+    this.formaPagamentoService = formaPagamentoService;
     this.notifier = notifier;
   }
 
   ngOnInit() {
+    this.notifier.notify('success', '');
     this.createForm(new FormaPagamentoModel());
     this.obtemValor();
   }

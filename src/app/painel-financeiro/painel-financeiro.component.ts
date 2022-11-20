@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Chart} from 'chart.js';
 import {DashboardService} from '../_services/dashboard.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-painel-financeiro',

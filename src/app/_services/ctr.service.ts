@@ -23,6 +23,10 @@ export class CtrService extends BaseService<GeradorModel> {
     return super.get(CTR_RESOURCE);
   }
 
+  find(id: string): Observable<any> {
+    return super.find(CTR_RESOURCE, id);
+  }
+
   save(ctr): Observable<any> {
     return super.save({
       id: ctr.id,

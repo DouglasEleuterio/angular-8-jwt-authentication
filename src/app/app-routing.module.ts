@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'veiculo', component: VeiculoComponent },
   { path: 'gerador', component: GeradorComponent },
   { path: 'ctr', component: CtrComponent },
-  { path: 'invoice', component: InvoiceComponent },
+  { path: 'invoice/:id', component: InvoiceComponent },
   { path: 'painel-financeiro', component: PainelFinanceiroComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

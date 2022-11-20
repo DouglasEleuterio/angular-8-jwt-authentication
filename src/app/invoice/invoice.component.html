@@ -26,7 +26,7 @@
             <div class="col-12">
               <h4>
                 <i class="fas fa-globe-africa"></i> RECOVER GREEN AMBIENTAL
-                <small class="float-right">Data: 20/11/2022</small>
+                <small class="float-right">Data: {{ctr.geracao | date: 'dd/MM/yyyy'}}</small>
               </h4>
             </div>
             <!-- /.col -->
@@ -36,40 +36,39 @@
             <div class="col-sm-4 invoice-col">
               Origem
               <address>
-                <strong>Douglas Eleutério Ferreira.</strong><br>
-                Rua 12 Qd 22 Lt 05 Res. Candido de Queiroz<br>
-                Aparecida de Goaiania, GO<br>
-                Telefone: (62) 98560-6521<br>
-                Email: douglas.versato@gmail.com
+                <strong>{{ctr.gerador.nome}}{{ctr.gerador.razaoSocial}}</strong><br>
+                {{ctr.gerador.retirada.logradouro}} <span *ngIf="ctr.gerador.retirada.numero">Nº </span> {{ctr.gerador.retirada.numero}} {{ctr.gerador.retirada.complemento}} {{ctr.gerador.retirada.bairro}}<br>
+                {{ctr.gerador.retirada.cidade}} - {{ctr.gerador.retirada.estado}}<br>
+                Telefone: {{ctr.gerador.telefone}}<br>
+                Email: {{ctr.gerador.email}}
               </address>
             </div>
             <div class="col-sm-4 invoice-col">
               Destino
               <address>
-                <strong>Recover Green Ambiental LTDA.</strong><br>
-                Fazenda Boa Esperança Km 85 Qd Gluba Lt01 Setor Santo Antonio<br>
-                Aparecida de Goaiania, GO<br>
-                Telefone: (62) 99284-4043<br>
-                Email: info@recovergreen.com.br
+                <strong>{{ctr.destinatario.razaoSocial}}</strong><br>
+                {{ctr.destinatario.enderecoRecebimento.logradouro}} <span *ngIf="ctr.destinatario.enderecoRecebimento.numero">Nº </span> {{ctr.destinatario.enderecoRecebimento.numero}} {{ctr.destinatario.enderecoRecebimento.complemento}} {{ctr.destinatario.enderecoRecebimento.bairro}}<br>
+                {{ctr.destinatario.enderecoRecebimento.cidade}} - {{ctr.destinatario.enderecoRecebimento.estado}}<br>
+                Telefone: {{ctr.destinatario.telefone}}<br>
+                Email: {{ctr.destinatario.email}}
               </address>
             </div>
             <!-- /.col -->
             <div class="col-sm-4 invoice-col">
               Transportadora
               <address>
-                <strong>Elo Entulho</strong><br>
-                Rua A Qd B Lt C<br>
-                Vila Brasilia<br>
-                Aparecida de Goania, GO<br>
-                Phone: (555) 539-1037<br>
-                Email: john.doe@example.com
+                <strong>{{ctr.transportador.razaoSocial}}</strong><br>
+                {{ctr.transportador.endereco.logradouro}} <span *ngIf="ctr.transportador.endereco.numero">Nº </span> {{ctr.transportador.endereco.numero}} {{ctr.transportador.endereco.complemento}} {{ctr.transportador.endereco.bairro}}<br>
+                {{ctr.transportador.endereco.cidade}} - {{ctr.transportador.endereco.estado}}<br>
+                Telefone: {{ctr.transportador.telefone}}<br>
+                Email: {{ctr.transportador.email}}
               </address>
             </div>
             <!-- /.col -->
             <div class="row">
               <div class="col-12">
                 <h4>
-                  <small class="float-right"><strong>Número CTR: </strong>#000067</small>
+                  <small class="float-right"><strong>Número CTR: </strong>#{{ctr.id}}</small>
                 </h4>
               </div>
               <!-- /.col -->
@@ -92,11 +91,11 @@
                 </thead>
                 <tbody>
                 <tr>
-                  <td>Caçamba</td>
-                  <td>R$ 130.00</td>
-                  <td>JAA-A0AA</td>
-                  <td>500-B</td>
-                  <td>Antonio Rodrigues da Costa</td>
+                  <td>{{ctr.tipoDescarte.nome}}</td>
+                  <td>{{ctr.tipoDescarte.valor | currency:'BRL'}}</td>
+                  <td>{{ctr.veiculo.placa}}</td>
+                  <td>{{ctr.veiculo.modelo}}</td>
+                  <td>{{ctr.motorista}}</td>
                 </tr>
                 </tbody>
               </table>
@@ -107,38 +106,34 @@
 
           <div class="row">
             <!-- accepted payments column -->
-            <div class="col-6">
+            <div class="col-4">
               <p class="lead">Assinatura:</p>
             </div>
             <!-- /.col -->
-            <div class="col-3">
+            <div class="col-4">
               <p class="lead">Forma Pagamento</p>
 
               <div class="table-responsive">
                 <table class="table">
-                  <tr>
-                    <th style="width:50%">Pix:</th>
-                    <td>R$90.00</td>
-                  </tr>
-                  <tr>
-                    <th>Espécie</th>
-                    <td>R$30.00</td>
+                  <tr *ngFor="let pagamento of pagamentos">
+                    <th>{{pagamento.formaPagamento.nome}}</th>
+                    <th>{{pagamento.valor | currency:'BRL'}}</th>
                   </tr>
                 </table>
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-4">
               <p class="lead">Pagamento</p>
 
               <div class="table-responsive">
                 <table class="table">
-                  <tr>
+                  <tr *ngIf="desconto(ctr)">
                   <th>Desconto</th>
-                    <td>R$10.00</td>
+                    <td>{{valorDesconto | currency: 'BRL'}}</td>
                   </tr>
                   <tr>
-                    <th style="width:50%">Total:</th>
-                    <td>R$120.00</td>
+                    <th>Total:</th>
+                    <td>{{total(ctr) | currency: 'BRL'}}</td>
                   </tr>
                 </table>
               </div>

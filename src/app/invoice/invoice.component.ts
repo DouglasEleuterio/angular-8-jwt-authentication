@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {CtrService} from '../_services/ctr.service';
+import {NotifierService} from 'angular-notifier';
+import {ActivatedRoute} from '@angular/router';
+import {CtrModel} from '../model/ctr-model';
 
 @Component({
   selector: 'app-invoice',
@@ -7,9 +11,51 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InvoiceComponent implements OnInit {
 
-  constructor() { }
+  @Input() name: string;
+  id: any;
+  private sub: any;
+  ctr: CtrModel;
+  pagamentos: any;
 
-  ngOnInit() {
+  ctrService: CtrService;
+
+  private readonly notifier: NotifierService;
+  valorDesconto: any;
+
+  constructor(ctrService: CtrService,
+              notifier: NotifierService,
+              private route: ActivatedRoute) {
+    this.ctrService = ctrService;
+    this.notifier = notifier;
   }
 
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params.id; // (+) converts string 'id' to a number
+      this.ctrService.find(this.id).subscribe(
+        data => {
+          this.ctr = data;
+          this.pagamentos = data.pagamentos;
+        }, error => {
+          this.notifier.notify('error', error);
+          console.log(error);
+        }
+      );
+      // In a real app: dispatch action to load the details here.
+    });
+    this.notifier.notify('success', name);
+  }
+
+  total(ctr: CtrModel): any {
+    return ctr.pagamentos.reduce((accumulator, obj) => {
+      return accumulator + obj.valor;
+    }, 0);
+  }
+
+  desconto(ctr: CtrModel): boolean {
+    if (this.total(ctr) < ctr.tipoDescarte.valor) {
+        this.valorDesconto = ctr.tipoDescarte.valor - this.total(ctr);
+        return true;
+    }
+  }
 }

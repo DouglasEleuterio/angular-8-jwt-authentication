@@ -6,4 +6,6 @@ export class TransportadorModel {
   razaoSocial: string;
   cnpj: string;
   endereco: EnderecoModel = new EnderecoModel();
+  telefone: string;
+  email: string;
 }

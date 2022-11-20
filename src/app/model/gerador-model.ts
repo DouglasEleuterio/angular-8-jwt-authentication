@@ -8,4 +8,6 @@ export class GeradorModel {
   cnpj: number;
   cpf: number;
   retirada: EnderecoModel = new EnderecoModel();
+  telefone: string;
+  email: string;
 }

@@ -16,6 +16,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {CtrModel} from '../model/ctr-model';
 import {CtrService} from '../_services/ctr.service';
 import {NotifierService} from 'angular-notifier';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-ctr',
@@ -67,7 +68,8 @@ export class CtrComponent implements OnInit {
               tipoDescarteService: TipoDescarteService,
               formaPagamentoService: FormaPagamentoService,
               ctrService: CtrService,
-              notifier: NotifierService
+              notifier: NotifierService,
+              private router: Router
   ) {
     this.veiculoService = veiculoService;
     this.transportadorService = transportadorService;
@@ -158,10 +160,15 @@ export class CtrComponent implements OnInit {
       data => {
         this.notifier.notify('success', 'CTR: criado!');
         this.limpar();
+        this.routerLink('invoice', data.id);
       }, err => {
         this.notifier.notify('error', err.error.message );
       }
     );
+  }
+
+  routerLink(route: string, id: string) {
+    this.router.navigate([route, id]);
   }
 
   vinculaVeiculo() {

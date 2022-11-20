@@ -7,4 +7,6 @@ export class DestinatarioModel {
   dataRecebimento: Date;
   cnpj: string;
   enderecoRecebimento: EnderecoModel;
+  telefone: string;
+  email: string;
 }

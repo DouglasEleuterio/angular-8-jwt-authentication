@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,9 @@ import { UserService } from '../_services/user.service';
 export class HomeComponent implements OnInit {
   content: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) {
+    this.router.navigate(['painel-financeiro']);
+  }
 
   ngOnInit() {
     this.userService.getPublicContent().subscribe(

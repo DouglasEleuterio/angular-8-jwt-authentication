@@ -30,6 +30,12 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
+    this.isLoggedIn = false;
     this.tokenStorageService.signOut();
+    this.navegarParaDashboard();
+  }
+
+  navegarParaDashboard() {
+    window.location.href = '/angular-8-jwt-authentication';
   }
 }

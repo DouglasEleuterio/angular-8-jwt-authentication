@@ -44,6 +44,12 @@
             <p>Painel Financeiro </p>
           </a>
         </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a href="/login" routerLink="login" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>Login</p>
+          </a>
+        </li>
         <li class="nav-item" *ngIf="showAdminBoard">
           <a href="/tipo-descarte" routerLink="tipo-descarte" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
@@ -88,7 +94,7 @@
         </li>
 
         <li class="nav-item" *ngIf="showAdminBoard">
-          <a href="/login" class="nav-link" (click)="logout()">
+          <a class="nav-link" (click)="logout()">
             <i class="nav-icon fas fa-sign-out-alt"></i>
             <p>Logout</p>
           </a>

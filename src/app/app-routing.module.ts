@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'ctr', component: CtrComponent },
   { path: 'invoice/:id', component: InvoiceComponent },
   { path: 'painel-financeiro', component: PainelFinanceiroComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

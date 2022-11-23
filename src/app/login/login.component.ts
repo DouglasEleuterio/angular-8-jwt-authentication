@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
+      this.navegarParaDashboard();
     }
   }
 
@@ -45,6 +46,11 @@ export class LoginComponent implements OnInit {
   }
 
   navegarParaDashboard() {
-    window.location.href = '';
+    const urlAtual = window.location.href;
+    if (urlAtual.includes('localhost')) {
+      window.location.href = 'http://localhost:4200/';
+    } else if (urlAtual.includes('https://www')) {
+      window.location.href = urlAtual.concat('/');
+    }
   }
 }

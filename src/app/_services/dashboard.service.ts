@@ -17,4 +17,8 @@ export class DashboardService extends BaseService<any> {
   getAcumuladoMensal(): Observable<any> {
     return super.getSpecifiedPath(DASHBOARD_RESOURCE , '/acumulado-mensal');
   }
+
+  getAcumuladoSemanal() {
+    return super.getSpecifiedPath(DASHBOARD_RESOURCE , '/acumulado-semanal');
+  }
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Chart} from 'chart.js';
 import {DashboardService} from '../_services/dashboard.service';
 import * as $ from 'jquery';
+import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-painel-financeiro',
@@ -11,6 +12,7 @@ import * as $ from 'jquery';
 export class PainelFinanceiroComponent implements OnInit {
 
   public chart: any;
+  public semanal: any;
   public entradasMes: any;
   ticksStyle: any;
   mode: any;
@@ -20,8 +22,11 @@ export class PainelFinanceiroComponent implements OnInit {
   anoAnterior: any;
   valoresAnoAtual: number[] = [];
   valoresAnoAnterior: number[] = [];
+  valoresSemanaAtual: number [] = [];
+  valoresSemanaAnterior: number [] = [];
 
-  constructor(private dashBoardService: DashboardService) {
+  constructor(private dashBoardService: DashboardService,
+              private tokenStorageService: TokenStorageService) {
     this.retorno = -0.1059;
   }
 
@@ -32,8 +37,8 @@ export class PainelFinanceiroComponent implements OnInit {
     };
     this.mode = 'index';
     this.intersect = true;
-    this.createChart();
     this.carregaValorDescartesMensal();
+    this.carregaValorDescartesSemanal();
   }
 
   createChart() {
@@ -42,17 +47,17 @@ export class PainelFinanceiroComponent implements OnInit {
       type: 'bar',
 
       data: {// values on X-Axis
-        labels: ['JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+        labels: ['SEGUNDA', 'TERÇA', 'QUARTA', 'QUINTA', 'SEXTA', 'SABADO', 'DOMINGO'],
         datasets: [
           {
             backgroundColor: '#007bff',
             borderColor: '#007bff',
-            data: [1000, 2000, 3000, 2500, 2700, 2500, 3000]
+            data: this.valoresSemanaAtual,
           },
           {
             backgroundColor: '#ced4da',
             borderColor: '#ced4da',
-            data: [700, 1700, 2700, 2000, 1800, 1500, 2000]
+            data: this.valoresSemanaAnterior,
           }
         ]
       },
@@ -172,5 +177,37 @@ export class PainelFinanceiroComponent implements OnInit {
       }, error => {
       }
     );
+  }
+
+  private carregaValorDescartesSemanal() {
+    this.dashBoardService.getAcumuladoSemanal().subscribe(
+      value => {
+        this.valoresSemanaAtual = value.semanaAtual;
+        this.valoresSemanaAnterior = value.semanaPassada;
+        this.createChart();
+      }, error => {
+      }
+    );
+  }
+
+  acumuladoSemanaAtual() {
+    let total = 0;
+    this.valoresSemanaAtual.forEach(value => {
+      total += value;
+    });
+    return total;
+  }
+
+  retornoSemana() {
+    //percentual entre semana atual e semana anterior
+    return (this.acumuladoSemanaAtual() / this.acumuladoSemanaAnterior()) - 1;
+  }
+
+  public acumuladoSemanaAnterior() {
+    let total = 0;
+    this.valoresSemanaAnterior.forEach(value => {
+      total += value;
+    });
+    return total;
   }
 }

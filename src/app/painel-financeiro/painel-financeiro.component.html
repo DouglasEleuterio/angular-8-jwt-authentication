@@ -172,14 +172,14 @@
           <div class="card-body">
             <div class="d-flex">
               <p class="d-flex flex-column">
-                <span class="text-bold text-lg">$18,230.00</span>
+                <span class="text-bold text-lg">{{acumuladoSemanaAtual() | currency: 'BRL'}}</span>
                 <span>Sales Over Time</span>
               </p>
               <p class="ml-auto d-flex flex-column text-right">
-                    <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 33.1%
+                    <span class="text-{{retornoSemana() >= 0 ? 'success': 'red'}}">
+                      <i class="fas fa-arrow-{{retornoSemana() >= 0 ? 'up' : 'down' }}"></i>{{retornoSemana() | percent:'1.2-2'}}
                     </span>
-                <span class="text-muted">Since last month</span>
+                <span class="text-muted">Acumulado Semana Atual</span>
               </p>
             </div>
             <!-- /.d-flex -->
@@ -190,11 +190,11 @@
 
             <div class="d-flex flex-row justify-content-end">
                   <span class="mr-2">
-                    <i class="fas fa-square text-primary"></i> This year
+                    <i class="fas fa-square text-primary"></i> Semana Atual
                   </span>
 
               <span>
-                    <i class="fas fa-square text-gray"></i> Last year
+                    <i class="fas fa-square text-gray"></i> Semana Anterior
                   </span>
             </div>
           </div>

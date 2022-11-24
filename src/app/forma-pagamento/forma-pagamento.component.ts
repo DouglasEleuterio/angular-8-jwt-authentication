@@ -28,7 +28,6 @@ export class FormaPagamentoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.notifier.notify('success', '');
     this.createForm(new FormaPagamentoModel());
     this.obtemValor();
   }

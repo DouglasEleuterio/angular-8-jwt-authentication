@@ -49,8 +49,8 @@ export class LoginComponent implements OnInit {
     const urlAtual = window.location.href;
     if (urlAtual.includes('localhost')) {
       window.location.href = 'http://localhost:4200/';
-    } else if (urlAtual.includes('https://www')) {
-      window.location.href = urlAtual.concat('/');
+    } else {
+      window.location.href = 'https://douglaseleuterio.github.io/angular-8-jwt-authentication/painel-financeiro';
     }
   }
 }

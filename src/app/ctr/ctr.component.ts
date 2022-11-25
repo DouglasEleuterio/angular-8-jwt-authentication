@@ -82,7 +82,6 @@ export class CtrComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.notifier.notify('success', '');
     this.ctr = new CtrModel();
     this.carregarVeiculos();
     this.carregarTransportadores();
@@ -139,6 +138,7 @@ export class CtrComponent implements OnInit {
 
   carregaFormaPagamento() {
     this.formaPagamentoService.get().subscribe( data => {
+      this.formasPagamento = data.filter( forma => forma.ativo);
       this.formasPagamento = data;
     });
   }

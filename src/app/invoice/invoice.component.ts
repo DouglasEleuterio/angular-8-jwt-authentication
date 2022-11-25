@@ -43,7 +43,6 @@ export class InvoiceComponent implements OnInit {
       );
       // In a real app: dispatch action to load the details here.
     });
-    this.notifier.notify('success', name);
   }
 
   total(ctr: CtrModel): any {

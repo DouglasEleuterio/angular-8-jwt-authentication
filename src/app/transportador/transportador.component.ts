@@ -26,7 +26,6 @@ export class TransportadorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.notifier.notify('success', '' );
     this.obtemValor();
     this.transportador = new TransportadorModel();
     this.createForm(new TransportadorModel());

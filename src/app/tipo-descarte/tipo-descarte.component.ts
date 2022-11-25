@@ -29,7 +29,6 @@ export class TipoDescarteComponent implements OnInit {
   ngOnInit() {
     this.createForm(new TipoDescarteModel());
     this.obtemValor();
-    this.notifier.notify('success', 'You are awesome! I mean it!');
   }
 
   tipoDescarteAexcluir(tipo: TipoDescarteModel): void {

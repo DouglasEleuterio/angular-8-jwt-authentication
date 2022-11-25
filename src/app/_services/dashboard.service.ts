@@ -21,4 +21,12 @@ export class DashboardService extends BaseService<any> {
   getAcumuladoSemanal() {
     return super.getSpecifiedPath(DASHBOARD_RESOURCE , '/acumulado-semanal');
   }
+
+  getPagamentoAgrupado() {
+    return super.getSpecifiedPath(DASHBOARD_RESOURCE , '/pagamentos-agrupados');
+  }
+
+  getPagamentoTransportador() {
+    return super.getSpecifiedPath(DASHBOARD_RESOURCE , '/pagamentos-transportadora');
+  }
 }

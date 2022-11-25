@@ -24,6 +24,9 @@ export class PainelFinanceiroComponent implements OnInit {
   valoresAnoAnterior: number[] = [];
   valoresSemanaAtual: number [] = [];
   valoresSemanaAnterior: number [] = [];
+  pagamentos: {nome: string, valor: number}[] = [];
+  totalPagamentos: any;
+  transportadores: {nome: string, valor: number}[] = [];
 
   constructor(private dashBoardService: DashboardService,
               private tokenStorageService: TokenStorageService) {
@@ -39,6 +42,8 @@ export class PainelFinanceiroComponent implements OnInit {
     this.intersect = true;
     this.carregaValorDescartesMensal();
     this.carregaValorDescartesSemanal();
+    this.carregaPagamentosAgrupados();
+    this.carregaPagamentosTransportador();
   }
 
   createChart() {
@@ -190,6 +195,32 @@ export class PainelFinanceiroComponent implements OnInit {
     );
   }
 
+  private carregaPagamentosAgrupados() {
+    this.dashBoardService.getPagamentoAgrupado().subscribe(
+      value => {
+        console.log(value);
+        this.pagamentos = value;
+        this.totalPagamentos = this.calcularTotalPagamentos();
+        console.log(this.totalPagamentos);
+        this.createChart();
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  private carregaPagamentosTransportador() {
+    this.dashBoardService.getPagamentoTransportador().subscribe(
+      value => {
+        console.log(value);
+        this.transportadores = value;
+        this.createChart();
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
   acumuladoSemanaAtual() {
     let total = 0;
     this.valoresSemanaAtual.forEach(value => {
@@ -199,7 +230,6 @@ export class PainelFinanceiroComponent implements OnInit {
   }
 
   retornoSemana() {
-    //percentual entre semana atual e semana anterior
     return (this.acumuladoSemanaAtual() / this.acumuladoSemanaAnterior()) - 1;
   }
 
@@ -207,6 +237,14 @@ export class PainelFinanceiroComponent implements OnInit {
     let total = 0;
     this.valoresSemanaAnterior.forEach(value => {
       total += value;
+    });
+    return total;
+  }
+
+  private calcularTotalPagamentos() {
+    let total = 0;
+    this.pagamentos.forEach(value => {
+      total += value.valor;
     });
     return total;
   }

@@ -18,7 +18,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-6">
-        <div class="card" >
+        <div class="card">
           <div class="card-header border-0">
             <div class="d-flex justify-content-between">
               <h3 class="card-title">Valor Descartes Mensal</h3>
@@ -38,8 +38,8 @@
             </div>
             <!-- /.d-flex -->
 
-            <div >
-              <canvas id="ChartMensal" >{{ entradasMes }}</canvas>
+            <div>
+              <canvas id="ChartMensal">{{ entradasMes }}</canvas>
             </div>
 
             <div class="d-flex flex-row justify-content-end">
@@ -71,7 +71,8 @@
               </p>
               <p class="ml-auto d-flex flex-column text-right">
                     <span class="text-{{retornoSemana() >= 0 ? 'success': 'red'}}">
-                      <i class="fas fa-arrow-{{retornoSemana() >= 0 ? 'up' : 'down' }}"></i>{{retornoSemana() | percent:'1.2-2'}}
+                      <i
+                        class="fas fa-arrow-{{retornoSemana() >= 0 ? 'up' : 'down' }}"></i>{{retornoSemana() | percent:'1.2-2'}}
                     </span>
                 <span class="text-muted">Acumulado Semana Atual</span>
               </p>
@@ -79,7 +80,7 @@
             <!-- /.d-flex -->
 
             <div class="chart-container" style="height: 70%">
-              <canvas  id="MyChart" >{{ chart }}</canvas>
+              <canvas id="MyChart">{{ chart }}</canvas>
             </div>
 
             <div class="d-flex flex-row justify-content-end">
@@ -97,6 +98,48 @@
 
       </div>
       <!-- /.col-md-6 -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header border-0">
+            <p class="text-center">
+              <strong>Forma Pagamento Acumulado</strong>
+            <p class="d-flex flex-column">
+            <span>Total Recebido: {{totalPagamentos | currency: 'BRL'}}</span>
+          </div>
+          <div class="card-body" >
+            <div class="progress-group" *ngFor="let pagamento of pagamentos">
+              {{pagamento.nome}}
+              <span class="float-right"><b>{{pagamento.valor | currency: 'BRL'}}</b></span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-primary" [ngStyle]="{ 'width.%':(pagamento.valor / totalPagamentos * 100)}"></div>
+              </div>
+            </div>
+          </div>
+            <!-- /.progress-group -->
+          <!-- /.progress-group -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header border-0">
+            <p class="text-center">
+              <strong>Ranking Transportador</strong>
+            <p class="d-flex flex-column">
+              <span>Total recebido por descartes: {{totalPagamentos | currency: 'BRL'}}</span>
+          </div>
+          <div class="card-body" >
+            <div class="progress-group" *ngFor="let transportador of transportadores">
+              {{transportador.nome}}
+              <span class="float-right"><b>{{transportador.valor | currency: 'BRL'}}</b></span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-primary" [ngStyle]="{ 'width.%':(transportador.valor / totalPagamentos * 100)}"></div>
+              </div>
+            </div>
+          </div>
+          <!-- /.progress-group -->
+          <!-- /.progress-group -->
+        </div>
+      </div>
     </div>
     <!-- /.row -->
   </div>

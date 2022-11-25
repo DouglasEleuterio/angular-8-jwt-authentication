@@ -17,7 +17,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let entity of entities">
-        <td style="height: 15px"> {{entity.id | numeroCtr}}</td>
+        <td style="height: 15px"># <b>{{entity.id | numeroCtr}}</b></td>
         <td style="height: 15px"> {{entity.geracao}}</td>
         <td style="height: 15px"> {{entity.transportador.nome}}</td>
         <td style="height: 15px"> {{valorTotal(entity) | currency: 'BRL'}}</td>

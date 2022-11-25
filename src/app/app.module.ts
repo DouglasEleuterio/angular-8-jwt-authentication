@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +28,10 @@ import { GeradorComponent } from './gerador/gerador.component';
 import { CtrComponent } from './ctr/ctr.component';
 import { PainelFinanceiroComponent } from './painel-financeiro/painel-financeiro.component';
 import { InvoiceComponent } from './invoice/invoice.component';
+import { CtrListComponent } from './ctr/ctr-list/ctr-list.component';
+import { NumeroCtrPipe } from './_utils/numero-ctr.pipe';
+import {registerLocaleData} from '@angular/common';
+import ptBr from '@angular/common/locales/pt';
 
 /**
  * Custom angular notifier options
@@ -73,6 +77,7 @@ const customNotifierOptions: NotifierOptions = {
   }
 };
 
+registerLocaleData(ptBr);
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +96,9 @@ const customNotifierOptions: NotifierOptions = {
     GeradorComponent,
     CtrComponent,
     PainelFinanceiroComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    CtrListComponent,
+    NumeroCtrPipe
   ],
   imports: [
     BrowserModule,
@@ -103,7 +110,10 @@ const customNotifierOptions: NotifierOptions = {
     BrowserAnimationsModule,
     NotifierModule.withConfig(customNotifierOptions)
   ],
-  providers: [authInterceptorProviders],
+  providers: [
+    authInterceptorProviders,
+    {provide: LOCALE_ID, useValue: 'pt-BR'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

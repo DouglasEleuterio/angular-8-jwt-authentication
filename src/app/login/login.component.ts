@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
     if (urlAtual.includes('localhost')) {
       window.location.href = 'http://localhost:4200/';
     } else {
-      window.location.href = 'https://douglaseleuterio.github.io/angular-8-jwt-authentication/painel-financeiro';
+      window.location.href = 'https://douglaseleuterio.github.io/aterrosystem-frontend/painel-financeiro';
     }
   }
 }

@@ -13,7 +13,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "heroku-postbuild": "ng build --prod",
-    "deploy:ghdocs": "ng build --prod --output-path docs --base-href /angular-8-jwt-authentication/"
+    "deploy:ghdocs": "ng build --prod --output-path docs --base-href /aterrosystem-frontend/"
   },
   "private": true,
   "dependencies": {

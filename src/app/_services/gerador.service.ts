@@ -29,7 +29,9 @@ export class GeradorService extends BaseService<GeradorModel> {
         razaoSocial: gerador.razaoSocial,
         cnpj: gerador.cnpj,
         cpf: gerador.cpf,
-        retirada: gerador.retirada
+        retirada: gerador.retirada,
+        email: gerador.email,
+        telefone: gerador.telefone
       }, TRANSPORTADOR_RESOURCE);
     }
 

@@ -100,6 +100,32 @@
                       placeholder="CPF"
                     >
                   </div>
+                  <div class="col-6" *ngIf="fisica || juridica">
+                    <label for="cpf">Email</label>
+                    <input
+                      [(ngModel)]="gerador.email"
+                      formControlName="email"
+                      type="text"
+                      id="email"
+                      class="form-control"
+                      name="email"
+                      required
+                      placeholder="E-mail"
+                    >
+                  </div>
+                  <div class="col-6" *ngIf="fisica || juridica">
+                    <label for="cpf">Telefone</label>
+                    <input
+                      [(ngModel)]="gerador.telefone"
+                      formControlName="telefone"
+                      type="number"
+                      id="telefone"
+                      class="form-control"
+                      name="telefone"
+                      required
+                      placeholder="Telefone"
+                    >
+                  </div>
                 </div>
               </div>
             </div>

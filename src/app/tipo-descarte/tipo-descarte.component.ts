@@ -53,7 +53,8 @@ export class TipoDescarteComponent implements OnInit {
     this.form = new FormGroup({
       id: new FormControl(model.id),
       nome: new FormControl(model.nome),
-      valor: new FormControl(model.valor)
+      valor: new FormControl(model.valor),
+      ativo: new FormControl(model.ativo)
     });
   }
 
@@ -88,5 +89,27 @@ export class TipoDescarteComponent implements OnInit {
       data => {
         this.entities = data;
       }, err => {});
+  }
+
+  situacao(status: boolean): any {
+    if (status === true) {
+      return 'Ativo';
+    } else {
+      return 'Inativo';
+    }
+  }
+
+  alterarSituacao(entity: TipoDescarteModel) {
+    this.form.value.id = entity.id;
+    this.form.value.ativo = (!entity.ativo);
+    this.form.value.nome = entity.nome;
+    this.form.value.valor = entity.valor;
+    this.tipoDescarteService.save(this.form).subscribe(
+      data => {
+        this.notifier.notify('warning', 'Tipo de Descarte: ' + entity.nome + ' Alterado' );
+        this.obtemValor();
+      }, err => {
+        this.notifier.notify('error', err.error.message );
+      });
   }
 }

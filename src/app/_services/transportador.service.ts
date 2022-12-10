@@ -29,7 +29,9 @@ export class TransportadorService {
       nome: transportador.nome,
       razaoSocial: transportador.razaoSocial,
       cnpj: transportador.cnpj,
-      endereco: this.endereco
+      endereco: this.endereco,
+      telefone: transportador.email,
+      email: transportador.telefone
     }, httpOptions);
   }
 

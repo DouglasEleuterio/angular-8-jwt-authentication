@@ -22,12 +22,17 @@ save(tipoDescarte): Observable<any> {
     return this.http.post(environment.apiUrl + DESCARTE_RESOURCE, {
       id: tipoDescarte.value.id,
       nome: tipoDescarte.value.nome,
-      valor: tipoDescarte.value.valor
+      valor: tipoDescarte.value.valor,
+      ativo: tipoDescarte.value.ativo
     }, httpOptions);
   }
 
   get(): Observable<any> {
     return  this.http.get<TipoDescarteModel>(environment.apiUrl + DESCARTE_RESOURCE + '/all', {});
+  }
+
+  getAtivo(): Observable<any> {
+    return  this.http.get<TipoDescarteModel>(environment.apiUrl + DESCARTE_RESOURCE + '/all-ativo', {});
   }
 
   delete(tipoDescarte): Observable<any> {

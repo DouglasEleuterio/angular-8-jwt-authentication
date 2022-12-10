@@ -45,6 +45,8 @@ export class TransportadorComponent implements OnInit {
       estado: new FormControl(model.endereco.estado),
       cep: new FormControl(model.endereco.cep),
       observacao: new FormControl(model.endereco.observacao),
+      email: new FormControl(model.email),
+      telefone: new FormControl(model.telefone),
     });
   }
 

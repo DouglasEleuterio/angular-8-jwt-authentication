@@ -72,14 +72,18 @@
               <tbody>
               <tr *ngFor="let entity of entities">
                 <td style="height: 15px"> {{entity.nome}}</td>
-                <td><div class="form-group">
-                  <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                    <input type="checkbox" disabled class="custom-control-input" [checked]="entity.ativo" #customSwitch3 id="customSwitch3">
-                    <label class="custom-control-label" for="customSwitch3">{{situacao(entity.ativo)}}</label>
+                <td>
+                  <div class="form-group">
+                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                      <input type="checkbox" disabled class="custom-control-input" [checked]="entity.ativo"
+                             #customSwitch3 id="customSwitch3">
+                      <label class="custom-control-label" for="customSwitch3">{{situacao(entity.ativo)}}</label>
+                    </div>
                   </div>
-                </div></td>
+                </td>
                 <td align="center">
-                  <button title="Editar" (click)="prepararAlteracao(entity)"  class="btn  btn-outline-warning" data-toggle="modal" data-target="#modal-default">
+                  <button title="Editar" (click)="prepararAlteracao(entity)" class="btn  btn-outline-warning"
+                          data-toggle="modal" data-target="#modal-default">
                     <i class="fas fa-edit"></i>
                   </button>
                 </td>
@@ -107,11 +111,12 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Deseja {{formaPagamento.ativo ? 'Desativar' : 'Ativar' }}:  <b>{{formaPagamento.nome}}?</b></p>
+        <p>Deseja {{formaPagamento.ativo ? 'Desativar' : 'Ativar' }}: <b>{{formaPagamento.nome}}?</b></p>
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" #closebutton data-dismiss="modal">Cancelar</button>
-        <button (click)="alterarSituacao()" id="closebutton" type="button" class="btn {{formaPagamento.ativo ? 'btn-danger' : 'btn-success' }}">{{formaPagamento.ativo ? 'Desativar' : 'Ativar' }}</button>
+        <button (click)="alterarSituacao()" id="closebutton" type="button"
+                class="btn {{formaPagamento.ativo ? 'btn-danger' : 'btn-success' }}">{{formaPagamento.ativo ? 'Desativar' : 'Ativar' }}</button>
       </div>
     </div>
     <!-- /.modal-content -->

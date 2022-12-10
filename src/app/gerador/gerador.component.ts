@@ -50,6 +50,8 @@ export class GeradorComponent extends BaseComponent implements OnInit {
       estado: new FormControl(model.retirada.estado),
       cep: new FormControl(model.retirada.cep),
       observacao: new FormControl(model.retirada.observacao),
+      email: new FormControl(model.email),
+      telefone: new FormControl(model.telefone),
     });
   }
 

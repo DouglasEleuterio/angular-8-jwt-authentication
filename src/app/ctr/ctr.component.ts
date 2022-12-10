@@ -130,7 +130,7 @@ export class CtrComponent implements OnInit {
   }
 
   carregaTipoDescarte() {
-    this.tipoDescarteService.get().subscribe( data => {
+    this.tipoDescarteService.getAtivo().subscribe( data => {
       this.descartes = data;
     });
   }

@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   navegarParaDashboard() {
     const urlAtual = window.location.href;
     if (urlAtual.includes('localhost')) {
-      window.location.href = 'http://localhost:4200/';
+      // window.location.href = 'http://localhost:4200/';
     } else {
       window.location.href = 'https://douglaseleuterio.github.io/aterrosystem-frontend/painel-financeiro';
     }

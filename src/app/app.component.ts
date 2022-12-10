@@ -32,10 +32,10 @@ export class AppComponent implements OnInit {
   logout() {
     this.isLoggedIn = false;
     this.tokenStorageService.signOut();
-    window.location.href = '/angular-8-jwt-authentication';
+    window.location.href = '/aterrosystem-frontend';
   }
 
   navegarParaDashboard() {
-    window.location.href = '/angular-8-jwt-authentication';
+    window.location.href = '/aterrosystem-frontend';
   }
 }

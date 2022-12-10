@@ -82,8 +82,6 @@
               <table class="table table-striped">
                 <thead>
                 <tr>
-                  <th>Tipo Descarte</th>
-                  <th>Valor Descarte</th>
                   <th>Placa Veículo</th>
                   <th>Modelo Veículo</th>
                   <th>Motorista</th>
@@ -91,8 +89,6 @@
                 </thead>
                 <tbody>
                 <tr>
-                  <td>{{ctr.tipoDescarte.nome}}</td>
-                  <td>{{ctr.tipoDescarte.valor | currency:'BRL'}}</td>
                   <td>{{ctr.veiculo.placa}}</td>
                   <td>{{ctr.veiculo.modelo}}</td>
                   <td>{{ctr.motorista}}</td>
@@ -107,8 +103,21 @@
           <div class="row">
             <!-- accepted payments column -->
             <div class="col-4">
-              <p class="lead">Assinatura:</p>
+              <p class="lead">Descartes</p>
+            <div class="table-responsive">
+              <table class="table">
+                <tr *ngFor="let descarte of descartes">
+                  <td>{{descarte.nome}}</td>
+                  <td>{{descarte.valor | currency: 'BRL'}}</td>
+                </tr>
+                <tfoot>
+                  <tr>
+                    <th>Total</th>
+                    <th>{{valorTotalDescartes(ctr) | currency: 'BRL'}}</th>
+                  </tr>
+              </table>
             </div>
+          </div>
             <!-- /.col -->
             <div class="col-4">
               <p class="lead">Forma Pagamento</p>
@@ -117,7 +126,7 @@
                 <table class="table">
                   <tr *ngFor="let pagamento of pagamentos">
                     <th>{{pagamento.formaPagamento.nome}}</th>
-                    <th>{{pagamento.valor | currency:'BRL'}}</th>
+                    <td>{{pagamento.valor | currency:'BRL'}}</td>
                   </tr>
                 </table>
               </div>

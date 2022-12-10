@@ -77,7 +77,7 @@
                 <div class="col-6">
                   <label>Tipo Descarte</label>
                   <select [(ngModel)]="tipoDescarteSelecionado" id="descarte"
-                          class="form-control select2" style="width: 100%;" (change)="vinculaTipoDescarte()">
+                          class="form-control select2" style="width: 100%;" >
                     <option *ngFor="let descarte of descartes" [ngValue]="descarte">
                       {{descarte.nome}}
                     </option>
@@ -110,8 +110,10 @@
           <div class="card-footer">
             <button type="submit" (click)="onSubmit()" class="btn btn-success fa-pull-left">Salvar CTR</button>
             <button type="button" (click)="adicionarPagamento()" id="adicionarpagamentobutton"
-                    class="btn btn-info float-right">Adicionar
-              Pagamento
+                    class="btn btn-info float-right">Adicionar Pagamento
+            </button>
+            <button type="button" (click)="adicionarDescartes()" id="adicionaredescartebutton"
+                    class="btn btn-info float-right">Adicionar Descarte
             </button>
             <button style="margin-right: 10px;" (click)="limpar()" type="button" class="btn btn-default float-right">Limpar</button>
           </div>
@@ -154,6 +156,35 @@
     </div>
     <div class="card-footer text-center">
       <span href="javascript:void(0)" class="uppercase">Valor Total: R$ {{valorTotalPagamentos()}}</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="card card-success">
+    <div class="card-header">
+      <h3 class="card-title">Lista</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Nome</th>
+          <th style="width: 10%; text-align: center">Excluir</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let tipoDescarte of ctr.tipoDescartes">
+          <td> {{tipoDescarte.nome}}</td>
+          <td>
+            <button (click)="excluirTipoDescarte(tipoDescarte)" title="Excluir" class="btn  btn-outline-danger"><i
+              class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>

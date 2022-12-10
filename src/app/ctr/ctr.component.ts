@@ -52,6 +52,7 @@ export class CtrComponent implements OnInit {
   formaPagamentoSelecionado: FormaPagamentoModel;
 
   pagamentosAdicionado: PagamentoModel[] = [];
+  descartesAdicionado: TipoDescarteModel[] = [];
 
   valorPagamento: number;
 
@@ -96,13 +97,11 @@ export class CtrComponent implements OnInit {
     model.transportador = new TransportadorModel();
     model.gerador = new GeradorModel();
     model.destinatario = new DestinatarioModel();
-    model.tipoDescarte = new TipoDescarteModel();
     this.form = new FormGroup({
       veiculo: new FormControl(model.veiculo),
       transportador: new FormControl(model.transportador),
       gerador: new FormControl(model.gerador),
       destinatario: new FormControl(model.destinatario),
-      descarte: new FormControl(model.tipoDescarte),
     });
   }
 
@@ -155,6 +154,13 @@ export class CtrComponent implements OnInit {
     this.valorPagamento = null;
   }
 
+  adicionarDescartes() {
+    let tipoDescarteModel = this.tipoDescarteSelecionado;
+    this.descartesAdicionado.push(tipoDescarteModel);
+    this.ctr.tipoDescartes = this.descartesAdicionado;
+    this.tipoDescarteSelecionado = new TipoDescarteModel();
+  }
+
   onSubmit() {
     this.ctrService.save(this.ctr).subscribe(
       data => {
@@ -188,9 +194,9 @@ export class CtrComponent implements OnInit {
     this.ctr.destinatario = this.destinatarioSelecionado;
   }
 
-  vinculaTipoDescarte() {
-    this.ctr.tipoDescarte = this.tipoDescarteSelecionado;
-  }
+  // vinculaTipoDescarte() {
+  //   this.ctr.tipoDescarte = this.tipoDescarteSelecionado;
+  // }
 
   valorTotalPagamentos(): any {
     let total = 0;
@@ -200,6 +206,10 @@ export class CtrComponent implements OnInit {
 
   excluirPagamento(pagamento: PagamentoModel) {
     this.ctr.pagamentos.splice(this.ctr.pagamentos.indexOf(pagamento), 1);
+  }
+
+  excluirTipoDescarte(tipoDescarte: TipoDescarteModel) {
+    this.ctr.tipoDescartes.splice(this.ctr.tipoDescartes.indexOf(tipoDescarte), 1);
   }
 
   limpar() {

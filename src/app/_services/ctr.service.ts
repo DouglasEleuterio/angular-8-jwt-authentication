@@ -35,7 +35,7 @@ export class CtrService extends BaseService<GeradorModel> {
       destinatario: ctr.destinatario,
       transportador: ctr.transportador,
       pagamentos: ctr.pagamentos,
-      tipoDescarte: ctr.tipoDescarte
+      tipoDescartes: ctr.tipoDescartes
     }, CTR_RESOURCE);
   }
 }

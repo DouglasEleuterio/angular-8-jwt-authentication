@@ -16,6 +16,7 @@ export class InvoiceComponent implements OnInit {
   private sub: any;
   ctr: CtrModel;
   pagamentos: any;
+  descartes: any;
 
   ctrService: CtrService;
 
@@ -36,6 +37,7 @@ export class InvoiceComponent implements OnInit {
         data => {
           this.ctr = data;
           this.pagamentos = data.pagamentos;
+          this.descartes = data.tipoDescartes;
         }, error => {
           this.notifier.notify('error', error);
           console.log(error);
@@ -52,9 +54,17 @@ export class InvoiceComponent implements OnInit {
   }
 
   desconto(ctr: CtrModel): boolean {
-    if (this.total(ctr) < ctr.tipoDescarte.valor) {
-        this.valorDesconto = ctr.tipoDescarte.valor - this.total(ctr);
+    let totalDescartes = this.valorTotalDescartes(ctr);
+    if (this.total(ctr) < totalDescartes) {
+        this.valorDesconto = totalDescartes - this.total(ctr);
         return true;
     }
+  }
+
+  valorTotalDescartes(ctr: CtrModel): number {
+    let totalDescartes = ctr.tipoDescartes.reduce((accumulator, obj) => {
+      return accumulator + obj.valor;
+    }, 0);
+    return totalDescartes;
   }
 }

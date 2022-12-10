@@ -11,7 +11,7 @@ export class CtrModel {
   transportador: TransportadorModel = new TransportadorModel();
   gerador: GeradorModel = new GeradorModel();
   destinatario: DestinatarioModel = new DestinatarioModel();
-  tipoDescarte: TipoDescarteModel = new TipoDescarteModel();
+  tipoDescartes: TipoDescarteModel[] = [];
   pagamentos: PagamentoModel[] = [];
   geracao: Date;
   motorista: string;

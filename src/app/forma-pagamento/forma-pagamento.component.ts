@@ -16,7 +16,7 @@ export class FormaPagamentoComponent implements OnInit {
   entities: FormaPagamentoModel[];
   form: FormGroup;
   errorMessage = '';
-  formaPagamento: FormaPagamentoModel;
+  formaPagamento = new FormaPagamentoModel();
 
   formaPagamentoService: FormaPagamentoService;
   private readonly notifier: NotifierService;

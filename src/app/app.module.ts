@@ -32,6 +32,7 @@ import { CtrListComponent } from './ctr/ctr-list/ctr-list.component';
 import { NumeroCtrPipe } from './_utils/numero-ctr.pipe';
 import {registerLocaleData} from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
+import { MotoristaComponent } from './motorista/motorista.component';
 
 /**
  * Custom angular notifier options
@@ -98,7 +99,8 @@ registerLocaleData(ptBr);
     PainelFinanceiroComponent,
     InvoiceComponent,
     CtrListComponent,
-    NumeroCtrPipe
+    NumeroCtrPipe,
+    MotoristaComponent
   ],
   imports: [
     BrowserModule,

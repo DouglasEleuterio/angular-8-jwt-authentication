@@ -1,0 +1,128 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Motorista</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Motorista</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Dados Cadastrais</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+
+            <div class="card-body">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-12">
+                    <label for="nome">Nome</label>
+                    <input
+                      [(ngModel)]="motorista.nome"
+                      formControlName="nome"
+                      type="text"
+                      id="nome"
+                      class="form-control"
+                      name="nome"
+                      required
+                      placeholder="Nome"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-6">
+                    <label for="telefone">Telefone</label>
+                    <input
+                      [(ngModel)]="motorista.telefone"
+                      formControlName="telefone"
+                      type="number"
+                      id="telefone"
+                      class="form-control"
+                      name="telefone"
+                      required
+                      placeholder="Telefone"
+                    >
+                  </div>
+                  <div class="col-6">
+                    <label for="cnh">CNH</label>
+                    <input
+                      [(ngModel)]="motorista. cnh"
+                      formControlName="cnh"
+                      type="number"
+                      id="cnh"
+                      class="form-control"
+                      name="cnh"
+                      required
+                      placeholder="Número CNH"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit"  class="btn btn-{{isEdicao ? 'warning' : 'success'}} fa-pull-right">{{isEdicao ? 'Alterar' : 'Salvar'}}</button>
+              <span></span>
+              <button type="button" style="margin-right: 10px;" (click)="limpar()" class="btn btn-secondary fa-pull-right">{{isEdicao ? 'Cancelar':'Limpar'}}</button>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!--/.col (left) -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+</form>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="card card-success">
+      <div class="card-header">
+        <h3 class="card-title">Lista</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th class="text-center">Nome</th>
+            <th class="text-center">Telefone</th>
+            <th class="text-center">Numero CNH</th>
+            <th class="text-center">Ação</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let entity of entities">
+            <td> {{entity.nome}}</td>
+            <td> {{entity.telefone}}</td>
+            <td> {{entity.cnh}}</td>
+             <td class="text-center">
+              <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
+                class="fas fa-edit"></i></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

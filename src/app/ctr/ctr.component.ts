@@ -17,6 +17,8 @@ import {CtrModel} from '../model/ctr-model';
 import {CtrService} from '../_services/ctr.service';
 import {NotifierService} from 'angular-notifier';
 import {Router} from '@angular/router';
+import {MotoristaService} from '../_services/motorista.service';
+import {MotoristaModel} from '../model/motorista-model';
 
 @Component({
   selector: 'app-ctr',
@@ -31,6 +33,7 @@ export class CtrComponent implements OnInit {
   destinatarioService: DestinatarioService;
   tipoDescarteService: TipoDescarteService;
   formaPagamentoService: FormaPagamentoService;
+  motoristaService: MotoristaService;
   ctrService: CtrService;
 
   veiculos: VeiculoModel[];
@@ -54,6 +57,9 @@ export class CtrComponent implements OnInit {
   pagamentosAdicionado: PagamentoModel[] = [];
   descartesAdicionado: TipoDescarteModel[] = [];
 
+  motoristas: MotoristaModel[];
+  motoristaSelecionado: MotoristaModel;
+
   valorPagamento: number;
 
   form: FormGroup;
@@ -69,6 +75,7 @@ export class CtrComponent implements OnInit {
               tipoDescarteService: TipoDescarteService,
               formaPagamentoService: FormaPagamentoService,
               ctrService: CtrService,
+              motoristaService: MotoristaService,
               notifier: NotifierService,
               private router: Router
   ) {
@@ -77,6 +84,7 @@ export class CtrComponent implements OnInit {
     this.geradorService = geradorService;
     this.destinatarioService = destinatarioService;
     this.tipoDescarteService = tipoDescarteService;
+    this.motoristaService = motoristaService;
     this.formaPagamentoService = formaPagamentoService;
     this.ctrService = ctrService;
     this.notifier = notifier;
@@ -90,6 +98,7 @@ export class CtrComponent implements OnInit {
     this.carregarDestinatario();
     this.carregaTipoDescarte();
     this.carregaFormaPagamento();
+    this.carregarMotoristas();
   }
 
   createForm(model: CtrModel) {
@@ -97,11 +106,13 @@ export class CtrComponent implements OnInit {
     model.transportador = new TransportadorModel();
     model.gerador = new GeradorModel();
     model.destinatario = new DestinatarioModel();
+    model.motorista = new MotoristaModel();
     this.form = new FormGroup({
       veiculo: new FormControl(model.veiculo),
       transportador: new FormControl(model.transportador),
       gerador: new FormControl(model.gerador),
       destinatario: new FormControl(model.destinatario),
+      motorista: new FormControl(model.motorista),
     });
   }
 
@@ -120,6 +131,12 @@ export class CtrComponent implements OnInit {
   carregarGerador() {
     this.geradorService.get().subscribe( data => {
       this.geradores = data;
+    });
+  }
+
+  carregarMotoristas() {
+    this.motoristaService.get().subscribe( data => {
+      this.motoristas = data;
     });
   }
 
@@ -194,9 +211,9 @@ export class CtrComponent implements OnInit {
     this.ctr.destinatario = this.destinatarioSelecionado;
   }
 
-  // vinculaTipoDescarte() {
-  //   this.ctr.tipoDescarte = this.tipoDescarteSelecionado;
-  // }
+  vinculaMotorista() {
+    this.ctr.motorista = this.motoristaSelecionado;
+  }
 
   valorTotalPagamentos(): any {
     let total = 0;
@@ -220,5 +237,6 @@ export class CtrComponent implements OnInit {
     this.geradorSelecionado = new GeradorModel();
     this.destinatarioSelecionado = new DestinatarioModel();
     this.tipoDescarteSelecionado = new TipoDescarteModel();
+    this.motoristaSelecionado = new MotoristaModel();
   }
 }

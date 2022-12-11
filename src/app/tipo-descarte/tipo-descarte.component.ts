@@ -16,9 +16,10 @@ export class TipoDescarteComponent implements OnInit {
 
   entities: TipoDescarteModel[];
   form: FormGroup;
-  tipoDescarteExcluir: TipoDescarteModel ;
+  tipoDescarteExcluir = new TipoDescarteModel() ;
   private readonly notifier: NotifierService;
   isEdicao = false;
+  selected: any;
 
 
   constructor(private tipoDescarteService: TipoDescarteService,

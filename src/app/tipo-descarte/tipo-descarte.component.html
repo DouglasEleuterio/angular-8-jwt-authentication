@@ -85,11 +85,9 @@
                 <td> {{entity.nome}}</td>
                 <td> {{entity.valor | currency:'BRL'}}</td>
                 <td>
-                  <div class="form-group">
-                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                      <input type="checkbox" class="custom-control-input" [checked]="entity.ativo" (click)="alterarSituacao(entity)" #customSwitch3 id="customSwitch3">
-                      <label class="custom-control-label" for="customSwitch3">{{situacao(entity.ativo)}}</label>
-                    </div>
+                  <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                    <input type="checkbox" class="custom-control-input" [checked]="entity.ativo" (change)="alterarSituacao(entity)" #customSwitch3 id="customSwitch3">
+                    <label class="custom-control-label" for="customSwitch3">{{situacao(entity.ativo)}}</label>
                   </div>
                 </td>
                 <td>

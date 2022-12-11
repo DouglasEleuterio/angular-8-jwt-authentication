@@ -4,6 +4,7 @@ import {GeradorModel} from './gerador-model';
 import {DestinatarioModel} from './destinatario-model';
 import {PagamentoModel} from './pagamento-model';
 import {TipoDescarteModel} from './tipo-descarte-model';
+import {MotoristaModel} from './motorista-model';
 
 export class CtrModel {
   id: string;
@@ -14,5 +15,5 @@ export class CtrModel {
   tipoDescartes: TipoDescarteModel[] = [];
   pagamentos: PagamentoModel[] = [];
   geracao: Date;
-  motorista: string;
+  motorista: MotoristaModel = new MotoristaModel();
 }

@@ -17,8 +17,8 @@ export class TransportadorComponent implements OnInit {
   private readonly notifier: NotifierService;
   form: FormGroup;
   isEdicao = false;
-  transportador: TransportadorModel;
-  transpExcluir: TransportadorModel;
+  transportador = new TransportadorModel();
+  transpExcluir = new TransportadorModel();
 
   constructor(private transportadorService: TransportadorService,
               notifier: NotifierService) {

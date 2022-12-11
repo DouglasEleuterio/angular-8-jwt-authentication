@@ -18,14 +18,14 @@ export class VeiculoComponent implements OnInit {
   transportadorService: TransportadorService;
 
   form: FormGroup;
-  veiculo: VeiculoModel;
+  veiculo = new  VeiculoModel();
   private readonly notifier: NotifierService;
   transportadores: TransportadorModel[];
   transportador = new TransportadorModel();
   isEdicao: boolean;
   transportadorSelecionado: TransportadorModel;
   entities: VeiculoModel[];
-  veiculoExcluir: VeiculoModel;
+  veiculoExcluir = new VeiculoModel();
 
   constructor(private veiculoService: VeiculoService, notifier: NotifierService, transportadorService: TransportadorService) {
     this.notifier = notifier;

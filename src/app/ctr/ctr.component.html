@@ -30,7 +30,7 @@
           <div class="card-body">
             <div class="form-group">
               <div class="row">
-                <div class="col-6">
+                <div class="col-4">
                   <label>Veículo</label>
                   <select [(ngModel)]="veiculoSelecionado" id="veiculo"
                           class="form-control select2" style="width: 100%;" (change)="vinculaVeiculo()">
@@ -38,7 +38,15 @@
                       Modelo: {{veiculo.modelo}} | Marca: {{veiculo.marca}}</option>
                   </select>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
+                  <label>Motorista</label>
+                  <select [(ngModel)]="motoristaSelecionado" id="motorista"
+                          class="form-control select2" style="width: 100%;" (change)="vinculaMotorista()">
+                    <option *ngFor="let motorista of motoristas" [ngValue]="motorista"> Placa: {{motorista.nome}} |
+                      Nome: {{motorista.nome}} | Telefone: {{motorista.telefone}}</option>
+                  </select>
+                </div>
+                <div class="col-4">
                   <label>Transportador</label>
                   <select [(ngModel)]="transportadorSelecionado" id="transportador"
                           class="form-control select2" style="width: 100%;" (change)="vinculaTransportador()">
@@ -108,7 +116,7 @@
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            <button type="submit" (click)="onSubmit()" class="btn btn-success fa-pull-left">Salvar CTR</button>
+            <button type="button" (click)="onSubmit()" class="btn btn-success fa-pull-left">Salvar CTR</button>
             <button type="button" (click)="adicionarPagamento()" id="adicionarpagamentobutton"
                     class="btn btn-info float-right">Adicionar Pagamento
             </button>

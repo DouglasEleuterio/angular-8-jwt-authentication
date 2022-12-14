@@ -1,0 +1,35 @@
+
+<section>
+  <div class="card card-success">
+    <div class="card-header">
+      <h3 class="card-title">Lista</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Transportadora</th>
+          <th>Tipo Descarte</th>
+          <th>Saldo</th>
+          <th style="width: 10px">Histórico</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let combo of combo">
+          <td> {{combo.id}}</td>
+          <td> {{combo.transportador.nome}}</td>
+          <td> {{combo.tipoDescarte.nome}}</td>
+          <td > {{combo.saldo}}</td>
+          <td style="text-align: center">
+            <button (click)="exibirHistoricioCombo(combo)" title="Excluir" class="btn  btn-outline-success">
+              <i class="fas fa-history"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

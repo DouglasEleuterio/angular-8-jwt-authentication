@@ -33,6 +33,8 @@ import { NumeroCtrPipe } from './_utils/numero-ctr.pipe';
 import {registerLocaleData} from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 import { MotoristaComponent } from './motorista/motorista.component';
+import { ComboComponent } from './combo/combo.component';
+import { ComboHistoricoComponent } from './combo-historico/combo-historico.component';
 
 /**
  * Custom angular notifier options
@@ -51,7 +53,7 @@ const customNotifierOptions: NotifierOptions = {
   },
   theme: 'material',
   behaviour: {
-    autoHide: 5000,
+    autoHide: 7000,
     onClick: 'hide',
     onMouseover: 'pauseAutoHide',
     showDismissButton: true,
@@ -100,7 +102,9 @@ registerLocaleData(ptBr);
     InvoiceComponent,
     CtrListComponent,
     NumeroCtrPipe,
-    MotoristaComponent
+    MotoristaComponent,
+    ComboComponent,
+    ComboHistoricoComponent
   ],
   imports: [
     BrowserModule,

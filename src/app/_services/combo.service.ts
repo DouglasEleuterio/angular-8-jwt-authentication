@@ -1,0 +1,25 @@
+import { Injectable } from '@angular/core';
+import {BaseService} from './BaseService';
+import {ComboModel} from '../model/combo-model';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
+const COMBO_RESOURCE = 'combo';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ComboService extends BaseService<ComboModel> {
+
+  comboModel: ComboModel;
+
+  constructor(http: HttpClient) {
+    super(http);
+    this.comboModel = new ComboModel();
+  }
+
+  get(): Observable<any> {
+    return super.get(COMBO_RESOURCE);
+  }
+
+}

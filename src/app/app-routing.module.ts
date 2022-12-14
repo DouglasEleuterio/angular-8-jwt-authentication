@@ -18,7 +18,8 @@ import {PainelFinanceiroComponent} from './painel-financeiro/painel-financeiro.c
 import {InvoiceComponent} from './invoice/invoice.component';
 import {CtrListComponent} from './ctr/ctr-list/ctr-list.component';
 import {MotoristaComponent} from './motorista/motorista.component';
-import {ComboComponent} from "./combo/combo.component";
+import {ComboComponent} from './combo/combo.component';
+import {ComboHistoricoComponent} from './combo-historico/combo-historico.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'motorista', component: MotoristaComponent },
   { path: 'combo', component: ComboComponent },
   { path: 'invoice/:id', component: InvoiceComponent },
+  { path: 'combo-historico/:comboId', component: ComboHistoricoComponent },
   { path: 'painel-financeiro', component: PainelFinanceiroComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

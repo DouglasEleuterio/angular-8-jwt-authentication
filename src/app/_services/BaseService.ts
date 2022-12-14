@@ -31,4 +31,8 @@ export class BaseService<T> {
     return this.http.get<T>(environment.apiUrl + resource + path, {});
   }
 
+  getSpecifiedPathWithId(resource: string, path: string, id: string): Observable<any> {
+    return this.http.get<T>(environment.apiUrl + resource + path + id, {});
+  }
+
 }

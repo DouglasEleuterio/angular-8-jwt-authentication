@@ -23,7 +23,7 @@
           <td> {{combo.tipoDescarte.nome}}</td>
           <td > {{combo.saldo}}</td>
           <td style="text-align: center">
-            <button (click)="exibirHistoricioCombo(combo)" title="Excluir" class="btn  btn-outline-success">
+            <button [routerLink]="['/combo-historico/', combo.id]" class="btn  btn-outline-success" title="Visualizar">
               <i class="fas fa-history"></i>
             </button>
           </td>

@@ -1,0 +1,85 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Detalhes Aquisição</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">combo-historico</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <!-- Main content -->
+        <div class="invoice p-3 mb-3">
+          <!-- info row -->
+          <div class="row invoice-info">
+            <div class="col-sm-3 invoice-col">
+              Código Aquisição: <b>{{aquisicao.id}}</b>
+            </div>
+            <div class="col-sm-3 invoice-col">
+              Data Aquisição: <b> {{aquisicao.dataPagamento}}</b>
+            </div>
+            <div class="col-sm-3 invoice-col">
+              Quantidade adquirida: <b>{{aquisicao.quantidadeAdquirida}}</b>
+            </div>
+            <div class="col-sm-3 invoice-col">
+              Tipo Descarte: <b>{{aquisicao.combo.tipoDescarte.nome}}</b>
+            </div>
+          </div>
+          <!-- /.row -->
+          <!-- info row -->
+          <div class="row invoice-info">
+            <div class="col-sm-3 invoice-col">
+              Valor Pago:  <b>{{aquisicao.valorPago | currency: 'BRL'}}</b>
+            </div>
+            <div class="col-sm-3 invoice-col">
+                Desconto: <b>{{aquisicao.desconto | currency: 'BRL'}}</b>
+            </div>
+            <div class="col-sm-3 invoice-col">
+              Forma Pagamento: <b>{{aquisicao.formaPagamento.nome}}</b>
+            </div>
+          </div>
+          <!-- /.row -->
+
+          <!-- Table row -->
+          <div class="row">
+            <div class="col-12 table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Código Histórico</th>
+                  <th>Data da Transação</th>
+                  <th>Quantidade Utilizada</th>
+                  <th>Número CTR</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let entity of descartePorCombo">
+                  <td>{{entity.id}}</td>
+                  <td>{{entity.dataDescarte | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                  <td>{{entity.quantidade}}</td>
+                  <td>{{entity.ctr.id}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.invoice -->
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->

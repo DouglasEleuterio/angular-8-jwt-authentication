@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NotifierService} from 'angular-notifier';
 import {ComboService} from '../_services/combo.service';
 import {ComboModel} from "../model/combo-model";

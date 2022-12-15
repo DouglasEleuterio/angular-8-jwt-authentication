@@ -124,5 +124,8 @@
         }
       }
     }},
-  "defaultProject": "Angular8JwtAuth"
+  "defaultProject": "Angular8JwtAuth",
+  "cli": {
+    "analytics": "ffd78abb-e359-4fed-a08b-38135cf9c44b"
+  }
 }

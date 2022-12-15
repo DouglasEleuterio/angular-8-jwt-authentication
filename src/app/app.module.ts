@@ -35,6 +35,8 @@ import ptBr from '@angular/common/locales/pt';
 import { MotoristaComponent } from './motorista/motorista.component';
 import { ComboComponent } from './combo/combo.component';
 import { ComboHistoricoComponent } from './combo-historico/combo-historico.component';
+import {NgbAlertModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { AquisicaoComponent } from './aquisicao/aquisicao.component';
 
 /**
  * Custom angular notifier options
@@ -104,7 +106,8 @@ registerLocaleData(ptBr);
     NumeroCtrPipe,
     MotoristaComponent,
     ComboComponent,
-    ComboHistoricoComponent
+    ComboHistoricoComponent,
+    AquisicaoComponent
   ],
   imports: [
     BrowserModule,
@@ -113,6 +116,8 @@ registerLocaleData(ptBr);
     FormsModule,
     HttpClientModule,
     TableModule,
+    NgbPaginationModule,
+    NgbAlertModule,
     BrowserAnimationsModule,
     NotifierModule.withConfig(customNotifierOptions)
   ],

@@ -1,0 +1,125 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>CTR</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Aquisição</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+{{aquisicao | json}}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Aquisição de Combo</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <div class="card-body">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-4">
+                  <label>Transportador</label>
+                  <select [(ngModel)]="aquisicao.combo.transportador" id="transportador"
+                          class="form-control select2" style="width: 100%;" (change)="vinculaTransportador()">
+                    <option *ngFor="let transp of transportadores" [ngValue]="transp"> Razão
+                      Social: {{transp.razaoSocial}} |
+                      CNPJ: {{transp.cnpj}}</option>
+                  </select>
+                </div>
+                <div class="col-4">
+                  <label>Tipo Descarte</label>
+                  <select [(ngModel)]="aquisicao.combo.tipoDescarte" id="descarte"
+                          class="form-control select2" style="width: 100%;" >
+                    <option *ngFor="let descarte of descartes" [ngValue]="descarte">
+                      {{descarte.nome}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-4">
+                  <label>Quantidade</label>
+                  <input
+                    [(ngModel)]="aquisicao.quantidadeAdquirida"
+                    type="number"
+                    class="form-control"
+                    name="quantidade"
+                    required
+                    id="quantidade"
+                    placeholder="Quantidade">
+                </div>
+
+              </div>
+              <!--  Gerador - Destinatario -->
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-3">
+                <label>Data Pagamento</label>
+                <input
+                  [(ngModel)]="aquisicao.dataPagamento"
+                  type="date"
+                  class="form-control"
+                  name="dataPagamento"
+                  required
+                  id="dataPagamento">
+              </div>
+                <div class="col-3">
+                  <label>Valor Pago</label>
+                  <input
+                    [(ngModel)]="aquisicao.valorPago"
+                    type="number"
+                    class="form-control"
+                    name="valor"
+                    required
+                    id="valor"
+                  placeholder="R$ ">
+                </div>
+                <div class="col-3">
+                  <label>Desconto</label>
+                  <input
+                    [(ngModel)]="aquisicao.desconto"
+                    type="number"
+                    class="form-control"
+                    name="desconto"
+                    required
+                    id="desconto"
+                    placeholder="R$ ">
+                </div>
+                <div class="col-3">
+                  <label>Forma Pagamento</label>
+                  <select [(ngModel)]="aquisicao.formaPagamento" id="formaPagamento"
+                          class="form-control select2" style="width: 100%;">
+                    <option *ngFor="let formaPagamento of formasPagamento" [ngValue]="formaPagamento">
+                      {{formaPagamento.nome}}
+                    </option>
+                  </select>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <button type="button" (click)="onSubmit()" class="btn btn-success fa-pull-right">Salvar CTR</button>
+            <button style="margin-right: 10px;" (click)="limpar()" type="button" class="btn btn-default float-left">Limpar</button>
+          </div>
+        </div>
+        <!-- /.card -->
+      </div>
+      <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+  </div><!-- /.container-fluid -->
+</section>

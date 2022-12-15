@@ -11,12 +11,19 @@ const AQUISICAO_RESOURCE = 'aquisicao';
 })
 export class AquisicaoService extends BaseService<AquisicaoModel> {
 
+  aquisicaoModel: AquisicaoModel;
+
   constructor(http: HttpClient) {
     super(http);
+    this.aquisicaoModel = new AquisicaoModel();
   }
 
   getSpecifiedPathWithId(id: string): Observable<any> {
     return super.getSpecifiedPathWithId(AQUISICAO_RESOURCE, '/combo-id/', id);
+  }
+
+  save(entity): Observable<any> {
+     return super.save(entity, AQUISICAO_RESOURCE);
   }
 
 }

@@ -20,6 +20,7 @@ import {CtrListComponent} from './ctr/ctr-list/ctr-list.component';
 import {MotoristaComponent} from './motorista/motorista.component';
 import {ComboComponent} from './combo/combo.component';
 import {ComboHistoricoComponent} from './combo-historico/combo-historico.component';
+import {AquisicaoComponent} from "./aquisicao/aquisicao.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'listar-ctr', component: CtrListComponent },
   { path: 'motorista', component: MotoristaComponent },
   { path: 'combo', component: ComboComponent },
+  { path: 'aquisicao', component: AquisicaoComponent },
   { path: 'invoice/:id', component: InvoiceComponent },
   { path: 'combo-historico/:comboId', component: ComboHistoricoComponent },
   { path: 'painel-financeiro', component: PainelFinanceiroComponent },

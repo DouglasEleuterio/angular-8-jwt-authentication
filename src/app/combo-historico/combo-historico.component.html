@@ -27,7 +27,7 @@
               Código Aquisição: <b>{{aquisicao.id}}</b>
             </div>
             <div class="col-sm-3 invoice-col">
-              Data Aquisição: <b> {{aquisicao.dataPagamento}}</b>
+              Data Aquisição: <b> {{aquisicao.dataPagamento | date: 'dd/MM/yyyy'}}</b>
             </div>
             <div class="col-sm-3 invoice-col">
               Quantidade adquirida: <b>{{aquisicao.quantidadeAdquirida}}</b>
@@ -68,7 +68,11 @@
                   <td>{{entity.id}}</td>
                   <td>{{entity.dataDescarte | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                   <td>{{entity.quantidade}}</td>
-                  <td>{{entity.ctr.id}}</td>
+                  <td style="text-align: center">
+                    <a [routerLink]="['/invoice/', entity.ctr.id]"  title="Visualizar">
+                      {{entity.ctr.id}}
+                    </a>
+                  </td>
                 </tr>
                 </tbody>
               </table>

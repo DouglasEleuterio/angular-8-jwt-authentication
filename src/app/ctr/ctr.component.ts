@@ -52,7 +52,7 @@ export class CtrComponent implements OnInit {
   tipoDescarteSelecionado: TipoDescarteModel;
 
   formasPagamento: FormaPagamentoModel[];
-  formaPagamentoSelecionado: FormaPagamentoModel;
+  formaPagamentoSelecionado: FormaPagamentoModel = new FormaPagamentoModel();
 
   pagamentosAdicionado: PagamentoModel[] = [];
   descartesAdicionado: TipoDescarteModel[] = [];
@@ -169,6 +169,7 @@ export class CtrComponent implements OnInit {
     this.ctr.pagamentos = this.pagamentosAdicionado;
     this.formaPagamentoSelecionado = new FormaPagamentoModel();
     this.valorPagamento = null;
+    this.validaFormaPagamento();
   }
 
   adicionarDescartes() {
@@ -176,18 +177,21 @@ export class CtrComponent implements OnInit {
     this.descartesAdicionado.push(tipoDescarteModel);
     this.ctr.tipoDescartes = this.descartesAdicionado;
     this.tipoDescarteSelecionado = new TipoDescarteModel();
+    this.tipoDescarteSelecionado = null;
   }
 
   onSubmit() {
-    this.ctrService.save(this.ctr).subscribe(
-      data => {
-        this.notifier.notify('success', 'CTR: criado!');
-        this.limpar();
-        this.routerLink('invoice', data.id);
-      }, err => {
-        this.notifier.notify('error', err.error.message );
-      }
-    );
+    if (this.validarForm()) {
+      this.ctrService.save(this.ctr).subscribe(
+        data => {
+          this.notifier.notify('success', 'CTR: criado!');
+          this.limpar();
+          this.routerLink('invoice', data.id);
+        }, err => {
+          this.notifier.notify('error', err.error.message );
+        }
+      );
+    }
   }
 
   routerLink(route: string, id: string) {
@@ -236,7 +240,62 @@ export class CtrComponent implements OnInit {
     this.transportadorSelecionado = new TransportadorModel();
     this.geradorSelecionado = new GeradorModel();
     this.destinatarioSelecionado = new DestinatarioModel();
-    this.tipoDescarteSelecionado = new TipoDescarteModel();
     this.motoristaSelecionado = new MotoristaModel();
+    this.tipoDescarteSelecionado = null;
+    this.descartesAdicionado.length = 0;
+  }
+
+  validaFormaPagamento() {
+    let possuiCombo = false;
+    this.ctr.pagamentos.forEach(forma => {
+      if (forma.formaPagamento.nome === 'Combo') {
+        possuiCombo = true;
+      }
+    });
+    if (possuiCombo && this.ctr.pagamentos.length > 1) {
+      this.ctr.pagamentos.length = 0;
+      this.notifier.notify('error', 'Não é possível adicionar mais de uma forma de pagamento quando Combo selecionado!');
+    }
+  }
+
+  validarForm() {
+    if (this.ctr.pagamentos.length === 0) {
+      this.notifier.notify('error', 'É necessário adicionar pelo menos uma forma de pagamento!');
+      return false;
+    }
+    this.ctr.pagamentos.forEach( pagamento => {
+      if (pagamento.valor === undefined || pagamento.valor === 0) {
+        this.notifier.notify('error', 'Valor de pagamento não pode ser 0!');
+        return false;
+      }
+    });
+    if (this.ctr.tipoDescartes.length === 0) {
+      this.notifier.notify('error', 'É necessário adicionar pelo menos um tipo de descarte!');
+      return false;
+    }
+    if (this.veiculoSelecionado === undefined || this.veiculoSelecionado.id === undefined) {
+      this.notifier.notify('error', 'É necessário selecionar um veículo!');
+      return false;
+    }
+    if (this.motoristaSelecionado === undefined || this.motoristaSelecionado.id === undefined) {
+      this.notifier.notify('error', 'É necessário selecionar um motorista!');
+      return false;
+    }
+    if (this.transportadorSelecionado === undefined || this.transportadorSelecionado.id === undefined) {
+      this.notifier.notify('error', 'É necessário selecionar um transportador!');
+      return false;
+    }
+    if (this.destinatarioSelecionado === undefined || this.destinatarioSelecionado.id === undefined) {
+      this.notifier.notify('error', 'É necessário selecionar um destinatario!');
+      return false;
+    }
+
+    return true;
+  }
+
+  calcularValor() {
+    if (this.tipoDescarteSelecionado !== undefined && this.tipoDescarteSelecionado.id !== undefined) {
+      this.valorPagamento = this.tipoDescarteSelecionado.valor;
+    }
   }
 }

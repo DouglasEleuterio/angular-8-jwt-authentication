@@ -8,6 +8,6 @@ export class AquisicaoModel extends BaseModel {
   quantidadeAdquirida: number;
   dataPagamento: Date;
   valorPago: number;
-  desconto: number;
+  desconto = 0;
   ativo: boolean;
 }

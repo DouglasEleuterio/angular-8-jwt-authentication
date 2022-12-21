@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-4">
                   <label>Tipo Descarte</label>
-                  <select [(ngModel)]="aquisicao.combo.tipoDescarte" id="descarte"
+                  <select [(ngModel)]="aquisicao.combo.tipoDescarte" id="descarte" (change)="calculaValorPago()"
                           class="form-control select2" style="width: 100%;" >
                     <option *ngFor="let descarte of descartes" [ngValue]="descarte">
                       {{descarte.nome}}
@@ -53,6 +53,7 @@
                   <input
                     [(ngModel)]="aquisicao.quantidadeAdquirida"
                     type="number"
+                    (change)="calculaValorPago()"
                     class="form-control"
                     name="quantidade"
                     required
@@ -78,6 +79,8 @@
                 <div class="col-3">
                   <label>Valor Pago</label>
                   <input
+                    (change)="atualizaDesconto()"
+                    (keyup)="atualizaDesconto()"
                     [(ngModel)]="aquisicao.valorPago"
                     type="number"
                     class="form-control"
@@ -89,6 +92,7 @@
                 <div class="col-3">
                   <label>Desconto</label>
                   <input
+                    disabled
                     [(ngModel)]="aquisicao.desconto"
                     type="number"
                     class="form-control"

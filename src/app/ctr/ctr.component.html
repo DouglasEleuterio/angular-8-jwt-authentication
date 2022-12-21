@@ -29,102 +29,159 @@
           <!-- form start -->
           <div class="card-body">
             <div class="form-group">
-              <div class="row">
-                <div class="col-4">
-                  <label>Veículo</label>
-                  <select [(ngModel)]="veiculoSelecionado" id="veiculo"
-                          class="form-control select2" style="width: 100%;" (change)="vinculaVeiculo()">
-                    <option *ngFor="let veiculo of veiculos" [ngValue]="veiculo"> Placa: {{veiculo.placa}} |
-                      Modelo: {{veiculo.modelo}} | Marca: {{veiculo.marca}}</option>
-                  </select>
-                </div>
-                <div class="col-4">
-                  <label>Motorista</label>
-                  <select [(ngModel)]="motoristaSelecionado" id="motorista"
-                          class="form-control select2" style="width: 100%;" (change)="vinculaMotorista()">
-                    <option *ngFor="let motorista of motoristas" [ngValue]="motorista"> Placa: {{motorista.nome}} |
-                      Nome: {{motorista.nome}} | Telefone: {{motorista.telefone}}</option>
-                  </select>
-                </div>
-                <div class="col-4">
-                  <label>Transportador</label>
-                  <select [(ngModel)]="transportadorSelecionado" id="transportador"
-                          class="form-control select2" style="width: 100%;" (change)="vinculaTransportador()">
-                    <option *ngFor="let transp of transportadores" [ngValue]="transp"> Razão
-                      Social: {{transp.razaoSocial}} |
-                      CNPJ: {{transp.cnpj}}</option>
-                  </select>
-                </div>
-              </div>
-              <!--  Gerador - Destinatario -->
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-6">
-                  <label>Gerador</label>
-                  <select [(ngModel)]="geradorSelecionado" id="gerador"
-                          class="form-control select2" style="width: 100%;" (change)="vinculaGerador()">
-                    <option *ngFor="let gerador of geradores" [ngValue]="gerador">
-                      Nome: {{gerador.nome}} {{gerador.razaoSocial}} |
-                      Documento: {{gerador.cnpj}} {{gerador.cpf}}</option>
-                  </select>
-                </div>
-                <div class="col-6">
-                  <label>Destinatario</label>
-                  <select [(ngModel)]="destinatarioSelecionado" id="destinatario"
-                          class="form-control select2" style="width: 100%;" (change)="vinculaDestinatario()">
-                    <option *ngFor="let destinatario of destinatarios" [ngValue]="destinatario"> Razão
-                      Social: {{destinatario.razaoSocial}} |
-                      CNPJ: {{destinatario.cnpj}}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-6">
-                  <label>Tipo Descarte</label>
-                  <select [(ngModel)]="tipoDescarteSelecionado" id="descarte"
-                          class="form-control select2" style="width: 100%;" >
-                    <option *ngFor="let descarte of descartes" [ngValue]="descarte">
-                      {{descarte.nome}}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-3">
-                  <label>Forma Pagamento</label>
-                  <select [(ngModel)]="formaPagamentoSelecionado" id="formaPagamento"
-                          class="form-control select2" style="width: 100%;">
-                    <option *ngFor="let formaPagamento of formasPagamento" [ngValue]="formaPagamento">
-                      {{formaPagamento.nome}}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-3">
-                  <label>Valor</label>
-                  <input
-                    [(ngModel)]="valorPagamento"
-                    type="number"
-                    class="form-control"
-                    name="pagamento"
-                    required
-                    id="pagamento"
-                    placeholder="R$ 0.00">
-                </div>
-              </div>
+              <mat-tab-group animationDuration="0ms">
+                <mat-tab  label="Veículo">
+                     <div class="col-12">
+                      <label>Veículo</label>
+                      <select [(ngModel)]="veiculoSelecionado" id="veiculo"
+                              class="form-control select2" style="width: 100%;" (change)="vinculaVeiculo()">
+                        <option *ngFor="let veiculo of veiculos" [ngValue]="veiculo"> Placa: {{veiculo.placa}} |
+                          Modelo: {{veiculo.modelo}} | Marca: {{veiculo.marca}}</option>
+                      </select>
+                    </div>
+                    <div class="col-12">
+                      <label>Motorista</label>
+                      <select [(ngModel)]="motoristaSelecionado" id="motorista"
+                              class="form-control select2" style="width: 100%;" (change)="vinculaMotorista()">
+                        <option *ngFor="let motorista of motoristas" [ngValue]="motorista"> Placa: {{motorista.nome}} |
+                          Nome: {{motorista.nome}} | Telefone: {{motorista.telefone}}</option>
+                      </select>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Transportador">
+                  <div class="col-12">
+                    <label>Transportador</label>
+                    <select [(ngModel)]="transportadorSelecionado" id="transportador"
+                            class="form-control select2" style="width: 100%;" (change)="vinculaTransportador()">
+                      <option *ngFor="let transp of transportadores" [ngValue]="transp"> Razão
+                        Social: {{transp.razaoSocial}} |
+                        CNPJ: {{transp.cnpj}}</option>
+                    </select>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Gerador">
+                  <div class="col-12">
+                    <label>Gerador</label>
+                    <select [(ngModel)]="geradorSelecionado" id="gerador"
+                            class="form-control select2" style="width: 100%;" (change)="vinculaGerador()">
+                      <option *ngFor="let gerador of geradores" [ngValue]="gerador">
+                        Nome: {{gerador.nome}} {{gerador.razaoSocial}} |
+                        Documento: {{gerador.cnpj}} {{gerador.cpf}}</option>
+                    </select>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Destinatário">
+                  <div class="col-12">
+                    <label>Destinatario</label>
+                    <select [(ngModel)]="destinatarioSelecionado" id="destinatario"
+                            class="form-control select2" style="width: 100%;" (change)="vinculaDestinatario()">
+                      <option *ngFor="let destinatario of destinatarios" [ngValue]="destinatario"> Razão
+                        Social: {{destinatario.razaoSocial}} |
+                        CNPJ: {{destinatario.cnpj}}</option>
+                    </select>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Descarte">
+                  <div class="col-12">
+                    <label>Tipo Descarte</label>
+                    <select [(ngModel)]="tipoDescarteSelecionado" id="descarte"
+                            (change)="calcularValor()"
+                            class="form-control select2" style="width: 100%;">
+                      <option *ngFor="let descarte of descartes" [ngValue]="descarte">
+                        {{descarte.nome}}
+                      </option>
+                    </select>
+                  </div>
+
+                  <button [disabled]="tipoDescarteSelecionado == null" type="button" (click)="adicionarDescartes()"
+                          id="adicionaredescartebutton"
+                          class="btn btn-info fa-pull-right ">Adicionar Descarte
+                  </button>
+
+                  <!-- /.card-header -->
+                  <div class="col-12 table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th style="width: 10%; text-align: center">Excluir</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let tipoDescarte of ctr.tipoDescartes">
+                        <td> {{tipoDescarte.nome}}</td>
+                        <td>
+                          <button (click)="excluirTipoDescarte(tipoDescarte)" title="Excluir"
+                                  class="btn  btn-outline-danger"><i
+                            class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Pagamento">
+                  <div class="col-12">
+                    <label>Forma Pagamento</label>
+                    <select [(ngModel)]="formaPagamentoSelecionado" id="formaPagamento"
+                            class="form-control select2" style="width: 100%;">
+                      <option *ngFor="let formaPagamento of formasPagamento" [ngValue]="formaPagamento">
+                        {{formaPagamento.nome}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-12" *ngIf="formaPagamentoSelecionado.nome !== 'Combo'">
+                    <label>Valor</label>
+                    <input
+                      [(ngModel)]="valorPagamento"
+                      type="number"
+                      class="form-control"
+                      name="pagamento"
+                      required
+                      id="pagamento"
+                      placeholder="R$ 0.00">
+                  </div>
+                  <button [disabled]="formaPagamentoSelecionado.nome == null" type="button" (click)="adicionarPagamento()"
+                          id="adicionarpagamentobutton"
+                          class="btn btn-info fa-pull-right ">Adicionar Pagamento
+                  </button>
+
+                  <div class="col-12 table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th style="width: 10%; text-align: center">Excluir</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let pagamento of ctr.pagamentos">
+                        <td> {{pagamento.formaPagamento.nome}}</td>
+                        <td> {{pagamento.valor | currency:'BRL'}}</td>
+                        <td>
+                          <button (click)="excluirPagamento(pagamento)" title="Excluir" class="btn  btn-outline-danger"><i
+                            class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                    <div class="card-footer text-center">
+                      <span href="javascript:void(0)" class="uppercase">Valor Total: R$ {{valorTotalPagamentos()}}</span>
+                    </div>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+
             </div>
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            <button type="button" (click)="onSubmit()" class="btn btn-success fa-pull-left">Salvar CTR</button>
-            <button type="button" (click)="adicionarPagamento()" id="adicionarpagamentobutton"
-                    class="btn btn-info float-right">Adicionar Pagamento
-            </button>
-            <button type="button" (click)="adicionarDescartes()" id="adicionaredescartebutton"
-                    class="btn btn-info float-right">Adicionar Descarte
-            </button>
-            <button style="margin-right: 10px;" (click)="limpar()" type="button" class="btn btn-default float-right">Limpar</button>
-          </div>
+              <button (click)="limpar()" type="button" class="btn btn-warning ">Limpar</button>
+              <button type="button" (click)="onSubmit()" class="btn btn-success fa-pull-right ">Salvar CTR</button>
+            </div>
         </div>
         <!-- /.card -->
       </div>
@@ -133,72 +190,4 @@
     <!-- /.row -->
   </div><!-- /.container-fluid -->
 </section>
-
-<section>
-  <div class="card card-success">
-    <div class="card-header">
-      <h3 class="card-title">Lista</h3>
-    </div>
-    <!-- /.card-header -->
-    <div class="row">
-      <div class="col-12 table-responsive">
-        <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Valor</th>
-          <th style="width: 10%; text-align: center">Excluir</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let pagamento of ctr.pagamentos">
-          <td> {{pagamento.formaPagamento.nome}}</td>
-          <td> {{pagamento.valor | currency:'BRL'}}</td>
-          <td>
-            <button (click)="excluirPagamento(pagamento)" title="Excluir" class="btn  btn-outline-danger"><i
-              class="fas fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      </div>
-    </div>
-    <div class="card-footer text-center">
-      <span href="javascript:void(0)" class="uppercase">Valor Total: R$ {{valorTotalPagamentos()}}</span>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="card card-success">
-    <div class="card-header">
-      <h3 class="card-title">Lista</h3>
-    </div>
-    <!-- /.card-header -->
-    <div class="row">
-      <div class="col-12 table-responsive">
-        <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>Nome</th>
-          <th style="width: 10%; text-align: center">Excluir</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let tipoDescarte of ctr.tipoDescartes">
-          <td> {{tipoDescarte.nome}}</td>
-          <td>
-            <button (click)="excluirTipoDescarte(tipoDescarte)" title="Excluir" class="btn  btn-outline-danger"><i
-              class="fas fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      </div>
-    </div>
-  </div>
-</section>
-
 

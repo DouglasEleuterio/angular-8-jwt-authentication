@@ -37,6 +37,7 @@ import { ComboComponent } from './combo/combo.component';
 import { ComboHistoricoComponent } from './combo-historico/combo-historico.component';
 import {NgbAlertModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { AquisicaoComponent } from './aquisicao/aquisicao.component';
+import {MatTabsModule} from "@angular/material/tabs";
 
 /**
  * Custom angular notifier options
@@ -119,7 +120,8 @@ registerLocaleData(ptBr);
     NgbPaginationModule,
     NgbAlertModule,
     BrowserAnimationsModule,
-    NotifierModule.withConfig(customNotifierOptions)
+    NotifierModule.withConfig(customNotifierOptions),
+    MatTabsModule
   ],
   providers: [
     authInterceptorProviders,

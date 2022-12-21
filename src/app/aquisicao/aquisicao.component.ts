@@ -90,12 +90,32 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
 
   carregaFormaPagamento() {
     this.formaPagamentoService.get().subscribe( data => {
-      this.formasPagamento = data.filter( forma => forma.ativo);
+      data = this.limparFormasPagamento(data);
       this.formasPagamento = data;
     });
   }
 
   limpar() {
     alert('Funcionalidade não implementada');
+  }
+
+  private limparFormasPagamento(data: any) {
+    data = data.filter( forma => forma.ativo);
+    data = data.filter( forma => forma.nome !== 'Combo');
+    return data;
+  }
+
+  calculaValorPago() {
+    if (this.aquisicao.quantidadeAdquirida !== undefined ? this.aquisicao.quantidadeAdquirida : 0 &&
+        this.aquisicao.combo.tipoDescarte !== undefined) {
+        this.aquisicao.valorPago = this.aquisicao.quantidadeAdquirida * this.aquisicao.combo.tipoDescarte.valor;
+    }
+    this.atualizaDesconto();
+  }
+
+  public atualizaDesconto() {
+    if (this.aquisicao.desconto !== undefined) {
+      this.aquisicao.desconto = this.aquisicao.valorPago - (this.aquisicao.quantidadeAdquirida * this.aquisicao.combo.tipoDescarte.valor);
+    }
   }
 }

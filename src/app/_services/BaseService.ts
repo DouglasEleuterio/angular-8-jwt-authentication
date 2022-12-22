@@ -15,6 +15,10 @@ export class BaseService<T> {
     return this.http.get<T>(environment.apiUrl + resource + '/all', {});
   }
 
+  getWithParams(resource: string, params: any): Observable<any> {
+    return this.http.get<T>(environment.apiUrl + resource + '/all', {params});
+  }
+
   find(resource: string, id: string): Observable<any> {
     return this.http.get<T>(environment.apiUrl + resource + '/' + id,  {});
   }

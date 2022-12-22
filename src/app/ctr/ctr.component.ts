@@ -27,6 +27,15 @@ import {MotoristaModel} from '../model/motorista-model';
 })
 export class CtrComponent implements OnInit {
 
+  //Veículos
+  currentIndex = -1;
+  placa = '';
+  modelo = '';
+  currentTutorial = null;
+  page: number;
+  count: number;
+  pageSize = 2;
+
   veiculoService: VeiculoService;
   transportadorService: TransportadorService;
   geradorService: GeradorService;
@@ -117,8 +126,19 @@ export class CtrComponent implements OnInit {
   }
 
   carregarVeiculos() {
-    this.veiculoService.get().subscribe(data => {
-        this.veiculos = data;
+    let params = {};
+    if (this.placa) {
+      params = {placa: this.placa};
+    }
+    if (this.modelo) {
+      params = {modelo: this.modelo};
+    }
+    if (this.page) {
+      params = {page: this.page - 1};
+    }
+    this.veiculoService.get(params).subscribe(data => {
+        this.veiculos = data.content;
+        this.count = data.totalElements;
     });
   }
 
@@ -198,9 +218,11 @@ export class CtrComponent implements OnInit {
     this.router.navigate([route, id]);
   }
 
-  vinculaVeiculo() {
+  vinculaVeiculo(veiculo: any, i: number) {
+    this.currentTutorial = veiculo;
+    this.currentIndex = i;
+    this.veiculoSelecionado = veiculo;
     this.ctr.veiculo = this.veiculoSelecionado;
-    console.log(this.ctr);
   }
 
   vinculaTransportador() {
@@ -297,5 +319,10 @@ export class CtrComponent implements OnInit {
     if (this.tipoDescarteSelecionado !== undefined && this.tipoDescarteSelecionado.id !== undefined) {
       this.valorPagamento = this.tipoDescarteSelecionado.valor;
     }
+  }
+
+  handlePageChange(event) {
+    this.page = event;
+    this.carregarVeiculos();
   }
 }

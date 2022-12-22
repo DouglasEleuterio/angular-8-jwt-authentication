@@ -37,6 +37,8 @@ import { ComboComponent } from './combo/combo.component';
 import { ComboHistoricoComponent } from './combo-historico/combo-historico.component';
 import {NgbAlertModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { AquisicaoComponent } from './aquisicao/aquisicao.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { TableComponent } from './table/table.component';
 import {MatTabsModule} from "@angular/material/tabs";
 
 /**
@@ -108,7 +110,8 @@ registerLocaleData(ptBr);
     MotoristaComponent,
     ComboComponent,
     ComboHistoricoComponent,
-    AquisicaoComponent
+    AquisicaoComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +124,8 @@ registerLocaleData(ptBr);
     NgbAlertModule,
     BrowserAnimationsModule,
     NotifierModule.withConfig(customNotifierOptions),
-    MatTabsModule
+    NgxPaginationModule,
+    MatTabsModule,
   ],
   providers: [
     authInterceptorProviders,

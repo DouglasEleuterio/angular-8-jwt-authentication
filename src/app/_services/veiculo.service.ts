@@ -33,8 +33,8 @@ export class VeiculoService extends BaseService<VeiculoModel> {
     }, VEICULO_RESOURCE);
   }
 
-  get(): Observable<any> {
-    return super.get(VEICULO_RESOURCE);
+  get(params: any): Observable<any> {
+    return super.getWithParams(VEICULO_RESOURCE, params);
   }
 
   delete(id: string): Observable<any> {

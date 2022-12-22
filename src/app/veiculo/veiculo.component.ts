@@ -26,6 +26,9 @@ export class VeiculoComponent implements OnInit {
   transportadorSelecionado: TransportadorModel;
   entities: VeiculoModel[];
   veiculoExcluir = new VeiculoModel();
+  placa: any;
+  modelo: any;
+  page: any;
 
   constructor(private veiculoService: VeiculoService, notifier: NotifierService, transportadorService: TransportadorService) {
     this.notifier = notifier;
@@ -42,9 +45,19 @@ export class VeiculoComponent implements OnInit {
   }
 
   carregarVeiculos() {
-    this.veiculoService.get().subscribe(
+    let params = {};
+    if (this.placa) {
+      params = {placa: this.placa};
+    }
+    if (this.modelo) {
+      params = {modelo: this.modelo};
+    }
+    if (this.page) {
+      params = {page: this.page};
+    }
+    this.veiculoService.get(params).subscribe(
       data => {
-        this.entities = data;
+        this.entities = data.content;
       }, error => {}
     );
   }
@@ -53,7 +66,7 @@ export class VeiculoComponent implements OnInit {
     this.veiculo.transportador = this.transportadorSelecionado;
     this.veiculoService.save(this.veiculo).subscribe(
       data => {
-        this.notifier.notify('success', 'Transportadora: ' + data.razaoSocial + ' criada!');
+        this.notifier.notify('success', 'Veículo: ' + data.modelo + ' cadastrado!');
         window.location.reload();
       }, err => {
         this.notifier.notify('error', err.error.message );

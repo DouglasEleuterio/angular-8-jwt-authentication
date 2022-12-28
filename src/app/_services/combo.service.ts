@@ -18,8 +18,8 @@ export class ComboService extends BaseService<ComboModel> {
     this.comboModel = new ComboModel();
   }
 
-  get(): Observable<any> {
-    return super.get(COMBO_RESOURCE);
+  getResource(): string {
+    return COMBO_RESOURCE;
   }
 
 }

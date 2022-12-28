@@ -28,13 +28,6 @@ export class GeradorComponent extends BaseComponent implements OnInit {
     this.obtemValor();
   }
 
-  obtemValor() {
-    this.geradorService.get().subscribe(
-      data => {
-        this.entities = data;
-      }, err => {});
-  }
-
   createForm(model: GeradorModel) {
     this.form = new FormGroup({
       id: new FormControl(model.id),
@@ -82,5 +75,9 @@ export class GeradorComponent extends BaseComponent implements OnInit {
 
   carregarEntidades() {
     this.obtemValor();
+  }
+
+  getService(): any {
+    return this.geradorService;
   }
 }

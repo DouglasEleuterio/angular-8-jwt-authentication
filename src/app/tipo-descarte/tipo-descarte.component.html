@@ -83,11 +83,9 @@
               </div>
             </div>
             <!-- /.card-body -->
-
           </form>
         </div>
         <!-- /.card -->
-
         <!--        Tabela  -->
         <div class="card card-success">
           <div class="card-header">
@@ -107,7 +105,7 @@
                 <div class="col-sm-12 col-md-6">
                   <label for="nomeFiltro">Nome</label>
                   <input
-                    (change)="filter()"
+                    (change)="carregarEntidades()"
                     formControlName="nomeFilter"
                     type="text"
                     class="form-control"
@@ -119,7 +117,7 @@
                   <label for="statusFiltro">Status</label>
                   <select
                     [value]="true"
-                    (change)="filter()"
+                    (change)="carregarEntidades()"
                     required
                     formControlName="statusFilter"
                     type="tex"
@@ -146,7 +144,7 @@
                     <tbody>
                     <tr *ngFor="let entity of entities | paginate: {
                                 itemsPerPage: 5,
-                                currentPage: page,
+                                currentPage: currentPage,
                                 totalItems: count};">
                       <td> {{entity.nome}}</td>
                       <td> {{entity.valor | currency:'BRL'}}</td>
@@ -167,7 +165,7 @@
                         previousLabel="Anterior"
                         nextLabel="Próximo"
                         responsive="true"
-                        (pageChange)="handlePageChange($event)">
+                        (pageChange)="handlePageChange(getParams($event))">
 
                       </pagination-controls>
                     </div>

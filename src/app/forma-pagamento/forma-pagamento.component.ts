@@ -3,14 +3,14 @@ import {FormaPagamentoService} from '../_services/forma-pagamento.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FormaPagamentoModel} from '../model/FormaPagamentoModel';
 import {NotifierService} from 'angular-notifier';
-import {TipoDescarteModel} from "../model/tipo-descarte-model";
+import {BaseComponent} from '../commons/BaseComponent';
 
 @Component({
   selector: 'app-forma-pagamento',
   templateUrl: './forma-pagamento.component.html',
   styleUrls: ['./forma-pagamento.component.css']
 })
-export class FormaPagamentoComponent implements OnInit {
+export class FormaPagamentoComponent extends BaseComponent implements OnInit {
 
   @ViewChild('closebutton', {static: false}) closebutton;
 
@@ -18,15 +18,11 @@ export class FormaPagamentoComponent implements OnInit {
   form: FormGroup;
   errorMessage = '';
   formaPagamento = new FormaPagamentoModel();
-
-  formaPagamentoService: FormaPagamentoService;
-  private readonly notifier: NotifierService;
   private isEdicao: boolean;
 
-  constructor(formaPagamentoService: FormaPagamentoService,
+  constructor(private formaPagamentoService: FormaPagamentoService,
               notifier: NotifierService) {
-    this.formaPagamentoService = formaPagamentoService;
-    this.notifier = notifier;
+    super(notifier);
   }
 
   ngOnInit() {
@@ -40,15 +36,6 @@ export class FormaPagamentoComponent implements OnInit {
       nome: new FormControl(model.nome),
       ativo: new FormControl(model.ativo)
     });
-  }
-
-  obtemValor() {
-    this.formaPagamentoService.get().subscribe(
-      data => {
-        this.entities = data;
-      }, err => {
-        this.errorMessage = err.error.message;
-      });
   }
 
   onSubmit() {
@@ -89,4 +76,15 @@ export class FormaPagamentoComponent implements OnInit {
   editar(entity: FormaPagamentoModel): void {
     this.isEdicao = true;
     this.createForm(entity);
-  }}
+  }
+
+  carregarEntidades(event?: any) {
+    this.params = {nome: this.filterGroup.value.nomeFilter, ativo: this.filterGroup.value.statusFilter,
+      page: event ? event.page - 1 : 0 };
+    this.obtemValor(this.params);
+  }
+
+  getService(): any {
+    return this.formaPagamentoService;
+  }
+}

@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {TipoDescarteService} from '../_services/tipo-descarte.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import {TipoDescarteModel} from '../model/tipo-descarte-model';
-import {Customer} from '../model/Customer';
 import {NotifierService} from 'angular-notifier';
 import {BaseComponent} from '../commons/BaseComponent';
 
@@ -11,23 +10,18 @@ import {BaseComponent} from '../commons/BaseComponent';
   templateUrl: './tipo-descarte.component.html',
   styleUrls: ['./tipo-descarte.component.css']
 })
-export class TipoDescarteComponent implements OnInit {
+export class TipoDescarteComponent extends BaseComponent implements OnInit {
 
   @ViewChild('closebutton', {static: false}) closebutton;
 
   entities: TipoDescarteModel[];
   form: FormGroup;
   tipoDescarteExcluir = new TipoDescarteModel() ;
-  private readonly notifier: NotifierService;
   isEdicao = false;
-  filterGroup: any;
-  page: number;
-  count: number;
-
 
   constructor(private tipoDescarteService: TipoDescarteService,
               notifier: NotifierService) {
-    this.notifier = notifier;
+    super(notifier);
   }
 
   ngOnInit() {
@@ -85,18 +79,6 @@ export class TipoDescarteComponent implements OnInit {
     );
   }
 
-  reloadPage() {
-    window.location.reload();
-  }
-
-  obtemValor(params?: any) {
-    this.tipoDescarteService.get(params).subscribe(
-      data => {
-        this.entities = data.content;
-        this.count = data.totalElements;
-      }, err => {});
-  }
-
   alterarSituacao(entity: TipoDescarteModel) {
     this.form.value.id = entity.id;
     this.form.value.ativo = (!entity.ativo);
@@ -119,14 +101,17 @@ export class TipoDescarteComponent implements OnInit {
   }
 
   filter() {
-    let params = {};
-    params = {nome: this.filterGroup.value.nomeFilter, ativo: this.filterGroup.value.statusFilter, params: this.page - 1};
-    this.obtemValor(params);
+    this.params = {nome: this.filterGroup.value.nomeFilter, ativo: this.filterGroup.value.statusFilter};
+    this.obtemValor(this.params);
   }
 
-  handlePageChange(event) {
-    this.page = event;
-    this.obtemValor({params: this.page - 1});
+  carregarEntidades(event?: any) {
+    this.params = {nome: this.filterGroup.value.nomeFilter, ativo: this.filterGroup.value.statusFilter,
+    page: event ? event.page - 1 : 0 };
+    this.obtemValor(this.params);
   }
 
+  getService(): any {
+    return this.tipoDescarteService;
+  }
 }

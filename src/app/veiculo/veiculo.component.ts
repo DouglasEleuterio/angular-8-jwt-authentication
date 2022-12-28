@@ -5,6 +5,7 @@ import {VeiculoService} from '../_services/veiculo.service';
 import {VeiculoModel} from '../model/veiculo-model';
 import {NotifierService} from 'angular-notifier';
 import {TransportadorService} from '../_services/transportador.service';
+import {VeiculoParams} from "../model/params/veiculo-params";
 
 @Component({
   selector: 'app-veiculo',
@@ -45,17 +46,17 @@ export class VeiculoComponent implements OnInit {
   }
 
   carregarVeiculos() {
-    let params = {};
+    const veiculoParams = new VeiculoParams();
     if (this.placa) {
-      params = {placa: this.placa};
+      veiculoParams.placa = this.placa;
     }
     if (this.modelo) {
-      params = {modelo: this.modelo};
+      veiculoParams.modelo = this.modelo;
     }
     if (this.page) {
-      params = {page: this.page};
+      veiculoParams.page = this.page;
     }
-    this.veiculoService.get(params).subscribe(
+    this.veiculoService.get().subscribe(
       data => {
         this.entities = data.content;
       }, error => {}

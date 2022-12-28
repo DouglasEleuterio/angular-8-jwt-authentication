@@ -31,7 +31,7 @@ export class FormaPagamentoService {
     }, httpOptions);
   }
 
-  get(): Observable<any> {
-      return this.http.get<FormaPagamentoModel>(environment.apiUrl + FORMA_PAGAMENTO_RESOURCE + '/all', {});
+  get(params?: any): Observable<any> {
+      return this.http.get<FormaPagamentoModel>(environment.apiUrl + FORMA_PAGAMENTO_RESOURCE + '/all', {params});
   }
 }

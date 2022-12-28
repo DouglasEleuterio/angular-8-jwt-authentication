@@ -19,8 +19,8 @@ export class DestinatarioService extends BaseService<GeradorModel> {
     this.destinatario = new DestinatarioModel();
   }
 
-  get(): Observable<any> {
-    return super.get(DESTINATARIO_RESOURCE);
+  getResource(): string {
+    return DESTINATARIO_RESOURCE;
   }
 
 }

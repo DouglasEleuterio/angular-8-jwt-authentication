@@ -47,7 +47,7 @@ export class TableComponent implements OnInit {
 
   retrieveTutorials() {
     const params = this.getRequestParams(this.title, this.page, this.pageSize);
-    this.veiculoService.get(params)
+    this.veiculoService.get()
       .subscribe(
         response => {
           this.entities = response;

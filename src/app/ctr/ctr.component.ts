@@ -135,7 +135,7 @@ export class CtrComponent implements OnInit {
     if (this.page) {
       params = {page: this.page - 1};
     }
-    this.veiculoService.get(params).subscribe(data => {
+    this.veiculoService.get().subscribe(data => {
         this.veiculos = data.content;
         this.count = data.totalElements;
     });

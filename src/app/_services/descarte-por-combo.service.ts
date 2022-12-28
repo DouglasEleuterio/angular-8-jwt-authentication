@@ -18,4 +18,8 @@ export class DescartePorComboService extends BaseService<DescartePorComboModel> 
   find(id: string): Observable<any> {
     return super.find(DESCARTE_POR_COMBO_RESOURCE + '/combo-id',  id);
   }
+
+  getResource(): string {
+    return DESCARTE_POR_COMBO_RESOURCE;
+  }
 }

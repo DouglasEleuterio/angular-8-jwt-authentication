@@ -74,13 +74,6 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
     this.transportadorService.endereco.observacao = this.form.value.observacao;
   }
 
-  obtemValor() {
-    this.transportadorService.get().subscribe(
-      data => {
-        this.entities = data;
-      }, err => {});
-  }
-
   editar(entity: TransportadorModel): void {
     this.isEdicao = true;
     this.transportador = entity;
@@ -110,5 +103,9 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
 
   carregarEntidades() {
     this.obtemValor();
+  }
+
+  getService(): any {
+    return this.transportadorService;
   }
 }

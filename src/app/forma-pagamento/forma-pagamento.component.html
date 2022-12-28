@@ -24,45 +24,52 @@
         <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title">Cadastro</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-toggle="collapse" data-target="#body" aria-expanded="true"
+                      aria-controls="body" data-card-widget="collapse">
+                <i class="icon-action fa fa-chevron-down"></i>
+              </button>
+            </div>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
           <form [formGroup]="form"
                 (ngSubmit)="onSubmit()"
           >
-            <div class="card-body">
-              <div class="list row" style="padding-top: 15px">
-                <div class="col-sm-12 col-md-6">
-                  <label for="nome">Nome</label>
-                  <input
-                    formControlName="nome"
-                    type="text"
-                    id="nome"
-                    class="form-control"
-                    name="nome"
-                    required
-                    placeholder="Nome"
-                  >
+            <div class="collapse" id="body">
+              <div class="card-body">
+                <div class="list row" style="padding-top: 15px">
+                  <div class="col-sm-12 col-md-6">
+                    <label for="nome">Nome</label>
+                    <input
+                      formControlName="nome"
+                      type="text"
+                      id="nome"
+                      class="form-control"
+                      name="nome"
+                      required
+                      placeholder="Nome"
+                    >
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <label for="status">Status</label>
+                    <select
+                      required
+                      formControlName="ativo"
+                      type="tex"
+                      class="form-control"
+                      id="status">
+                      <option value="true">Ativo</option>
+                      <option value="false">Inativo</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="col-sm-12 col-md-6">
-                  <label for="status">Status</label>
-                  <select
-                    required
-                    formControlName="ativo"
-                    type="tex"
-                    class="form-control"
-                    id="status">
-                    <option value="true">Ativo</option>
-                    <option value="false">Inativo</option>
-                  </select>
-                </div>
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary fa-pull-right">Submit</button>
               </div>
             </div>
             <!-- /.card-body -->
-
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary fa-pull-right">Submit</button>
-            </div>
           </form>
         </div>
         <!-- /.card -->
@@ -83,7 +90,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let entity of entities">
+                <tr *ngFor="let entity of entities | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: page,
+                                totalItems: count};">
                   <td style="height: 15px"> {{entity.nome}}</td>
                   <td>
                     <div class="form-group">
@@ -99,6 +109,15 @@
                       class="fas fa-edit"></i></button>
                   </td>
                 </tr>
+                <div class="col-12">
+                  <pagination-controls
+                    previousLabel="Anterior"
+                    nextLabel="Próximo"
+                    responsive="true"
+                    (pageChange)="handlePageChange(getParams($event))">
+
+                  </pagination-controls>
+                </div>
                 </tbody>
               </table>
             </div>

@@ -19,10 +19,6 @@ export class MotoristaService extends BaseService<GeradorModel> {
     this.motorista = new MotoristaModel();
   }
 
-  get(): Observable<any> {
-    return super.get(MOTORISTA_RESOURCE);
-  }
-
   save(motorista): Observable<any> {
     return super.save({
       id: motorista.id,
@@ -30,5 +26,9 @@ export class MotoristaService extends BaseService<GeradorModel> {
       telefone: motorista.telefone,
       cnh: motorista.cnh
     }, MOTORISTA_RESOURCE);
+  }
+
+  getResource(): string {
+    return MOTORISTA_RESOURCE;
   }
 }

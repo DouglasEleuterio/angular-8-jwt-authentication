@@ -2,41 +2,43 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment.prod';
 
-export class BaseService<T> {
+export abstract class BaseService<T> {
 
-  constructor(private http: HttpClient) {
+  constructor(protected http: HttpClient) {
   }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  get(resource: string): Observable<any> {
-    return this.http.get<T>(environment.apiUrl + resource + '/all', {});
+  get(): Observable<any> {
+    return this.http.get<T>(environment.apiUrl + this.getResource() + '/all', {});
   }
 
-  getWithParams(resource: string, params: any): Observable<any> {
-    return this.http.get<T>(environment.apiUrl + resource + '/all', {params});
+  getWithParams(params: any): Observable<any> {
+    return this.http.get<T>(environment.apiUrl + this.getResource() + '/all', {params});
   }
 
   find(resource: string, id: string): Observable<any> {
-    return this.http.get<T>(environment.apiUrl + resource + '/' + id,  {});
+    return this.http.get<T>(environment.apiUrl + this.getResource() + '/' + id,  {});
   }
 
   save(entity, resource): Observable<any> {
-    return this.http.post(environment.apiUrl + resource, entity, this.httpOptions);
+    return this.http.post(environment.apiUrl + this.getResource(), entity, this.httpOptions);
   }
 
   delete(id: string, resource): Observable<any> {
-    return this.http.delete(environment.apiUrl + resource + '/' + id);
+    return this.http.delete(environment.apiUrl + this.getResource() + '/' + id);
   }
 
   getSpecifiedPath(resource: string, path: string): Observable<any> {
-    return this.http.get<T>(environment.apiUrl + resource + path, {});
+    return this.http.get<T>(environment.apiUrl + this.getResource() + path, {});
   }
 
   getSpecifiedPathWithId(resource: string, path: string, id: string): Observable<any> {
-    return this.http.get<T>(environment.apiUrl + resource + path + id, {});
+    return this.http.get<T>(environment.apiUrl + this.getResource() + path + id, {});
   }
+
+  abstract getResource(): string;
 
 }

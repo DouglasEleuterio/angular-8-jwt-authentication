@@ -121,4 +121,8 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
 
   carregarEntidades() {
   }
+
+  getService(): any {
+    return this.aquisicaoService;
+  }
 }

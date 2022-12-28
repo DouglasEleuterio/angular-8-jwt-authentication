@@ -1,13 +1,18 @@
 import {FormGroup} from '@angular/forms';
 import {NotifierService} from 'angular-notifier';
 import {ViewChild} from '@angular/core';
+import {Params} from '../model/params';
 
 export abstract class BaseComponent {
 
   @ViewChild('closebutton', {static: false}) closebutton;
 
-  page = event;
   count: number;
+  page: number;
+  entities: any[];
+  currentPage: number;
+  protected params = {};
+  filterGroup: any;
 
   form: FormGroup;
   notifier: NotifierService;
@@ -20,10 +25,25 @@ export abstract class BaseComponent {
     this.notifier = notifier;
   }
 
-  handlePageChange(event) {
-    this.page = event;
-    this.carregarEntidades();
+  obtemValor(params?: any) {
+    debugger;
+    this.getService().getWithParams(params).subscribe(
+      data => {
+        this.entities = data.content;
+        this.count = data.totalElements;
+        this.currentPage = data.pageable.pageNumber + 1;
+      }, err => {});
   }
 
-  abstract carregarEntidades();
+  handlePageChange(event) {
+    this.carregarEntidades(event);
+  }
+
+  getParams(event): Params {
+    this.params = {page: event};
+    return this.params as Params;
+  }
+
+  abstract carregarEntidades(event);
+  abstract getService(): any;
 }

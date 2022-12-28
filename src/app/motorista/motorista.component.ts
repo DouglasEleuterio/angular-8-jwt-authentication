@@ -69,4 +69,8 @@ export class MotoristaComponent extends BaseComponent implements OnInit {
   carregarEntidades() {
     this.carregarMotoristas();
   }
+
+  getService(): any {
+    return this.motoristaService;
+  }
 }

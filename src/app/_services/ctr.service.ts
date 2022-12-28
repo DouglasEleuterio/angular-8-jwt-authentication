@@ -19,10 +19,6 @@ export class CtrService extends BaseService<GeradorModel> {
     this.ctrModel = new CtrModel();
   }
 
-  get(): Observable<any> {
-    return super.get(CTR_RESOURCE);
-  }
-
   find(id: string): Observable<any> {
     return super.find(CTR_RESOURCE, id);
   }
@@ -38,5 +34,9 @@ export class CtrService extends BaseService<GeradorModel> {
       tipoDescartes: ctr.tipoDescartes,
       motorista: ctr.motorista
     }, CTR_RESOURCE);
+  }
+
+  getResource(): string {
+    return CTR_RESOURCE;
   }
 }

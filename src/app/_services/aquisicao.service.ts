@@ -26,4 +26,8 @@ export class AquisicaoService extends BaseService<AquisicaoModel> {
      return super.save(entity, AQUISICAO_RESOURCE);
   }
 
+  getResource(): string {
+    return AQUISICAO_RESOURCE;
+  }
+
 }

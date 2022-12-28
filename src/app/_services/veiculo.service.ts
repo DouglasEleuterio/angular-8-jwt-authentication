@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {TransportadorModel} from '../model/transportador-model';
 import {VeiculoModel} from '../model/veiculo-model';
 import {BaseService} from './BaseService';
+import {Params} from '../model/params';
 
 const VEICULO_RESOURCE = 'veiculo';
 
@@ -33,11 +34,11 @@ export class VeiculoService extends BaseService<VeiculoModel> {
     }, VEICULO_RESOURCE);
   }
 
-  get(params: any): Observable<any> {
-    return super.getWithParams(VEICULO_RESOURCE, params);
-  }
-
   delete(id: string): Observable<any> {
     return super.delete(id, VEICULO_RESOURCE);
+  }
+
+  getResource(): string {
+    return VEICULO_RESOURCE;
   }
 }

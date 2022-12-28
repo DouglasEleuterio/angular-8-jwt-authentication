@@ -29,4 +29,8 @@ export class DashboardService extends BaseService<any> {
   getPagamentoTransportador() {
     return super.getSpecifiedPath(DASHBOARD_RESOURCE , '/pagamentos-transportadora');
   }
+
+  getResource(): string {
+    return DASHBOARD_RESOURCE;
+  }
 }

@@ -18,10 +18,6 @@ export class GeradorService extends BaseService<GeradorModel> {
     this.gerador = new GeradorModel();
   }
 
-    get(): Observable<any> {
-      return super.get(TRANSPORTADOR_RESOURCE);
-    }
-
     save(gerador): Observable<any> {
       return super.save({
         id: gerador.id,
@@ -38,4 +34,8 @@ export class GeradorService extends BaseService<GeradorModel> {
     delete(id: string): Observable<any> {
       return super.delete(id, TRANSPORTADOR_RESOURCE);
     }
+
+  getResource(): string {
+    return TRANSPORTADOR_RESOURCE;
+  }
 }

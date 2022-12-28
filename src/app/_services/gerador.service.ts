@@ -31,10 +31,6 @@ export class GeradorService extends BaseService<GeradorModel> {
       }, TRANSPORTADOR_RESOURCE);
     }
 
-    delete(id: string): Observable<any> {
-      return super.delete(id, TRANSPORTADOR_RESOURCE);
-    }
-
   getResource(): string {
     return TRANSPORTADOR_RESOURCE;
   }

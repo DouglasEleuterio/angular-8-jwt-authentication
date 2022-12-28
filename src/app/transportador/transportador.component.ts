@@ -84,7 +84,7 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
   }
 
   excluir() {
-    this.transportadorService.delete(this.transpExcluir).subscribe(
+    this.transportadorService.delete(this.transpExcluir.id).subscribe(
       data => {
         this.closebutton.nativeElement.click();
         this.notifier.notify('success', 'Transportadora: ' + this.transportador.nome + ' deletada' );

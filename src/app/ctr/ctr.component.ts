@@ -143,13 +143,13 @@ export class CtrComponent implements OnInit {
 
   carregarTransportadores() {
     this.transportadorService.get().subscribe( transportadores => {
-      this.transportadores = transportadores;
+      this.transportadores = transportadores.content;
     });
   }
 
   carregarGerador() {
     this.geradorService.get().subscribe( data => {
-      this.geradores = data;
+      this.geradores = data.content;
     });
   }
 
@@ -173,8 +173,7 @@ export class CtrComponent implements OnInit {
 
   carregaFormaPagamento() {
     this.formaPagamentoService.get().subscribe( data => {
-      this.formasPagamento = data.filter( forma => forma.ativo);
-      this.formasPagamento = data;
+      this.formasPagamento = data.content;
     });
   }
 

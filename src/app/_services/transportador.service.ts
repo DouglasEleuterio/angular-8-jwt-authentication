@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment.prod';
 import {EnderecoModel} from '../model/endereco-model';
 import {TransportadorModel} from '../model/transportador-model';
+import {BaseService} from "./BaseService";
 
 const TRANSPORTADOR_RESOURCE = 'transportador';
 
@@ -15,11 +16,12 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class TransportadorService {
+export class TransportadorService extends BaseService<TransportadorModel> {
 
   endereco: EnderecoModel;
 
-  constructor(private http: HttpClient) {
+  constructor(http: HttpClient) {
+    super(http);
     this.endereco = new EnderecoModel();
   }
 
@@ -39,7 +41,7 @@ export class TransportadorService {
     return this.http.get<TransportadorModel>(environment.apiUrl + TRANSPORTADOR_RESOURCE + '/all', {});
   }
 
-  delete(transportador: TransportadorModel): Observable<any> {
-    return this.http.delete(environment.apiUrl + TRANSPORTADOR_RESOURCE + '/' + transportador.id);
+  getResource(): string {
+    return TRANSPORTADOR_RESOURCE;
   }
 }

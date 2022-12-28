@@ -27,7 +27,7 @@ export abstract class BaseService<T> {
     return this.http.post(environment.apiUrl + this.getResource(), entity, this.httpOptions);
   }
 
-  delete(id: string, resource): Observable<any> {
+  delete(id: string): Observable<any> {
     return this.http.delete(environment.apiUrl + this.getResource() + '/' + id);
   }
 

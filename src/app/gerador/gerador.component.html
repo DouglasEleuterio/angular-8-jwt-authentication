@@ -305,7 +305,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let entity of entities">
+        <tr *ngFor="let entity of entities | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: currentPage,
+                                totalItems: count};">
           <td> {{entity.nome}} {{entity.razaoSocial}}</td>
           <td> Pessoa {{entity.cnpj ? 'Juridica' : 'Fisica'}}</td>
           <td> {{entity.cpf}} {{entity.cnpj}}</td>

@@ -34,10 +34,6 @@ export class VeiculoService extends BaseService<VeiculoModel> {
     }, VEICULO_RESOURCE);
   }
 
-  delete(id: string): Observable<any> {
-    return super.delete(id, VEICULO_RESOURCE);
-  }
-
   getResource(): string {
     return VEICULO_RESOURCE;
   }

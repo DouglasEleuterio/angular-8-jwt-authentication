@@ -26,7 +26,6 @@ export abstract class BaseComponent {
   }
 
   obtemValor(params?: any) {
-    debugger;
     this.getService().getWithParams(params).subscribe(
       data => {
         this.entities = data.content;

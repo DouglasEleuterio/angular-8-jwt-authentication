@@ -1,26 +1,23 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormControlName, FormGroup, Validators} from '@angular/forms';
 import {TransportadorModel} from '../model/transportador-model';
 import {VeiculoService} from '../_services/veiculo.service';
 import {VeiculoModel} from '../model/veiculo-model';
 import {NotifierService} from 'angular-notifier';
 import {TransportadorService} from '../_services/transportador.service';
-import {VeiculoParams} from "../model/params/veiculo-params";
+import {BaseComponent} from '../commons/BaseComponent';
 
 @Component({
   selector: 'app-veiculo',
   templateUrl: './veiculo.component.html',
   styleUrls: ['./veiculo.component.css']
 })
-export class VeiculoComponent implements OnInit {
+export class VeiculoComponent extends BaseComponent implements OnInit {
 
   @ViewChild('closebutton', {static: false}) closebutton;
 
-  transportadorService: TransportadorService;
-
   form: FormGroup;
   veiculo = new  VeiculoModel();
-  private readonly notifier: NotifierService;
   transportadores: TransportadorModel[];
   transportador = new TransportadorModel();
   isEdicao: boolean;
@@ -31,10 +28,10 @@ export class VeiculoComponent implements OnInit {
   modelo: any;
   page: any;
 
-  constructor(private veiculoService: VeiculoService, notifier: NotifierService, transportadorService: TransportadorService) {
-    this.notifier = notifier;
-    this.createForm(new VeiculoModel());
-    this.transportadorService = transportadorService;
+
+  constructor(private veiculoService: VeiculoService,
+              notifier: NotifierService, private transportadorService: TransportadorService) {
+    super(notifier);
   }
 
   ngOnInit() {
@@ -42,25 +39,16 @@ export class VeiculoComponent implements OnInit {
     this.transportador = new TransportadorModel();
     this.createForm(new VeiculoModel());
     this.carregarTransportadores();
-    this.carregarVeiculos();
+    this.obtemValor();
+    this.criarFormSearch();
   }
 
-  carregarVeiculos() {
-    const veiculoParams = new VeiculoParams();
-    if (this.placa) {
-      veiculoParams.placa = this.placa;
-    }
-    if (this.modelo) {
-      veiculoParams.modelo = this.modelo;
-    }
-    if (this.page) {
-      veiculoParams.page = this.page;
-    }
-    this.veiculoService.get().subscribe(
-      data => {
-        this.entities = data.content;
-      }, error => {}
-    );
+  criarFormSearch() {
+    this.filterGroup = new FormGroup({
+      modeloFilter: new FormControl(''),
+      statusFilter: new FormControl(''),
+      placaFilter: new FormControl('')
+    });
   }
 
   onSubmit() {
@@ -118,6 +106,16 @@ export class VeiculoComponent implements OnInit {
         this.notifier.notify('success', 'Transportadora: ' + this.transportador.nome + ' deletada' );
         window.location.reload();
       }, err => {});
+  }
+
+  carregarEntidades(event?: any) {
+    this.params = {placa: this.filterGroup.value.placaFilter, modelo: this.filterGroup.value.modeloFilter,
+      ativo: this.filterGroup.value.statusFilter, page: event ? event.page - 1 : 0 };
+    this.obtemValor(this.params);
+  }
+
+  getService(): any {
+    return this.veiculoService;
   }
 
 }

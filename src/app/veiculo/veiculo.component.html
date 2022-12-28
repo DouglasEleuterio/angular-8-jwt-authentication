@@ -25,68 +25,80 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Dados Cadastrais</h3>
+              <h3 class="card-title">Cadastro</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-toggle="collapse" data-target="#body"
+                        aria-expanded="true"
+                        aria-controls="body" data-card-widget="collapse">
+                  <i class="icon-action fa fa-chevron-down"></i>
+                </button>
+              </div>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <div class="card-body">
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-6">
-                    <label for="marca">Marca</label>
-                    <input
-                      [(ngModel)]="veiculo.marca"
-                      formControlName="marca"
-                      type="text"
-                      id="marca"
-                      class="form-control"
-                      name="marca"
-                      required
-                      placeholder="Marca do Veículo">
+            <div class="collapse" id="body">
+              <div class="card-body">
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                      <label for="marca">Marca</label>
+                      <input
+                        [(ngModel)]="veiculo.marca"
+                        formControlName="marca"
+                        type="text"
+                        id="marca"
+                        class="form-control"
+                        name="marca"
+                        required
+                        placeholder="Marca do Veículo">
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <label for="modelo">Modelo</label>
+                      <input
+                        [(ngModel)]="veiculo.modelo"
+                        formControlName="modelo"
+                        type="text"
+                        id="modelo"
+                        class="form-control"
+                        name="modelo"
+                        required
+                        placeholder="Modelo do Veículo">
+                    </div>
                   </div>
-                  <div class="col-6">
-                    <label for="modelo">Modelo</label>
-                    <input
-                      [(ngModel)]="veiculo.modelo"
-                      formControlName="modelo"
-                      type="text"
-                      id="modelo"
-                      class="form-control"
-                      name="modelo"
-                      required
-                      placeholder="Modelo do Veículo">
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                      <label for="placa">Placa</label>
+                      <input
+                        [(ngModel)]="veiculo.placa"
+                        formControlName="placa"
+                        type="text"
+                        id="placa"
+                        class="form-control"
+                        name="placa"
+                        required
+                        placeholder="Placa do Veículo">
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <label>Transportadora</label>
+                      <select formControlName="transportador" [(ngModel)]="transportadorSelecionado" id="transportador"
+                              class="form-control select2" style="width: 100%;">
+                        <option *ngFor="let transp of transportadores" [ngValue]="transp">{{transp.nome}}</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-6">
-                    <label for="placa">Placa</label>
-                    <input
-                      [(ngModel)]="veiculo.placa"
-                      formControlName="placa"
-                      type="text"
-                      id="placa"
-                      class="form-control"
-                      name="placa"
-                      required
-                      placeholder="Placa do Veículo">
-                  </div>
-                  <div class="col-6">
-                    <label>Transportadora</label>
-                    <select formControlName="transportador" [(ngModel)]="transportadorSelecionado"  id="transportador" class="form-control select2" style="width: 100%;">
-                      <option *ngFor="let transp of transportadores" [ngValue]="transp" >{{transp.nome}}</option>
-                    </select>
-                  </div>
-                </div>
+              <div class="card-footer">
+                <button type="submit"
+                        class="btn btn-{{isEdicao ? 'warning' : 'success'}} fa-pull-right">{{isEdicao ? 'Alterar' : 'Salvar'}}</button>
+                <span></span>
+                <button type="button" style="margin-right: 10px;" (click)="limpar()"
+                        class="btn btn-secondary fa-pull-right">{{isEdicao ? 'Cancelar' : 'Limpar'}}</button>
               </div>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-              <button type="submit"  class="btn btn-{{isEdicao ? 'warning' : 'success'}} fa-pull-right">{{isEdicao ? 'Alterar' : 'Salvar'}}</button>
-              <span></span>
-              <button type="submit" style="margin-right: 10px;" (click)="limpar()" class="btn btn-secondary fa-pull-right">{{isEdicao ? 'Cancelar':'Limpar'}}</button>
-            </div>
           </div>
           <!-- /.card -->
         </div>
@@ -105,40 +117,92 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body">
+        <div class="list row" [formGroup]="filterGroup">
+          <div class="col-sm-12 col-md-4">
+            <label for="modeloFiltro">Modelo</label>
+            <input
+              (change)="carregarEntidades()"
+              required
+              formControlName="modeloFilter"
+              type="tex"
+              class="form-control"
+              id="modeloFiltro"
+              placeholder="Placa">
+          </div>
+          <div class="col-sm-12 col-md-4">
+            <label for="placaFiltro">Placa</label>
+            <input
+              (change)="carregarEntidades()"
+              required
+              formControlName="placaFilter"
+              type="tex"
+              class="form-control"
+              id="placaFiltro"
+              placeholder="Placa">
+          </div>
+          <div class="col-sm-12 col-md-4">
+            <label for="statusFiltro">Status</label>
+            <select
+              [value]="true"
+              (change)="carregarEntidades()"
+              required
+              formControlName="statusFilter"
+              type="tex"
+              class="form-control"
+              id="statusFiltro">
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
         <div class="row">
           <div class="col-12 table-responsive">
             <table class="table table-striped">
-          <thead>
-          <tr>
-            <th class="text-center">Marca</th>
-            <th class="text-center">Modelo</th>
-            <th class="text-center">Placa</th>
-            <th class="text-center">Transportador</th>
-            <th class="text-center col-2" colspan="3">Ação</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let entity of entities">
-            <td> {{entity.marca}}</td>
-            <td> {{entity.modelo}}</td>
-            <td> {{entity.placa}}</td>
-            <td> {{entity.transportador.nome}}</td>
-            <td class="text-center">
-              <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
-                class="fas fa-edit"></i></button>
-            </td>
-            <td class="text-center">
-              <button title="Visualizar" class="btn  btn-outline-success"><i
-                class="fas fa-eye"></i></button>
-            </td>
-            <td class="text-center">
-              <button (click)="prepararExclusao(entity)" title="Excluir" class="btn  btn-outline-danger" data-toggle="modal"
-                      data-target="#modal-default"><i class="fas fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+              <thead>
+              <tr>
+                <th class="text-center">Marca</th>
+                <th class="text-center">Modelo</th>
+                <th class="text-center">Placa</th>
+                <th class="text-center">Transportador</th>
+                <th class="text-center col-2" colspan="3">Ação</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let entity of entities | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: currentPage,
+                                totalItems: count};">
+                <td> {{entity.marca}}</td>
+                <td> {{entity.modelo}}</td>
+                <td> {{entity.placa}}</td>
+                <td> {{entity.transportador.nome}}</td>
+                <td class="text-center">
+                  <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
+                    class="fas fa-edit"></i></button>
+                </td>
+                <td class="text-center">
+                  <button title="Visualizar" class="btn  btn-outline-success"><i
+                    class="fas fa-eye"></i></button>
+                </td>
+                <td class="text-center">
+                  <button (click)="prepararExclusao(entity)" title="Excluir" class="btn  btn-outline-danger"
+                          data-toggle="modal"
+                          data-target="#modal-default"><i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+              <div class="col-12">
+                <pagination-controls
+                  previousLabel="Anterior"
+                  nextLabel="Próximo"
+                  responsive="true"
+                  (pageChange)="handlePageChange(getParams($event))">
+                </pagination-controls>
+              </div>
+            </table>
           </div>
         </div>
       </div>
@@ -156,7 +220,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Deseja excluir: <b>{{veiculoExcluir.marca }} - {{veiculoExcluir.modelo}}</b> | Placa <b> {{veiculoExcluir.placa}} ?</b></p>
+        <p>Deseja excluir: <b>{{veiculoExcluir.marca }} - {{veiculoExcluir.modelo}}</b> | Placa
+          <b> {{veiculoExcluir.placa}} ?</b></p>
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" #closebutton data-dismiss="modal">Cancelar</button>

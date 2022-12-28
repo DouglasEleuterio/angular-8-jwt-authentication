@@ -4,6 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import {TipoDescarteModel} from '../model/tipo-descarte-model';
 import {Customer} from '../model/Customer';
 import {NotifierService} from 'angular-notifier';
+import {BaseComponent} from '../commons/BaseComponent';
 
 @Component({
   selector: 'app-tipo-descarte',
@@ -19,7 +20,9 @@ export class TipoDescarteComponent implements OnInit {
   tipoDescarteExcluir = new TipoDescarteModel() ;
   private readonly notifier: NotifierService;
   isEdicao = false;
-  selected: any;
+  filterGroup: any;
+  page: number;
+  count: number;
 
 
   constructor(private tipoDescarteService: TipoDescarteService,
@@ -30,6 +33,7 @@ export class TipoDescarteComponent implements OnInit {
   ngOnInit() {
     this.createForm(new TipoDescarteModel());
     this.obtemValor();
+    this.criarFormSearch();
   }
 
   tipoDescarteAexcluir(tipo: TipoDescarteModel): void {
@@ -85,19 +89,12 @@ export class TipoDescarteComponent implements OnInit {
     window.location.reload();
   }
 
-  obtemValor() {
-    this.tipoDescarteService.get().subscribe(
+  obtemValor(params?: any) {
+    this.tipoDescarteService.get(params).subscribe(
       data => {
-        this.entities = data;
+        this.entities = data.content;
+        this.count = data.totalElements;
       }, err => {});
-  }
-
-  situacao(status: boolean): any {
-    if (status === true) {
-      return 'Ativo';
-    } else {
-      return 'Inativo';
-    }
   }
 
   alterarSituacao(entity: TipoDescarteModel) {
@@ -113,4 +110,23 @@ export class TipoDescarteComponent implements OnInit {
         this.notifier.notify('error', err.error.message );
       });
   }
+
+  criarFormSearch() {
+    this.filterGroup = new FormGroup({
+      nomeFilter: new FormControl(''),
+      statusFilter: new FormControl('')
+    });
+  }
+
+  filter() {
+    let params = {};
+    params = {nome: this.filterGroup.value.nomeFilter, ativo: this.filterGroup.value.statusFilter, params: this.page - 1};
+    this.obtemValor(params);
+  }
+
+  handlePageChange(event) {
+    this.page = event;
+    this.obtemValor({params: this.page - 1});
+  }
+
 }

@@ -3,6 +3,7 @@ import {FormaPagamentoService} from '../_services/forma-pagamento.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FormaPagamentoModel} from '../model/FormaPagamentoModel';
 import {NotifierService} from 'angular-notifier';
+import {TipoDescarteModel} from "../model/tipo-descarte-model";
 
 @Component({
   selector: 'app-forma-pagamento',
@@ -20,6 +21,7 @@ export class FormaPagamentoComponent implements OnInit {
 
   formaPagamentoService: FormaPagamentoService;
   private readonly notifier: NotifierService;
+  private isEdicao: boolean;
 
   constructor(formaPagamentoService: FormaPagamentoService,
               notifier: NotifierService) {
@@ -34,8 +36,9 @@ export class FormaPagamentoComponent implements OnInit {
 
   createForm(model: FormaPagamentoModel) {
     this.form = new FormGroup({
+      id: new FormControl(model.id),
       nome: new FormControl(model.nome),
-      status: new FormControl(model.ativo)
+      ativo: new FormControl(model.ativo)
     });
   }
 
@@ -82,4 +85,8 @@ export class FormaPagamentoComponent implements OnInit {
   prepararAlteracao(entity: FormaPagamentoModel) {
     this.formaPagamento = entity;
   }
-}
+
+  editar(entity: FormaPagamentoModel): void {
+    this.isEdicao = true;
+    this.createForm(entity);
+  }}

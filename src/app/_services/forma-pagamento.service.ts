@@ -20,7 +20,9 @@ export class FormaPagamentoService {
 
   save(formaPagamento): Observable<any> {
     return this.http.post(environment.apiUrl + FORMA_PAGAMENTO_RESOURCE, {
-      nome: formaPagamento.value.nome
+      id: formaPagamento.value.id,
+      nome: formaPagamento.value.nome,
+      ativo: formaPagamento.value.ativo,
     }, httpOptions);
   }
 

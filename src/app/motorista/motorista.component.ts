@@ -65,4 +65,8 @@ export class MotoristaComponent extends BaseComponent implements OnInit {
   limpar() {
     window.alert('Funcionalidade ainda não implementada');
   }
+
+  carregarEntidades() {
+    this.carregarMotoristas();
+  }
 }

@@ -77,6 +77,7 @@
                   <div class="col-4" *ngIf="juridica">
                     <label for="cnpj">CNPJ</label>
                     <input
+                      [textMask]="{mask: cnpjMask}"
                       [(ngModel)]="gerador.cnpj"
                       formControlName="cnpj"
                       type="text"
@@ -90,8 +91,9 @@
                   <div class="col-4" *ngIf="fisica">
                     <label for="cpf">CPF</label>
                     <input
+                      [textMask]="{mask: cpfMask}"
                       [(ngModel)]="gerador.cpf"
-                      formControlName="cnpj"
+                      formControlName="cpf"
                       type="text"
                       id="cpf"
                       class="form-control"
@@ -101,7 +103,7 @@
                     >
                   </div>
                   <div class="col-6" *ngIf="fisica || juridica">
-                    <label for="cpf">Email</label>
+                    <label for="email">Email</label>
                     <input
                       [(ngModel)]="gerador.email"
                       formControlName="email"
@@ -114,11 +116,12 @@
                     >
                   </div>
                   <div class="col-6" *ngIf="fisica || juridica">
-                    <label for="cpf">Telefone</label>
+                    <label for="telefone">Telefone</label>
                     <input
+                      [textMask]="{mask: phoneMask}"
                       [(ngModel)]="gerador.telefone"
                       formControlName="telefone"
-                      type="number"
+                      type="text"
                       id="telefone"
                       class="form-control"
                       name="telefone"
@@ -241,6 +244,7 @@
                 <div class="col-4">
                   <label for="cep">CEP</label>
                   <input
+                    [textMask]="{mask: cepMask}"
                     [(ngModel)]="gerador.retirada.cep"
                     formControlName="cep"
                     type="text"

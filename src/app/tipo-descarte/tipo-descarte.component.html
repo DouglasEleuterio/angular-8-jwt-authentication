@@ -24,86 +24,156 @@
         <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title">Cadastro</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-toggle="collapse" data-target="#body" aria-expanded="true"
+                      aria-controls="body" data-card-widget="collapse">
+                <i class="icon-action fa fa-chevron-down"></i>
+              </button>
+            </div>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
           <form [formGroup]="form"
                 (ngSubmit)="onSubmit()"
           >
-            <div class="card-body">
-              <div class="form-group col-sm-12">
-                <label for="nome">Nome</label>
-                <input
-                  formControlName="nome"
-                  type="text"
-                  id="nome"
-                  class="form-control"
-                  name="nome"
-                  required
-                  placeholder="Nome"
-                >
+            <div class="collapse" id="body">
+              <div class="card-body">
+                <div class="list row" style="padding-top: 15px">
+                  <div class="col-sm-12 col-md-4">
+                    <label for="nome">Nome</label>
+                    <input
+                      formControlName="nome"
+                      type="text"
+                      id="nome"
+                      class="form-control"
+                      name="nome"
+                      required
+                      placeholder="Nome"
+                    >
+                  </div>
+                  <div class="col-sm-12 col-md-4">
+                    <label for="valor">Valor</label>
+                    <input
+                      currencyMask
+                      [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                      required
+                      formControlName="valor"
+                      type="text"
+                      class="form-control"
+                      id="valor"
+                      placeholder="R$ 0.00">
+                  </div>
+                  <div class="col-sm-12 col-md-4">
+                    <label for="status">Status</label>
+                    <select
+                      [value]="true"
+                      required
+                      formControlName="ativo"
+                      type="tex"
+                      class="form-control"
+                      id="status">
+                      <option value="true">Ativo</option>
+                      <option value="false">Inativo</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-              <div class="form-group col-sm-12 ">
-                <label for="valor">Valor</label>
-                <input
-                  required
-                  formControlName="valor"
-                  type="number"
-                  class="form-control"
-                  id="valor"
-                  placeholder="Valor">
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary fa-pull-right">Salvar</button>
               </div>
             </div>
             <!-- /.card-body -->
 
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary fa-pull-right">Submit</button>
-            </div>
           </form>
         </div>
         <!-- /.card -->
-
 
         <!--        Tabela  -->
         <div class="card card-success">
           <div class="card-header">
             <h3 class="card-title">Lista</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-toggle="collapse" data-target="#lista"
+                      aria-expanded="true"
+                      aria-controls="lista" data-card-widget="collapse">
+                <i class="icon-action fa fa-chevron-down"></i>
+              </button>
+            </div>
           </div>
           <!-- /.card-header -->
-          <div class="card-body">
-            <div class="row">
-              <div class="col-12 table-responsive">
-                <table class="table table-striped">
-              <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Valor</th>
-                <th style="width: 30%">Situação</th>
-                <th colspan="2" style="width: 10%; text-align: center">Ação</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let entity of entities">
-                <td> {{entity.nome}}</td>
-                <td> {{entity.valor | currency:'BRL'}}</td>
-                <td>
-                  <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                    <input type="checkbox" class="custom-control-input" [checked]="entity.ativo" (change)="alterarSituacao(entity)" #customSwitch3 id="customSwitch3">
-                    <label class="custom-control-label" for="customSwitch3">{{situacao(entity.ativo)}}</label>
-                  </div>
-                </td>
-                <td>
-                  <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
-                    class="fas fa-edit"></i></button>
-                </td>
-                <td>
-                  <button (click)="tipoDescarteAexcluir(entity)" title="Excluir" class="btn  btn-outline-danger"
-                          data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+          <div class="collapse show" id="lista">
+            <div class="card-body">
+              <div class="list row" [formGroup]="filterGroup">
+                <div class="col-sm-12 col-md-6">
+                  <label for="nomeFiltro">Nome</label>
+                  <input
+                    (change)="filter()"
+                    formControlName="nomeFilter"
+                    type="text"
+                    class="form-control"
+                    id="nomeFiltro"
+                    placeholder="Nome"
+                  >
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <label for="statusFiltro">Status</label>
+                  <select
+                    [value]="true"
+                    (change)="filter()"
+                    required
+                    formControlName="statusFilter"
+                    type="tex"
+                    class="form-control"
+                    id="statusFiltro">
+                    <option value="true" >Ativo</option>
+                    <option value="false">Inativo</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12 table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Valor</th>
+                      <th>Situação</th>
+                      <th>Ação</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let entity of entities | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: page,
+                                totalItems: count};">
+                      <td> {{entity.nome}}</td>
+                      <td> {{entity.valor | currency:'BRL'}}</td>
+                      <td>
+                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                          <input disabled type="checkbox" class="custom-control-input" [checked]="entity.ativo"
+                                 (change)="alterarSituacao(entity)" #customSwitch3 id="customSwitch3">
+                          <label class="custom-control-label" for="customSwitch3">{{entity.ativo === true ? 'Ativo' : 'Inativo' }}</label>
+                        </div>
+                      </td>
+                      <td>
+                        <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
+                          class="fas fa-edit"></i></button>
+                      </td>
+                    </tr>
+                    <div class="col-12">
+                      <pagination-controls
+                        previousLabel="Anterior"
+                        nextLabel="Próximo"
+                        responsive="true"
+                        (pageChange)="handlePageChange($event)">
+
+                      </pagination-controls>
+                    </div>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

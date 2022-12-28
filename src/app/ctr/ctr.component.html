@@ -35,20 +35,14 @@
                   <div class="list row" style="padding-top: 15px">
                     <div class="col-sm-12 col-md-5">
                       <div class="input-group input-group-sm">
+                        <label for="placa">Placa</label>
                         <input
+                          id="placa"
                           type="text"
                           class="form-control"
                           placeholder="Placa"
                           [(ngModel)]="placa"
                         />
-                        <span class="input-group-append">
-                          <button
-                            class="btn btn-info btn-flat"
-                            type="button"
-                            (click)="carregarVeiculos()">
-                            Buscar
-                          </button>
-                        </span>
                       </div>
                     </div>
                     <div class="col-sm-12 col-md-5">
@@ -59,16 +53,14 @@
                           placeholder="Modelo"
                           [(ngModel)]="modelo"
                         />
-                        <div class="input-group-append">
-                          <button
-                            class="btn btn-info btn-flat"
-                            type="button"
-                            (click)="carregarVeiculos()">
-                            Buscar
-                          </button>
-                        </div>
                       </div>
                     </div>
+                    <button
+                      class="btn btn-info btn-flat"
+                      type="button"
+                      (click)="carregarVeiculos()">
+                      Buscar
+                    </button>
                     <br/>
 
                     <div class="container-fluid">
@@ -212,8 +204,10 @@
                   <div class="col-12" *ngIf="formaPagamentoSelecionado.nome !== 'Combo'">
                     <label>Valor</label>
                     <input
+                      currencyMask
+                      [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
                       [(ngModel)]="valorPagamento"
-                      type="number"
+                      type="text"
                       class="form-control"
                       name="pagamento"
                       required
@@ -247,7 +241,7 @@
                       </tbody>
                     </table>
                     <div class="card-footer text-center">
-                      <span href="javascript:void(0)" class="uppercase">Valor Total: R$ {{valorTotalPagamentos()}}</span>
+                      <span href="javascript:void(0)" class="uppercase">Valor Total: {{valorTotalPagamentos() | currency: 'BRL'}}</span>
                     </div>
                   </div>
                 </mat-tab>

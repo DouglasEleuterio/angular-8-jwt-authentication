@@ -51,9 +51,10 @@
                   <div class="col-6">
                     <label for="telefone">Telefone</label>
                     <input
+                      [textMask]="{mask: phoneMask}"
                       [(ngModel)]="motorista.telefone"
                       formControlName="telefone"
-                      type="number"
+                      type="text"
                       id="telefone"
                       class="form-control"
                       name="telefone"

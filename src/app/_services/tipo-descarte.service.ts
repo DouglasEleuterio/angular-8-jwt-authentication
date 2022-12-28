@@ -27,8 +27,8 @@ save(tipoDescarte): Observable<any> {
     }, httpOptions);
   }
 
-  get(): Observable<any> {
-    return  this.http.get<TipoDescarteModel>(environment.apiUrl + DESCARTE_RESOURCE + '/all', {});
+  get(params?: any): Observable<any> {
+    return  this.http.get<TipoDescarteModel>(environment.apiUrl + DESCARTE_RESOURCE + '/all', {params});
   }
 
   getAtivo(): Observable<any> {

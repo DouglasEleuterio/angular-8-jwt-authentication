@@ -47,6 +47,7 @@
                   <div class="col-4">
                     <label for="cnpj">CNPJ</label>
                     <input
+                      [textMask]="{mask: cnpjMask}"
                       [(ngModel)]="transportador.cnpj"
                       formControlName="cnpj"
                       type="text"
@@ -83,12 +84,13 @@
                     <input
                       [(ngModel)]="transportador.telefone"
                       formControlName="telefone"
-                      type="number"
+                      type="text"
                       id="telefone"
                       class="form-control"
                       name="telefone"
                       required
                       placeholder="Telefone"
+                      [textMask]="{mask: phoneMask}"
                     >
                   </div>
                   <div class="col-6">
@@ -219,6 +221,7 @@
                 <div class="col-4">
                   <label for="cep">CEP</label>
                   <input
+                    [textMask]="{mask: cepMask}"
                     [(ngModel)]="transportador.endereco.cep"
                     formControlName="cep"
                     type="text"

@@ -80,4 +80,7 @@ export class GeradorComponent extends BaseComponent implements OnInit {
     this.gerador = new GeradorModel();
   }
 
+  carregarEntidades() {
+    this.obtemValor();
+  }
 }

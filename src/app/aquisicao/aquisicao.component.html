@@ -77,12 +77,14 @@
                   id="dataPagamento">
               </div>
                 <div class="col-3">
-                  <label>Valor Pago</label>
+                  <label for="valor">Valor Pago</label>
                   <input
+                    currencyMask
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
                     (change)="atualizaDesconto()"
                     (keyup)="atualizaDesconto()"
                     [(ngModel)]="aquisicao.valorPago"
-                    type="number"
+                    type="text"
                     class="form-control"
                     name="valor"
                     required
@@ -92,9 +94,14 @@
                 <div class="col-3">
                   <label>Desconto</label>
                   <input
+                    currencyMask
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }"
+                    [(ngModel)]="aquisicao.desconto"
+                    [(ngModel)]="aquisicao.desconto"
+                    [(ngModel)]="aquisicao.desconto"
                     disabled
                     [(ngModel)]="aquisicao.desconto"
-                    type="number"
+                    type="text"
                     class="form-control"
                     name="desconto"
                     required

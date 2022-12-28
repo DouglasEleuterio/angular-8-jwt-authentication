@@ -34,7 +34,6 @@ export class CtrComponent implements OnInit {
   currentTutorial = null;
   page: number;
   count: number;
-  pageSize = 2;
 
   veiculoService: VeiculoService;
   transportadorService: TransportadorService;

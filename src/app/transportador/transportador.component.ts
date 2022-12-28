@@ -3,18 +3,18 @@ import {TransportadorService} from '../_services/transportador.service';
 import {NotifierService} from 'angular-notifier';
 import {FormControl, FormGroup} from '@angular/forms';
 import {TransportadorModel} from '../model/transportador-model';
+import {BaseComponent} from '../commons/BaseComponent';
 
 @Component({
   selector: 'app-transportador',
   templateUrl: './transportador.component.html',
   styleUrls: ['./transportador.component.css']
 })
-export class TransportadorComponent implements OnInit {
+export class TransportadorComponent extends BaseComponent implements OnInit {
 
   @ViewChild('closebutton', {static: false}) closebutton;
 
   entities: TransportadorModel [];
-  private readonly notifier: NotifierService;
   form: FormGroup;
   isEdicao = false;
   transportador = new TransportadorModel();
@@ -22,7 +22,7 @@ export class TransportadorComponent implements OnInit {
 
   constructor(private transportadorService: TransportadorService,
               notifier: NotifierService) {
-    this.notifier = notifier;
+    super(notifier);
   }
 
   ngOnInit() {
@@ -106,5 +106,9 @@ export class TransportadorComponent implements OnInit {
 
   prepararExclusao(entity: TransportadorModel) {
     this.transpExcluir = entity;
+  }
+
+  carregarEntidades() {
+    this.obtemValor();
   }
 }

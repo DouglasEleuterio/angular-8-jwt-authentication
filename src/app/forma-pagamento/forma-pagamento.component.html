@@ -31,17 +31,31 @@
                 (ngSubmit)="onSubmit()"
           >
             <div class="card-body">
-              <div class="form-group">
-                <label for="nome">Nome</label>
-                <input
-                  formControlName="nome"
-                  type="text"
-                  id="nome"
-                  class="form-control"
-                  name="nome"
-                  required
-                  placeholder="Nome"
-                >
+              <div class="list row" style="padding-top: 15px">
+                <div class="col-sm-12 col-md-6">
+                  <label for="nome">Nome</label>
+                  <input
+                    formControlName="nome"
+                    type="text"
+                    id="nome"
+                    class="form-control"
+                    name="nome"
+                    required
+                    placeholder="Nome"
+                  >
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <label for="status">Status</label>
+                  <select
+                    required
+                    formControlName="ativo"
+                    type="tex"
+                    class="form-control"
+                    id="status">
+                    <option value="true">Ativo</option>
+                    <option value="false">Inativo</option>
+                  </select>
+                </div>
               </div>
             </div>
             <!-- /.card-body -->
@@ -52,8 +66,6 @@
           </form>
         </div>
         <!-- /.card -->
-
-
         <!--        Tabela  -->
         <div class="card card-success">
           <div class="card-header">
@@ -63,34 +75,32 @@
           <div class="row">
             <div class="col-12 table-responsive">
               <table class="table table-striped">
-              <thead>
-              <tr>
-                <th>Nome</th>
-                <th style="width: 30%">Situação</th>
-                <th style="width: 10%; text-align: center">Ação</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let entity of entities">
-                <td style="height: 15px"> {{entity.nome}}</td>
-                <td>
-                  <div class="form-group">
-                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                      <input type="checkbox" disabled class="custom-control-input" [checked]="entity.ativo"
-                             #customSwitch3 id="customSwitch3">
-                      <label class="custom-control-label" for="customSwitch3">{{situacao(entity.ativo)}}</label>
+                <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th style="width: 30%">Situação</th>
+                  <th style="width: 10%; text-align: center">Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let entity of entities">
+                  <td style="height: 15px"> {{entity.nome}}</td>
+                  <td>
+                    <div class="form-group">
+                      <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                        <input type="checkbox" disabled class="custom-control-input" [checked]="entity.ativo"
+                               #customSwitch3 id="customSwitch3">
+                        <label class="custom-control-label" for="customSwitch3">{{situacao(entity.ativo)}}</label>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td align="center">
-                  <button title="Editar" (click)="prepararAlteracao(entity)" class="btn  btn-outline-warning"
-                          data-toggle="modal" data-target="#modal-default">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+                  </td>
+                  <td>
+                    <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
+                      class="fas fa-edit"></i></button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

@@ -118,4 +118,7 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
       this.aquisicao.desconto = this.aquisicao.valorPago - (this.aquisicao.quantidadeAdquirida * this.aquisicao.combo.tipoDescarte.valor);
     }
   }
+
+  carregarEntidades() {
+  }
 }

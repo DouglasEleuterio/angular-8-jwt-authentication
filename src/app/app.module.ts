@@ -39,7 +39,9 @@ import {NgbAlertModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { AquisicaoComponent } from './aquisicao/aquisicao.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TableComponent } from './table/table.component';
-import {MatTabsModule} from "@angular/material/tabs";
+import {MatTabsModule} from '@angular/material/tabs';
+import {TextMaskModule} from 'angular2-text-mask';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 /**
  * Custom angular notifier options
@@ -126,6 +128,8 @@ registerLocaleData(ptBr);
     NotifierModule.withConfig(customNotifierOptions),
     NgxPaginationModule,
     MatTabsModule,
+    TextMaskModule,
+    NgxCurrencyModule
   ],
   providers: [
     authInterceptorProviders,

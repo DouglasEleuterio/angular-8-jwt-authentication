@@ -28,6 +28,7 @@ export class FormaPagamentoComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.createForm(new FormaPagamentoModel());
     this.obtemValor();
+    this.criarFormSearch();
   }
 
   createForm(model: FormaPagamentoModel) {
@@ -76,6 +77,13 @@ export class FormaPagamentoComponent extends BaseComponent implements OnInit {
   editar(entity: FormaPagamentoModel): void {
     this.isEdicao = true;
     this.createForm(entity);
+  }
+
+  criarFormSearch() {
+    this.filterGroup = new FormGroup({
+      nomeFilter: new FormControl(''),
+      statusFilter: new FormControl('')
+    });
   }
 
   carregarEntidades(event?: any) {

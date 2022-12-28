@@ -79,47 +79,78 @@
             <h3 class="card-title">Lista</h3>
           </div>
           <!-- /.card-header -->
-          <div class="row">
-            <div class="col-12 table-responsive">
-              <table class="table table-striped">
-                <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th style="width: 30%">Situação</th>
-                  <th style="width: 10%; text-align: center">Ação</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let entity of entities | paginate: {
+          <div class="card-body">
+            <div class="list row" [formGroup]="filterGroup">
+              <div class="col-sm-12 col-md-6">
+                <label for="nomeFiltro">Nome</label>
+                <input
+                  (change)="carregarEntidades()"
+                  formControlName="nomeFilter"
+                  type="text"
+                  class="form-control"
+                  id="nomeFiltro"
+                  placeholder="Nome"
+                >
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <label for="statusFiltro">Status</label>
+                <select
+                  [value]="true"
+                  (change)="carregarEntidades()"
+                  required
+                  formControlName="statusFilter"
+                  type="tex"
+                  class="form-control"
+                  id="statusFiltro">
+                  <option value="true" >Ativo</option>
+                  <option value="false">Inativo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th style="width: 30%">Situação</th>
+                    <th style="width: 10%; text-align: center">Ação</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let entity of entities | paginate: {
                                 itemsPerPage: 5,
-                                currentPage: page,
+                                currentPage: currentPage,
                                 totalItems: count};">
-                  <td style="height: 15px"> {{entity.nome}}</td>
-                  <td>
-                    <div class="form-group">
-                      <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                        <input type="checkbox" disabled class="custom-control-input" [checked]="entity.ativo"
-                               #customSwitch3 id="customSwitch3">
-                        <label class="custom-control-label" for="customSwitch3">{{situacao(entity.ativo)}}</label>
+                    <td style="height: 15px"> {{entity.nome}}</td>
+                    <td>
+                      <div class="form-group">
+                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                          <input type="checkbox" disabled class="custom-control-input" [checked]="entity.ativo"
+                                 #customSwitch3 id="customSwitch3">
+                          <label class="custom-control-label" for="customSwitch3">{{situacao(entity.ativo)}}</label>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
-                      class="fas fa-edit"></i></button>
-                  </td>
-                </tr>
-                <div class="col-12">
-                  <pagination-controls
-                    previousLabel="Anterior"
-                    nextLabel="Próximo"
-                    responsive="true"
-                    (pageChange)="handlePageChange(getParams($event))">
+                    </td>
+                    <td>
+                      <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
+                        class="fas fa-edit"></i></button>
+                    </td>
+                  </tr>
+                  <div class="col-12">
+                    <pagination-controls
+                      previousLabel="Anterior"
+                      nextLabel="Próximo"
+                      responsive="true"
+                      (pageChange)="handlePageChange(getParams($event))">
 
-                  </pagination-controls>
-                </div>
-                </tbody>
-              </table>
+                    </pagination-controls>
+                  </div>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

@@ -34,13 +34,12 @@ export class ComboHistoricoComponent implements OnInit {
     this.aquisicaoService
       .getSpecifiedPathWithId(this.comboId).subscribe(
       data => {
-        this.aquisicao = data.content;
+        this.aquisicao = data;
       }, error => {
       });
-
     this.descatePorComboService.find(this.comboId).subscribe(
       data => {
-        this.descartePorCombo = data.content;
+        this.descartePorCombo = data;
       }, error => {
         console.log(error);
       });

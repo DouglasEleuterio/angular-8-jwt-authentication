@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import {BaseService} from './BaseService';
 import {DescartePorComboModel} from '../model/descarte-por-combo-model';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs';
 
-const DESCARTE_POR_COMBO_RESOURCE = 'descarte-por-combo';
+const DESCARTE_POR_COMBO_RESOURCE = 'descarte-por-combo/combo-id';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class DescartePorComboService extends BaseService<DescartePorComboModel> 
   }
 
   find(id: string): Observable<any> {
-    return super.find(DESCARTE_POR_COMBO_RESOURCE + '/combo-id',  id);
+    return super.find(DESCARTE_POR_COMBO_RESOURCE,  id);
   }
 
   getResource(): string {

@@ -26,12 +26,21 @@ export abstract class BaseComponent {
   }
 
   obtemValor(params?: any) {
+    if (params !== undefined) {
+      Object.getOwnPropertyNames(params).forEach((key) => {
+        if (params[key] === undefined) {
+          params[key] = null;
+        }
+      });
+    }
     this.getService().getWithParams(params).subscribe(
       data => {
         this.entities = data.content;
         this.count = data.totalElements;
         this.currentPage = data.pageable.pageNumber + 1;
-      }, err => {});
+      }, err => {
+        console.log(err);
+      });
   }
 
   handlePageChange(event) {

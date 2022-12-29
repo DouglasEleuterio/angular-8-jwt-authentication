@@ -224,6 +224,7 @@ export class CtrComponent implements OnInit {
   }
 
   vinculaTransportador() {
+    debugger;
     this.ctr.transportador = this.transportadorSelecionado;
   }
 

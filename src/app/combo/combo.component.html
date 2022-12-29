@@ -1,36 +1,77 @@
-
 <section>
   <div class="card card-success">
     <div class="card-header">
       <h3 class="card-title">Lista</h3>
     </div>
     <!-- /.card-header -->
-    <div class="row">
-      <div class="col-12 table-responsive">
-        <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>Id</th>
-          <th>Transportadora</th>
-          <th>Tipo Descarte</th>
-          <th>Saldo</th>
-          <th style="width: 10px">Histórico</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let combo of combo">
-          <td> {{combo.id}}</td>
-          <td> {{combo.transportador.nome}}</td>
-          <td> {{combo.tipoDescarte.nome}}</td>
-          <td > {{combo.saldo}}</td>
-          <td style="text-align: center">
-            <button [routerLink]="['/combo-historico/', combo.id]" class="btn  btn-outline-success" title="Visualizar">
-              <i class="fas fa-history"></i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+    <div class="card-body">
+      <div class="list row" [formGroup]="filterGroup">
+        <div class="col-sm-12 col-md-6">
+          <label>Transportador</label>
+          <select
+            formControlName="transportador"
+            id="transportador"
+                  class="form-control select2" style="width: 100%;" (change)="carregarEntidades()">
+            <option *ngFor="let transp of transportadores" [ngValue]="transp">
+              Razão Social: {{transp.razaoSocial}} | CNPJ: {{transp.cnpj}}</option>
+          </select>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label>Tipo Descarte</label>
+          <select  id="descarte"
+                   formControlName="tipoDescarte"
+                  (change)="carregarEntidades()"
+                  class="form-control select2" style="width: 100%;">
+            <option *ngFor="let descarte of descartes" [ngValue]="descarte">
+              {{descarte.nome}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th style="width: 5%">Id</th>
+              <th>Transportadora</th>
+              <th>Tipo Descarte</th>
+              <th>Saldo</th>
+              <th>Histórico</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let combo of entities | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: currentPage,
+                                totalItems: count};">
+              <td> {{combo.id}}</td>
+              <td> {{combo.transportador.nome}}</td>
+              <td> {{combo.tipoDescarte.nome}}</td>
+              <td> {{combo.saldo}}</td>
+              <td>
+                <button [routerLink]="['/combo-historico/', combo.id]" class="btn  btn-outline-success"
+                        title="Visualizar">
+                  <i class="fas fa-history"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+      <div class="col-12">
+        <pagination-controls
+          previousLabel="Anterior"
+          nextLabel="Próximo"
+          responsive="true"
+          (pageChange)="handlePageChange(getParams($event))">
+        </pagination-controls>
       </div>
     </div>
   </div>

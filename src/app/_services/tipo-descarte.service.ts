@@ -3,8 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TipoDescarteModel} from '../model/tipo-descarte-model';
 import {environment} from '../../environments/environment.prod';
-import {BaseService} from "./BaseService";
-// import {environment} from '../../environments/environment';
+import {BaseService} from './BaseService';
 
 const DESCARTE_RESOURCE = 'tipo-descarte';
 

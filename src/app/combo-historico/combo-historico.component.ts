@@ -1,12 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {AquisicaoModel} from "../model/aquisicao-model";
-import {AquisicaoService} from "../_services/aquisicao.service";
-import {getJSON} from "jquery";
-import {DescartePorComboModel} from "../model/descarte-por-combo-model";
-import {DescartePorComboService} from "../_services/descarte-por-combo.service";
-
-const AQUISICAO_RESOURCE = 'aquisicao';
+import {ActivatedRoute} from '@angular/router';
+import {AquisicaoModel} from '../model/aquisicao-model';
+import {AquisicaoService} from '../_services/aquisicao.service';
+import {DescartePorComboModel} from '../model/descarte-por-combo-model';
+import {DescartePorComboService} from '../_services/descarte-por-combo.service';
 
 @Component({
   selector: 'app-combo-historico',
@@ -37,13 +34,13 @@ export class ComboHistoricoComponent implements OnInit {
     this.aquisicaoService
       .getSpecifiedPathWithId(this.comboId).subscribe(
       data => {
-        this.aquisicao = data;
+        this.aquisicao = data.content;
       }, error => {
       });
 
     this.descatePorComboService.find(this.comboId).subscribe(
       data => {
-        this.descartePorCombo = data;
+        this.descartePorCombo = data.content;
       }, error => {
         console.log(error);
       });

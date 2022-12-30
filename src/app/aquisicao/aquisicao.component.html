@@ -14,7 +14,6 @@
     </div>
   </div><!-- /.container-fluid -->
 </section>
-{{aquisicao | json}}
 <section class="content">
   <div class="container-fluid">
     <div class="row">
@@ -30,7 +29,7 @@
           <div class="card-body">
             <div class="form-group">
               <div class="row">
-                <div class="col-4">
+                <div class="col-sm-12 col-md-4">
                   <label>Transportador</label>
                   <select [(ngModel)]="aquisicao.combo.transportador" id="transportador"
                           class="form-control select2" style="width: 100%;" (change)="vinculaTransportador()">
@@ -39,7 +38,7 @@
                       CNPJ: {{transp.cnpj}}</option>
                   </select>
                 </div>
-                <div class="col-4">
+                <div class="col-sm-12 col-md-4">
                   <label>Tipo Descarte</label>
                   <select [(ngModel)]="aquisicao.combo.tipoDescarte" id="descarte" (change)="calculaValorPago()"
                           class="form-control select2" style="width: 100%;" >
@@ -48,7 +47,7 @@
                     </option>
                   </select>
                 </div>
-                <div class="col-4">
+                <div class="col-sm-12 col-md-4">
                   <label>Quantidade</label>
                   <input
                     [(ngModel)]="aquisicao.quantidadeAdquirida"
@@ -66,7 +65,7 @@
             </div>
             <div class="form-group">
               <div class="row">
-                <div class="col-3">
+                <div class="col-sm-12 col-md-3">
                 <label>Data Pagamento</label>
                 <input
                   [(ngModel)]="aquisicao.dataPagamento"
@@ -76,7 +75,7 @@
                   required
                   id="dataPagamento">
               </div>
-                <div class="col-3">
+                <div class="col-sm-12 col-md-3">
                   <label for="valor">Valor Pago</label>
                   <input
                     currencyMask
@@ -91,7 +90,7 @@
                     id="valor"
                   placeholder="R$ ">
                 </div>
-                <div class="col-3">
+                <div class="col-sm-12 col-md-3">
                   <label>Desconto</label>
                   <input
                     currencyMask
@@ -108,7 +107,7 @@
                     id="desconto"
                     placeholder="R$ ">
                 </div>
-                <div class="col-3">
+                <div class="col-sm-12 col-md-3">
                   <label>Forma Pagamento</label>
                   <select [(ngModel)]="aquisicao.formaPagamento" id="formaPagamento"
                           class="form-control select2" style="width: 100%;">

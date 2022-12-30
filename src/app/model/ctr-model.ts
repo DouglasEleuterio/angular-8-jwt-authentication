@@ -7,7 +7,7 @@ import {TipoDescarteModel} from './tipo-descarte-model';
 import {MotoristaModel} from './motorista-model';
 
 export class CtrModel {
-  id: string;
+  id: number;
   veiculo: VeiculoModel = new VeiculoModel();
   transportador: TransportadorModel = new TransportadorModel();
   gerador: GeradorModel = new GeradorModel();

@@ -30,6 +30,19 @@
           <div class="card-body">
             <div class="form-group">
               <mat-tab-group animationDuration="0ms">
+                <mat-tab label="Número CTR">
+                  <div class="col-sm-12 col-md-5">
+                    <label for="numero">Número CTR</label>
+                    <input
+                      (change)="vinculaNumeroCTR()"
+                      id="numero"
+                      type="number"
+                      class="form-control"
+                      placeholder="Número CTR"
+                      [(ngModel)]="numero"
+                    />
+                    </div>
+                </mat-tab>
                 <mat-tab  label="Veículo" >
                     <!--   VEÍCULOS        -->
                   <div class="list row" style="padding-top: 15px">

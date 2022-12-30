@@ -21,14 +21,14 @@ export abstract class BaseComponent {
   public cnpjMask = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   public cepMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
-  constructor(notifier: NotifierService) {
+  constructor(notifier?: NotifierService) {
     this.notifier = notifier;
   }
 
   obtemValor(params?: any) {
     if (params !== undefined) {
       Object.getOwnPropertyNames(params).forEach((key) => {
-        if (params[key] === undefined) {
+        if (params[key] === undefined || params[key] === null || params[key] === '') {
           params[key] = null;
         }
       });

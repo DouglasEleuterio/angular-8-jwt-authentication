@@ -2,14 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {BaseComponent} from '../commons/BaseComponent';
 import {NotifierService} from 'angular-notifier';
 import {TransportadorService} from '../_services/transportador.service';
-import {CtrModel} from "../model/ctr-model";
-import {AquisicaoModel} from "../model/aquisicao-model";
-import {ComboModel} from "../model/combo-model";
-import {FormaPagamentoModel} from "../model/FormaPagamentoModel";
-import {FormControl, FormGroup} from "@angular/forms";
-import {TipoDescarteService} from "../_services/tipo-descarte.service";
-import {AquisicaoService} from "../_services/aquisicao.service";
-import {FormaPagamentoService} from "../_services/forma-pagamento.service";
+import {AquisicaoModel} from '../model/aquisicao-model';
+import {ComboModel} from '../model/combo-model';
+import {FormaPagamentoModel} from '../model/FormaPagamentoModel';
+import {FormControl, FormGroup} from '@angular/forms';
+import {TipoDescarteService} from '../_services/tipo-descarte.service';
+import {AquisicaoService} from '../_services/aquisicao.service';
+import {FormaPagamentoService} from '../_services/forma-pagamento.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-aquisicao',
@@ -36,7 +36,8 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
               transportadorService: TransportadorService,
               tipoDescarteService: TipoDescarteService,
               aquisicaoService: AquisicaoService,
-              formaPagamentoService: FormaPagamentoService) {
+              formaPagamentoService: FormaPagamentoService,
+              private router: Router) {
     super(notifierService);
     this.transportadorService = transportadorService;
     this.tipoDescarteService = tipoDescarteService;
@@ -70,15 +71,20 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
     this.aquisicaoService.save(this.aquisicao).subscribe(
       data => {
         this.notifier.notify('success', 'Aquisição criada!');
+        this.routerLink('combo');
       }, err => {
         this.notifier.notify('error', err.error.message );
       }
     );
   }
 
+  routerLink(route: string) {
+    this.router.navigate([route]);
+  }
+
   carregarTransportadores() {
     this.transportadorService.get().subscribe( transportadores => {
-      this.transportadores = transportadores;
+      this.transportadores = transportadores.content;
     });
   }
 
@@ -90,7 +96,7 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
 
   carregaFormaPagamento() {
     this.formaPagamentoService.get().subscribe( data => {
-      data = this.limparFormasPagamento(data);
+      data = this.limparFormasPagamento(data.content);
       this.formasPagamento = data;
     });
   }

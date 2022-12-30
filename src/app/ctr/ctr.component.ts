@@ -75,6 +75,7 @@ export class CtrComponent implements OnInit {
   ctr: CtrModel;
 
   private readonly notifier: NotifierService;
+  numero: number;
 
   constructor(veiculoService: VeiculoService,
               transportadorService: TransportadorService,
@@ -110,6 +111,7 @@ export class CtrComponent implements OnInit {
   }
 
   createForm(model: CtrModel) {
+    model.id = null;
     model.veiculo = new VeiculoModel();
     model.transportador = new TransportadorModel();
     model.gerador = new GeradorModel();
@@ -323,5 +325,9 @@ export class CtrComponent implements OnInit {
   handlePageChange(event) {
     this.page = event;
     this.carregarVeiculos();
+  }
+
+  vinculaNumeroCTR() {
+    this.ctr.id = this.numero;
   }
 }

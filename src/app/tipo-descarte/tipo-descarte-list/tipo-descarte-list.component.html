@@ -1,0 +1,44 @@
+<div class="list row" style="padding-top: 15px">
+  <div class="container-fluid">
+    <div class="card card-success">
+      <div class="card-header">
+        <h3 class="card-title">{{nomeTabela()}}</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="collapse show" id="lista">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Valor</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let entity of entities | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: currentPage,
+                                totalItems: count};">
+                  <td> {{entity.nome}}</td>
+                  <td> {{entity.valor | currency:'BRL'}}</td>
+                </tr>
+                <div class="col-12">
+                  <pagination-controls
+                    previousLabel="Anterior"
+                    nextLabel="Próximo"
+                    responsive="true"
+                    (pageChange)="handlePageChange(getParams($event))">
+
+                  </pagination-controls>
+                </div>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

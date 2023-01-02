@@ -51,14 +51,6 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Gravar Usuário
-              </label>
-            </div>
-          </div>
           <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
@@ -69,29 +61,12 @@
           <div
             class="alert alert-danger"
             role="alert"
-            *ngIf="f.submitted && isLoginFailed"
-          >
-            Login failed: {{ errorMessage }}
+            *ngIf="f.submitted && isLoginFailed">
+            Falha no login: {{ errorMessage }}
           </div>
         </div>
       </form>
-
-      <div class="social-auth-links text-center mt-2 mb-3">
-        <a class="btn btn-block btn-primary disabled" >
-          <i class="fab fa-facebook mr-2"></i> Login com Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger disabled">
-          <i class="fab fa-google mr-2"></i> Login com Google
-        </a>
-      </div>
       <!-- /.social-auth-links -->
-
-      <p class="mb-1">
-        <a href="/login">Esqueci minha senha</a>
-      </p>
-      <p class="mb-0">
-        <a href="/login" class="text-center">Registrar novo usuário</a>
-      </p>
     </div>
     <!-- /.card-body -->
   </div>

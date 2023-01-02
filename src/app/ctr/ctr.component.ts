@@ -27,7 +27,6 @@ import {MotoristaModel} from '../model/motorista-model';
 })
 export class CtrComponent implements OnInit {
 
-  //Veículos
   currentIndex = -1;
   placa = '';
   modelo = '';
@@ -127,19 +126,8 @@ export class CtrComponent implements OnInit {
   }
 
   carregarVeiculos() {
-    let params = {};
-    if (this.placa) {
-      params = {placa: this.placa};
-    }
-    if (this.modelo) {
-      params = {modelo: this.modelo};
-    }
-    if (this.page) {
-      params = {page: this.page - 1};
-    }
     this.veiculoService.get().subscribe(data => {
-        this.veiculos = data.content;
-        this.count = data.totalElements;
+      this.veiculos = data.content;
     });
   }
 
@@ -218,15 +206,11 @@ export class CtrComponent implements OnInit {
     this.router.navigate([route, id]);
   }
 
-  vinculaVeiculo(veiculo: any, i: number) {
-    this.currentTutorial = veiculo;
-    this.currentIndex = i;
-    this.veiculoSelecionado = veiculo;
+  vinculaVeiculo() {
     this.ctr.veiculo = this.veiculoSelecionado;
   }
 
   vinculaTransportador() {
-    debugger;
     this.ctr.transportador = this.transportadorSelecionado;
   }
 
@@ -322,10 +306,6 @@ export class CtrComponent implements OnInit {
     }
   }
 
-  handlePageChange(event) {
-    this.page = event;
-    this.carregarVeiculos();
-  }
 
   vinculaNumeroCTR() {
     this.ctr.id = this.numero;

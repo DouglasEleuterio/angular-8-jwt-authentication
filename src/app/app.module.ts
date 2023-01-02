@@ -38,10 +38,13 @@ import { ComboHistoricoComponent } from './combo-historico/combo-historico.compo
 import {NgbAlertModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { AquisicaoComponent } from './aquisicao/aquisicao.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { TableComponent } from './table/table.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {TextMaskModule} from 'angular2-text-mask';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { VeiculoListComponent } from './veiculo/veiculo-list/veiculo-list.component';
+import { MotoristaListComponent } from './motorista/motorista-list/motorista-list.component';
+import { TipoDescarteListComponent } from './tipo-descarte/tipo-descarte-list/tipo-descarte-list.component';
+import { FormaPagamentoListComponent } from './forma-pagamento/forma-pagamento-list/forma-pagamento-list.component';
 
 /**
  * Custom angular notifier options
@@ -113,7 +116,10 @@ registerLocaleData(ptBr);
     ComboComponent,
     ComboHistoricoComponent,
     AquisicaoComponent,
-    TableComponent
+    VeiculoListComponent,
+    MotoristaListComponent,
+    TipoDescarteListComponent,
+    FormaPagamentoListComponent
   ],
   imports: [
     BrowserModule,

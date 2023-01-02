@@ -20,7 +20,8 @@ import {CtrListComponent} from './ctr/ctr-list/ctr-list.component';
 import {MotoristaComponent} from './motorista/motorista.component';
 import {ComboComponent} from './combo/combo.component';
 import {ComboHistoricoComponent} from './combo-historico/combo-historico.component';
-import {AquisicaoComponent} from "./aquisicao/aquisicao.component";
+import {AquisicaoComponent} from './aquisicao/aquisicao.component';
+import {VeiculoListComponent} from './veiculo/veiculo-list/veiculo-list.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'invoice/:id', component: InvoiceComponent },
   { path: 'combo-historico/:comboId', component: ComboHistoricoComponent },
   { path: 'painel-financeiro', component: PainelFinanceiroComponent },
+  { path: 'veiculo-list', component: VeiculoListComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

@@ -31,7 +31,7 @@
             <div class="form-group">
               <mat-tab-group animationDuration="0ms">
                 <mat-tab label="Número CTR">
-                  <div class="col-sm-12 col-md-5">
+                  <div class="col-12">
                     <label for="numero">Número CTR</label>
                     <input
                       (change)="vinculaNumeroCTR()"
@@ -43,93 +43,23 @@
                     />
                     </div>
                 </mat-tab>
-                <mat-tab  label="Veículo" >
-                    <!--   VEÍCULOS        -->
-                  <div class="list row" style="padding-top: 15px">
-                    <div class="col-sm-12 col-md-5">
-                      <div class="input-group input-group-sm">
-                        <label for="placa">Placa</label>
-                        <input
-                          id="placa"
-                          type="text"
-                          class="form-control"
-                          placeholder="Placa"
-                          [(ngModel)]="placa"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-sm-12 col-md-5">
-                      <div class="input-group input-group-sm">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Modelo"
-                          [(ngModel)]="modelo"
-                        />
-                      </div>
-                    </div>
-                    <button
-                      class="btn btn-info btn-flat"
-                      type="button"
-                      (click)="carregarVeiculos()">
-                      Buscar
-                    </button>
-                    <br/>
-
-                    <div class="container-fluid">
-                      <div class="card card-success">
-                        <div class="card-header">
-                          <h3 class="card-title">Veículos</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                          <div class="col-12 table-responsive">
-                            <table class="table table-bordered">
-                              <thead>
-                              <tr>
-                                <th class="text-center">Marca</th>
-                                <th class="text-center">Modelo</th>
-                                <th class="text-center">Placa</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr *ngFor="let entity of veiculos | paginate: {
-                                itemsPerPage: 5,
-                                currentPage: page,
-                                totalItems: count};
-                                let i = index"
-                                 [class.table-active]="i === currentIndex"
-                                 (click)="vinculaVeiculo(entity, i)">
-                                <td> {{entity.marca}}</td>
-                                <td> {{entity.modelo}}</td>
-                                <td> {{entity.placa}}</td>
-                              </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <pagination-controls
-                        previousLabel="Anterior"
-                        nextLabel="Próximo"
-                        responsive="true"
-                        (pageChange)="handlePageChange($event)">
-
-                      </pagination-controls>
-                    </div>
+                <mat-tab  label="Veículo">
+                  <div class="col-12">
+                    <label>Veículo</label>
+                    <select [(ngModel)]="veiculoSelecionado" id="veiculo"
+                            class="form-control select2" style="width: 100%;" (change)="vinculaVeiculo()">
+                      <option *ngFor="let veiculo of veiculos" [ngValue]="veiculo"> Placa: {{veiculo.placa}} |
+                        Modelo: {{veiculo.modelo}} | Marca: {{veiculo.marca}}</option>
+                    </select>
                   </div>
-
-                  <!--//   VEÍCULOS        -->
-                    <div class="col-12">
-                      <label>Motorista</label>
-                      <select [(ngModel)]="motoristaSelecionado" id="motorista"
-                              class="form-control select2" style="width: 100%;" (change)="vinculaMotorista()">
-                        <option *ngFor="let motorista of motoristas" [ngValue]="motorista">
-                          Nome: {{motorista.nome}} | Telefone: {{motorista.telefone}}</option>
-                      </select>
-                    </div>
+                  <div class="col-12">
+                    <label>Motorista</label>
+                    <select [(ngModel)]="motoristaSelecionado" id="motorista"
+                            class="form-control select2" style="width: 100%;" (change)="vinculaMotorista()">
+                      <option *ngFor="let motorista of motoristas" [ngValue]="motorista">
+                        Nome: {{motorista.nome}} | Telefone: {{motorista.telefone}}</option>
+                    </select>
+                  </div>
                 </mat-tab>
                 <mat-tab label="Transportador">
                   <div class="col-12">

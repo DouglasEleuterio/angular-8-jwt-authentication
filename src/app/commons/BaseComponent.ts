@@ -1,9 +1,9 @@
 import {FormGroup} from '@angular/forms';
 import {NotifierService} from 'angular-notifier';
-import {ViewChild} from '@angular/core';
+import {OnInit, ViewChild} from '@angular/core';
 import {Params} from '../model/params';
 
-export abstract class BaseComponent {
+export abstract class BaseComponent implements OnInit {
 
   @ViewChild('closebutton', {static: false}) closebutton;
 
@@ -21,8 +21,13 @@ export abstract class BaseComponent {
   public cnpjMask = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   public cepMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
-  constructor(notifier?: NotifierService) {
+  constructor(notifier?: NotifierService, private service?: any) {
     this.notifier = notifier;
+  }
+
+  ngOnInit() {
+    this.criarFormSearch();
+    this.obtemValor();
   }
 
   obtemValor(params?: any) {
@@ -43,6 +48,10 @@ export abstract class BaseComponent {
       });
   }
 
+  nomeTabela(): string {
+    return '';
+  }
+
   handlePageChange(event) {
     this.carregarEntidades(event);
   }
@@ -52,6 +61,18 @@ export abstract class BaseComponent {
     return this.params as Params;
   }
 
-  abstract carregarEntidades(event);
-  abstract getService(): any;
+  criarFormSearch() {
+    this.filterGroup = this.getFilters();
+  }
+
+  carregarEntidades(event?: any) {
+    this.obtemValor(this.getFilters(event));
+  }
+
+  getService(): any {
+    return this.service;
+  }
+
+  getFilters(event?: any): any {
+  }
 }

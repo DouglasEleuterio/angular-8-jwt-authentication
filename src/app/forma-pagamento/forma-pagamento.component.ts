@@ -87,6 +87,9 @@ export class FormaPagamentoComponent extends BaseComponent implements OnInit {
   }
 
   carregarEntidades(event?: any) {
+    if (this.filterGroup.value.statusFilter === undefined || this.filterGroup.value.statusFilter === '') {
+      this.filterGroup.value.statusFilter = true;
+    }
     this.params = {nome: this.filterGroup.value.nomeFilter, ativo: this.filterGroup.value.statusFilter,
       page: event ? event.page - 1 : 0 };
     this.obtemValor(this.params);

@@ -22,7 +22,6 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
   transportador = new TransportadorModel();
   isEdicao: boolean;
   transportadorSelecionado: TransportadorModel;
-  entities: VeiculoModel[];
   veiculoExcluir = new VeiculoModel();
   placa: any;
   modelo: any;
@@ -81,7 +80,7 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
 
   carregarTransportadores() {
     this.transportadorService.get().subscribe( transportadores => {
-      this.transportadores = transportadores;
+      this.transportadores = transportadores.content;
     });
   }
 

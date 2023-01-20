@@ -32,6 +32,7 @@ export class GeradorComponent extends BaseComponent implements OnInit {
     this.form = new FormGroup({
       id: new FormControl(model.id),
       nome: new FormControl(model.nome),
+      cpf: new FormControl(model.cpf),
       razaoSocial: new FormControl(model.razaoSocial),
       cnpj: new FormControl(model.cnpj),
       dataEmissao: new FormControl(model.dataEmissao),

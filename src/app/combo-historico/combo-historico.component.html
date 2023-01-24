@@ -48,6 +48,12 @@
             <div class="col-sm-3 invoice-col">
               Forma Pagamento: <b>{{aquisicao.formaPagamento.nome}}</b>
             </div>
+            <div class="col-sm-3 invoice-col">
+              Quantidade Utilizada: <b>{{getQuantidadeUtilizada()}}</b>
+            </div>
+            <div class="col-sm-3 invoice-col">
+              Saldo Remanescente: <b>{{aquisicao.quantidadeAdquirida - getQuantidadeUtilizada()}}</b>
+            </div>
           </div>
           <!-- /.row -->
 

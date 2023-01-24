@@ -44,4 +44,10 @@ export class ComboHistoricoComponent implements OnInit {
         console.log(error);
       });
   }
+
+  getQuantidadeUtilizada(): number {
+    let totalUtilizado = 0;
+    this.descartePorCombo.forEach(value => totalUtilizado += value.quantidade);
+    return totalUtilizado;
+  }
 }

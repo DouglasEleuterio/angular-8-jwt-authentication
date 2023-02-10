@@ -10,4 +10,5 @@ export class GeradorModel {
   retirada: EnderecoModel = new EnderecoModel();
   telefone: string;
   email: string;
+  ativo: boolean;
 }

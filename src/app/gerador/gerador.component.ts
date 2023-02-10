@@ -24,6 +24,7 @@ export class GeradorComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.gerador = new GeradorModel();
+    this.gerador.ativo = true;
     this.createForm(new GeradorModel());
     this.obtemValor();
   }
@@ -46,14 +47,16 @@ export class GeradorComponent extends BaseComponent implements OnInit {
       observacao: new FormControl(model.retirada.observacao),
       email: new FormControl(model.email),
       telefone: new FormControl(model.telefone),
+      ativo: new FormControl(model.ativo)
     });
   }
 
   onSubmit() {
     this.geradorService.save(this.gerador).subscribe(
       data => {
-        super.notifier.notify('success', 'Transportadora: ' + data.razaoSocial + ' criada!');
+        super.notifier.notify('success', 'Gerador: salvo!');
         this.createForm(new GeradorModel());
+        this.obtemValor();
       }, err => {
         super.notifier.notify('error', err.error.message );
       }
@@ -72,10 +75,6 @@ export class GeradorComponent extends BaseComponent implements OnInit {
 
   limpar() {
     this.gerador = new GeradorModel();
-  }
-
-  carregarEntidades() {
-    this.obtemValor();
   }
 
   getService(): any {

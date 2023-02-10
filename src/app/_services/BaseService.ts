@@ -12,11 +12,11 @@ export abstract class BaseService<T> {
   };
 
   get(): Observable<any> {
-    return this.http.get<T>(environment.apiUrl + this.getResource() + '/all', {});
+    return this.http.get<T>(environment.apiUrl + this.getResource() );
   }
 
   getWithParams(params: any): Observable<any> {
-    return this.http.get<T>(environment.apiUrl + this.getResource() + '/all', {params});
+    return this.http.get<T>(environment.apiUrl + this.getResource() + '/', {params});
   }
 
   find(resource: string, id: string): Observable<any> {

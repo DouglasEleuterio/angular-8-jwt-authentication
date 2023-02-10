@@ -4,6 +4,7 @@ import {MotoristaModel} from '../model/motorista-model';
 import {MotoristaService} from '../_services/motorista.service';
 import {NotifierService} from 'angular-notifier';
 import {BaseComponent} from '../commons/BaseComponent';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-motorista',
@@ -17,13 +18,14 @@ export class MotoristaComponent extends BaseComponent implements OnInit {
   entities: MotoristaModel[];
 
   constructor(private motoristaService: MotoristaService,
-              notifier: NotifierService) {
+              notifier: NotifierService,
+              private router: Router) {
     super(notifier);
   }
 
   ngOnInit() {
     this.createForm(new MotoristaModel());
-    this.carregarMotoristas();
+    this.obtemValor();
   }
 
   onSubmit() {
@@ -43,7 +45,7 @@ export class MotoristaComponent extends BaseComponent implements OnInit {
   carregarMotoristas() {
     this.motoristaService.get().subscribe(
       data => {
-        this.entities = data;
+        this.entities = data.content;
       }, err => {
       }
     );

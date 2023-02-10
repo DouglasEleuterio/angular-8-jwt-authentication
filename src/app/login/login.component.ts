@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.form).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveToken(data.id_token);
         this.tokenStorage.saveUser(data);
 
         this.isLoginFailed = false;
@@ -46,11 +46,6 @@ export class LoginComponent implements OnInit {
   }
 
   navegarParaDashboard() {
-    const urlAtual = window.location.href;
-    if (urlAtual.includes('localhost')) {
-      // window.location.href = 'http://localhost:4200/';
-    } else {
-      window.location.href = 'https://douglaseleuterio.github.io/aterrosystem-frontend/painel-financeiro';
-    }
+    this.router.navigate(['/painel-financeiro']);
   }
 }

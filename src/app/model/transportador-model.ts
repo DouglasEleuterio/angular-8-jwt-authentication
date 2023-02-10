@@ -8,4 +8,5 @@ export class TransportadorModel {
   endereco: EnderecoModel = new EnderecoModel();
   telefone: string;
   email: string;
+  ativo: boolean;
 }

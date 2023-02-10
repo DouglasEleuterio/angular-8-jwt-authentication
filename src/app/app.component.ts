@@ -20,13 +20,14 @@ export class AppComponent implements OnInit {
 
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
+      this.roles = user.authorities;
 
-      // this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      // this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+       this.showModeratorBoard = this.roles.includes('ROLE_USER');
 
       this.username = user.username;
     }
+    alert(JSON.stringify(this.roles));
   }
 
   logout() {
@@ -36,6 +37,6 @@ export class AppComponent implements OnInit {
   }
 
   navegarParaDashboard() {
-    window.location.href = '/aterrosystem-frontend';
+    // window.location.href = '/aterrosystem-frontend';
   }
 }

@@ -28,6 +28,7 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.obtemValor();
     this.transportador = new TransportadorModel();
+    this.transportador.ativo = true;
     this.createForm(new TransportadorModel());
   }
 
@@ -61,6 +62,7 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
         this.notifier.notify('error', err.error.message );
       }
     );
+    this.obtemValor();
   }
 
   criarEndereco() {
@@ -76,6 +78,7 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
 
   editar(entity: TransportadorModel): void {
     this.isEdicao = true;
+    this.transportador.id = entity.id;
     this.transportador = entity;
   }
 

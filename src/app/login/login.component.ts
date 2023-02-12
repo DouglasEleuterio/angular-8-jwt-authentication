@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import {Router} from '@angular/router';
+import {AuthoritiesModel} from "../model/authorities-model";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
+  roles: AuthoritiesModel[];
 
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
+      this.roles = this.tokenStorage.getUser().authorities;
       this.navegarParaDashboard();
     }
   }
@@ -30,12 +31,12 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.form).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.id_token);
+        this.tokenStorage.saveToken(data.idToken);
         this.tokenStorage.saveUser(data);
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
+        this.roles = this.tokenStorage.getUser().authorities;
         this.navegarParaDashboard();
       },
       err => {

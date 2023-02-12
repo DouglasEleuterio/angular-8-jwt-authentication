@@ -163,10 +163,9 @@
             <table class="table table-striped">
               <thead>
               <tr>
-                <th class="text-center">Marca</th>
-                <th class="text-center">Modelo</th>
                 <th class="text-center">Placa</th>
                 <th class="text-center">Transportador</th>
+                <th class="text-center">Situação</th>
                 <th class="text-center col-2" colspan="3">Ação</th>
               </tr>
               </thead>
@@ -175,10 +174,15 @@
                                 itemsPerPage: 5,
                                 currentPage: currentPage,
                                 totalItems: count};">
-                <td> {{entity.marca}}</td>
-                <td> {{entity.modelo}}</td>
                 <td> {{entity.placa}}</td>
                 <td> {{entity.transportador.nome}}</td>
+                <td>
+                  <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                    <input disabled type="checkbox" class="custom-control-input" [checked]="entity.ativo"
+                           #customSwitch3 id="customSwitch3">
+                    <label class="custom-control-label" for="customSwitch3">{{entity.ativo === true ? 'Ativo' : 'Inativo' }}</label>
+                  </div>
+                </td>
                 <td class="text-center">
                   <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
                     class="fas fa-edit"></i></button>

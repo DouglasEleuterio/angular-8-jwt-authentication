@@ -21,16 +21,17 @@ export class TipoDescarteService extends BaseService<TipoDescarteModel> {
   }
 
 save(tipoDescarte): Observable<any> {
-    return this.http.post(environment.apiUrl + DESCARTE_RESOURCE, {
-      id: tipoDescarte.value.id,
-      nome: tipoDescarte.value.nome,
-      valor: tipoDescarte.value.valor,
-      ativo: tipoDescarte.value.ativo
-    }, httpOptions);
+    if (tipoDescarte.value.ativo === null) {
+      tipoDescarte.value.ativo = true;
+    }
+    if (tipoDescarte.value.id) {
+      return this.http.put(environment.apiUrl + DESCARTE_RESOURCE + '/' + tipoDescarte.value.id  , tipoDescarte.value, httpOptions);
+    }
+    return this.http.post(environment.apiUrl + DESCARTE_RESOURCE, tipoDescarte.value, httpOptions);
   }
 
   getAtivo(): Observable<any> {
-    return  this.http.get<TipoDescarteModel>(environment.apiUrl + DESCARTE_RESOURCE + '/all-ativo', {});
+    return  this.http.get<TipoDescarteModel>(environment.apiUrl + DESCARTE_RESOURCE , {});
   }
 
   delete(tipoDescarte): Observable<any> {

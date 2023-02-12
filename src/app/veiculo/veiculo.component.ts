@@ -35,6 +35,8 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.veiculo = new VeiculoModel();
+    this.veiculo.id = null;
+    this.veiculo.ativo = null;
     this.transportador = new TransportadorModel();
     this.createForm(new VeiculoModel());
     this.carregarTransportadores();
@@ -79,13 +81,9 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
   }
 
   carregarTransportadores() {
-    this.transportadorService.get().subscribe( transportadores => {
-      this.transportadores = transportadores.content;
+    this.transportadorService.findListWithRsql('search=ativo==true').subscribe( transportadores => {
+      this.transportadores = transportadores;
     });
-  }
-
-  selecionarTransportador(transportador: TransportadorModel) {
-    console.log(transportador);
   }
 
   editar(entity: VeiculoModel): void {
@@ -96,13 +94,15 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
 
   prepararExclusao(entity: VeiculoModel) {
     this.veiculoExcluir = entity;
+    this.veiculoExcluir.ativo = false;
+    this.veiculoExcluir.id = entity.id;
   }
 
   excluir() {
-    this.veiculoService.delete(this.veiculoExcluir.id).subscribe(
+    this.veiculoService.inativar(this.veiculoExcluir).subscribe(
       data => {
         this.closebutton.nativeElement.click();
-        this.notifier.notify('success', 'Transportadora: ' + this.transportador.nome + ' deletada' );
+        this.notifier.notify('success', 'Transportadora: ' + this.transportador.nome + ' desativada!' );
         window.location.reload();
       }, err => {});
   }

@@ -25,13 +25,7 @@ export class VeiculoService extends BaseService<VeiculoModel> {
   }
 
   save(veiculo): Observable<any> {
-    return super.save(  {
-      id: veiculo.id,
-      marca: veiculo.marca,
-      modelo: veiculo.modelo,
-      placa: veiculo.placa,
-      transportador: veiculo.transportador
-    }, VEICULO_RESOURCE);
+    return super.save(veiculo, VEICULO_RESOURCE);
   }
 
   getResource(): string {

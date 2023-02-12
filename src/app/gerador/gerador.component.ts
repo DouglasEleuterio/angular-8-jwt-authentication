@@ -12,7 +12,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class GeradorComponent extends BaseComponent implements OnInit {
 
-  gerador: GeradorModel;
+  gerador = new GeradorModel();
   fisica: boolean;
   juridica: boolean;
   isEdicao = false;
@@ -23,8 +23,9 @@ export class GeradorComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.gerador = new GeradorModel();
     this.gerador.ativo = true;
+    this.gerador.id = null;
+    this.gerador.cpf = null;
     this.createForm(new GeradorModel());
     this.obtemValor();
   }

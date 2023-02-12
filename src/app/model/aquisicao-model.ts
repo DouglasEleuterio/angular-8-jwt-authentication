@@ -1,6 +1,6 @@
-import {BaseModel} from "./base-model";
-import {ComboModel} from "./combo-model";
-import {FormaPagamentoModel} from "./FormaPagamentoModel";
+import {BaseModel} from './base-model';
+import {ComboModel} from './combo-model';
+import {FormaPagamentoModel} from './FormaPagamentoModel';
 
 export class AquisicaoModel extends BaseModel {
   combo: ComboModel = new ComboModel();

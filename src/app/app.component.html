@@ -26,7 +26,10 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex" *ngIf="isLoggedIn">
       <div class="info">
-        <a href="#" class="d-block">{{username}}</a>
+        <a href="#" class="d-block">{{user.firstname}} {{user.lastname}}</a>
+        <a href="#" class="d-block" *ngFor="let auth of user.authorities">
+          Perfil:
+          {{auth.name.replace('ROLE_', '')}}</a>
       </div>
     </div>
 

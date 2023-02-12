@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from './_services/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {TokenStorageService} from './_services/token-storage.service';
+import {AuthoritiesModel} from './model/authorities-model';
+import {UserModel} from './model/user-model';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +9,15 @@ import { TokenStorageService } from './_services/token-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  private roles: string[];
+  private roles: AuthoritiesModel[];
   isLoggedIn = false;
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
+  user: UserModel;
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService) {
+  }
 
   ngOnInit() {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -21,13 +25,26 @@ export class AppComponent implements OnInit {
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.authorities;
-
-       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-       this.showModeratorBoard = this.roles.includes('ROLE_USER');
-
       this.username = user.username;
+      this.user = user;
     }
-    alert(JSON.stringify(this.roles));
+
+    for (const role of this.roles) {
+      this.showAdminBoard = role.name === 'ROLE_ADMIN';
+      if (this.showAdminBoard === true) {
+        break;
+      }
+    }
+    for (const role of this.roles) {
+      this.showModeratorBoard = role.name === 'ROLE_USER';
+      if (this.showModeratorBoard === true) {
+        break;
+      }
+    }
+
+    this.roles.forEach(value => console.log(value.name));
+    console.log(this.showAdminBoard);
+    console.log(this.showModeratorBoard);
   }
 
   logout() {

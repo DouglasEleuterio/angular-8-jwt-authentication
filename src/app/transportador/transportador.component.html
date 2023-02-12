@@ -31,7 +31,7 @@
             <div class="card-body">
               <div class="form-group">
                 <div class="row">
-                  <div class="col-8">
+                  <div class="col-sm-12 col-md-6">
                     <label for="nome">Nome</label>
                     <input
                       [(ngModel)]="transportador.nome"
@@ -44,25 +44,7 @@
                       placeholder="Nome"
                     >
                   </div>
-                  <div class="col-4">
-                    <label for="cnpj">CNPJ</label>
-                    <input
-                      [textMask]="{mask: cnpjMask}"
-                      [(ngModel)]="transportador.cnpj"
-                      formControlName="cnpj"
-                      type="text"
-                      id="cnpj"
-                      class="form-control"
-                      name="cnpj"
-                      required
-                      placeholder="CNPJ"
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-12">
+                  <div class="col-sm-12 col-md-6">
                     <label for="razaoSocial">Razão Social</label>
                     <input
                       [(ngModel)]="transportador.razaoSocial"
@@ -79,7 +61,21 @@
               </div>
               <div class="form-group">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-sm-12 col-md-4">
+                    <label for="cnpj">CNPJ</label>
+                    <input
+                      [textMask]="{mask: cnpjMask}"
+                      [(ngModel)]="transportador.cnpj"
+                      formControlName="cnpj"
+                      type="text"
+                      id="cnpj"
+                      class="form-control"
+                      name="cnpj"
+                      required
+                      placeholder="CNPJ"
+                    >
+                  </div>
+                  <div class="col-sm-12 col-md-4">
                     <label for="razaoSocial">Telefone</label>
                     <input
                       [(ngModel)]="transportador.telefone"
@@ -93,7 +89,7 @@
                       [textMask]="{mask: phoneMask}"
                     >
                   </div>
-                  <div class="col-6">
+                  <div class="col-sm-12 col-md-4">
                     <label for="razaoSocial">E-mail</label>
                     <input
                       [(ngModel)]="transportador.email"
@@ -103,8 +99,7 @@
                       class="form-control"
                       name="email"
                       required
-                      placeholder="E-mail"
-                    >
+                      placeholder="E-mail">
                   </div>
                 </div>
               </div>
@@ -133,20 +128,20 @@
 
             <div class="card-body">
               <div class="form-group">
-                <label for="logradouro">Logradouro</label>
-                <input
-                  [(ngModel)]="transportador.endereco.logradouro"
-                  formControlName="logradouro"
-                  type="text"
-                  id="logradouro"
-                  class="form-control col-12"
-                  name="logradouro"
-                  required
-                  placeholder="Rua, Avenida, Área, Fazenda">
-              </div>
-              <div class="form-group">
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-sm-12 col-md-5">
+                    <label for="logradouro">Logradouro</label>
+                    <input
+                      [(ngModel)]="transportador.endereco.logradouro"
+                      formControlName="logradouro"
+                      type="text"
+                      id="logradouro"
+                      class="form-control"
+                      name="logradouro"
+                      required
+                      placeholder="Rua, Avenida, Área, Fazenda">
+                  </div>
+                  <div class="col-sm-12 col-md-2">
                     <label for="numero">Numero</label>
                     <input
                       [(ngModel)]="transportador.endereco.numero"
@@ -159,24 +154,7 @@
                       placeholder="numero"
                     >
                   </div>
-                  <div class="col-8">
-                    <label for="complemento">Complemento</label>
-                    <input
-                      [(ngModel)]="transportador.endereco.complemento"
-                      formControlName="complemento"
-                      type="text"
-                      id="complemento"
-                      class="form-control"
-                      name="complemento"
-                      required
-                      placeholder="Complemento"
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-4">
+                  <div class="col-sm-12 col-md-5">
                     <label for="bairro">Bairro</label>
                     <input
                       [(ngModel)]="transportador.endereco.bairro"
@@ -189,7 +167,25 @@
                       placeholder="Bairro"
                     >
                   </div>
-                  <div class="col-4">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12 col-md-4">
+                    <label for="complemento">Complemento</label>
+                    <input
+                      [(ngModel)]="transportador.endereco.complemento"
+                      formControlName="complemento"
+                      type="text"
+                      id="complemento"
+                      class="form-control"
+                      name="complemento"
+                      required
+                      placeholder="Complemento"
+                    >
+                  </div>
+
+                  <div class="col-sm-12 col-md-4">
                     <label for="cidade">Cidade</label>
                     <input
                       [(ngModel)]="transportador.endereco.cidade"
@@ -202,7 +198,7 @@
                       placeholder="Cidade"
                     >
                   </div>
-                  <div class="col-4">
+                  <div class="col-sm-12 col-md-4">
                     <label for="estado">Estado</label>
                     <input
                       [(ngModel)]="transportador.endereco.estado"
@@ -218,7 +214,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-sm-12 col-md-4">
                   <label for="cep">CEP</label>
                   <input
                     [textMask]="{mask: cepMask}"
@@ -232,7 +228,7 @@
                     placeholder="CEP"
                   >
                 </div>
-                <div class="col-8">
+                <div class="col-sm-12 col-md-8">
                   <label for="observacao">Observação</label>
                   <input
                     [(ngModel)]="transportador.endereco.observacao"
@@ -279,7 +275,7 @@
             <th class="text-center">Nome</th>
             <th class="text-center">Razão Social</th>
             <th class="text-center">CNPJ</th>
-            <th class="text-center">Bairro</th>
+            <th class="text-center">Situação</th>
             <th class="text-center col-2" colspan="3">Ação</th>
           </tr>
           </thead>
@@ -288,10 +284,16 @@
                                 itemsPerPage: 5,
                                 currentPage: currentPage,
                                 totalItems: count};">
-            <td> {{entity.nome}}</td>
+            <td> {{entity.nome}} </td>
             <td> {{entity.razaoSocial}}</td>
             <td> {{entity.cnpj}}</td>
-            <td> {{entity.endereco.bairro}}</td>
+            <td>
+              <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                <input disabled type="checkbox" class="custom-control-input" [checked]="entity.ativo"
+                       #customSwitch3 id="customSwitch3">
+                <label class="custom-control-label" for="customSwitch3">{{entity.ativo === true ? 'Ativo' : 'Inativo' }}</label>
+              </div>
+            </td>
             <td class="text-center">
               <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
                 class="fas fa-edit"></i></button>

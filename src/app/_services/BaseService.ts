@@ -12,11 +12,15 @@ export abstract class BaseService<T> {
   };
 
   get(): Observable<any> {
-    return this.http.get<T>(environment.apiUrl + this.getResource() );
+    return this.http.get<T>(environment.apiUrl + this.getResource());
   }
 
   getWithParams(params: any): Observable<any> {
-    return this.http.get<T>(environment.apiUrl + this.getResource() , {params});
+    return this.http.get<T>(environment.apiUrl + this.getResource() + '?' + params );
+  }
+
+  findListWithRsql(rsql: any): Observable<any> {
+    return this.http.get<T>(environment.apiUrl + this.getResource() + '/find-list?' + rsql );
   }
 
   find(resource: string, id: string): Observable<any> {
@@ -24,11 +28,27 @@ export abstract class BaseService<T> {
   }
 
   save(entity, resource): Observable<any> {
+    if (entity.id) {
+      entity.ativo = true;
+      return this.update(entity);
+    }
+    if (entity.ativo === null) {
+      entity.ativo = true;
+    }
     return this.http.post(environment.apiUrl + this.getResource(), entity, this.httpOptions);
+  }
+
+  update(entity): Observable<any> {
+    return this.http.put(environment.apiUrl + this.getResource() + '/' + entity.id, entity, this.httpOptions);
   }
 
   delete(id: string): Observable<any> {
     return this.http.delete(environment.apiUrl + this.getResource() + '/' + id);
+  }
+
+  inativar(entity): Observable<any> {
+    entity.ativo = false;
+    return this.update(entity);
   }
 
   getSpecifiedPath(resource: string, path: string): Observable<any> {

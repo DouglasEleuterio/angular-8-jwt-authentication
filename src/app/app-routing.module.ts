@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: 'tipo-descarte', component: TipoDescarteComponent },
   { path: 'forma-pagamento', component: FormaPagamentoComponent },
   { path: 'transportador', component: TransportadorComponent },
+  { path: 'transportadorAuxiliar', component: TransportadorComponent },
   { path: 'veiculo', component: VeiculoComponent },
   { path: 'gerador', component: GeradorComponent },
   { path: 'ctr', component: CtrComponent },

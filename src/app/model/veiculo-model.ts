@@ -6,4 +6,5 @@ export class VeiculoModel {
   modelo: string;
   placa: string;
   transportador: TransportadorModel;
+  ativo: boolean;
 }

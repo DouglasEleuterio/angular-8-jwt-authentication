@@ -23,11 +23,12 @@ export class FormaPagamentoService extends BaseService<TipoDescarteModel> {
   }
 
   save(formaPagamento): Observable<any> {
-    return this.http.post(environment.apiUrl + FORMA_PAGAMENTO_RESOURCE, {
-      id: formaPagamento.value.id,
-      nome: formaPagamento.value.nome,
-      ativo: formaPagamento.value.ativo,
-    }, httpOptions);
+    if (formaPagamento.value.id) {
+      return this.http.put(environment.apiUrl +
+        FORMA_PAGAMENTO_RESOURCE + '/' +
+        formaPagamento.value.id, formaPagamento.value, httpOptions);
+    }
+    return this.http.post(environment.apiUrl + FORMA_PAGAMENTO_RESOURCE, formaPagamento, httpOptions);
   }
 
   alteraSituacao(formaPagamento): Observable<any> {

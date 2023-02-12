@@ -4,6 +4,7 @@ import {NotifierService} from 'angular-notifier';
 import {FormControl, FormGroup} from '@angular/forms';
 import {TransportadorModel} from '../model/transportador-model';
 import {BaseComponent} from '../commons/BaseComponent';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-transportador',
@@ -14,14 +15,14 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
 
   @ViewChild('closebutton', {static: false}) closebutton;
 
-  entities: TransportadorModel [];
   form: FormGroup;
   isEdicao = false;
   transportador = new TransportadorModel();
   transpExcluir = new TransportadorModel();
 
   constructor(private transportadorService: TransportadorService,
-              notifier: NotifierService) {
+              notifier: NotifierService,
+              private router: Router) {
     super(notifier);
   }
 
@@ -57,12 +58,12 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
       data => {
         this.createForm(new TransportadorModel());
         this.isEdicao = false;
-        this.notifier.notify('success', 'Transportadora: ' + data.razaoSocial + ' criada!');
+        this.notifier.notify('success', 'Transportadora: ' + data.razaoSocial + ' salva!');
+        this.router.navigate(['/transportadorAuxiliar']);
       }, err => {
         this.notifier.notify('error', err.error.message );
       }
     );
-    this.obtemValor();
   }
 
   criarEndereco() {
@@ -79,11 +80,8 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
   editar(entity: TransportadorModel): void {
     this.isEdicao = true;
     this.transportador.id = entity.id;
-    this.transportador = entity;
-  }
-
-  manipular(entity: TransportadorModel) {
-    this.transportador = entity;
+    this.transportador = {...entity};
+    console.log(entity);
   }
 
   excluir() {
@@ -102,10 +100,6 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
 
   prepararExclusao(entity: TransportadorModel) {
     this.transpExcluir = entity;
-  }
-
-  carregarEntidades() {
-    this.obtemValor();
   }
 
   getService(): any {

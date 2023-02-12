@@ -59,7 +59,7 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
         this.createForm(new TransportadorModel());
         this.isEdicao = false;
         this.notifier.notify('success', 'Transportadora: ' + data.razaoSocial + ' salva!');
-        this.router.navigate(['/transportadorAuxiliar']);
+        super.obtemValor();
       }, err => {
         this.notifier.notify('error', err.error.message );
       }
@@ -78,17 +78,17 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
   }
 
   editar(entity: TransportadorModel): void {
-    this.isEdicao = true;
-    this.transportador.id = entity.id;
     this.transportador = {...entity};
-    console.log(entity);
+    this.isEdicao = true;
+    this.transportador.ativo = true;
+    this.transportador.id = entity.id;
   }
 
   excluir() {
-    this.transportadorService.delete(this.transpExcluir.id).subscribe(
+    this.transportadorService.inativar(this.transpExcluir).subscribe(
       data => {
         this.closebutton.nativeElement.click();
-        this.notifier.notify('success', 'Transportadora: ' + this.transportador.nome + ' deletada' );
+        this.notifier.notify('success', 'Transportadora: ' + this.transportador.nome + ' inativada' );
         this.obtemValor();
     }, err => {});
   }

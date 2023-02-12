@@ -33,16 +33,13 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form [formGroup]="form"
-                (ngSubmit)="onSubmit()"
-          >
             <div class="collapse" id="body">
               <div class="card-body">
                 <div class="list row" style="padding-top: 15px">
                   <div class="col-sm-12 col-md-6">
                     <label for="nome">Nome</label>
                     <input
-                      formControlName="nome"
+                      [(ngModel)]=formaPagamento.nome
                       type="text"
                       id="nome"
                       class="form-control"
@@ -54,8 +51,8 @@
                   <div class="col-sm-12 col-md-6">
                     <label for="status">Status</label>
                     <select
+                      [(ngModel)]=formaPagamento.ativo
                       required
-                      formControlName="ativo"
                       type="tex"
                       class="form-control"
                       id="status">
@@ -66,11 +63,10 @@
                 </div>
               </div>
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary fa-pull-right">Salvar</button>
+                <button type="button" (click)="onSubmit()" class="btn btn-primary fa-pull-right">Salvar</button>
               </div>
             </div>
             <!-- /.card-body -->
-          </form>
         </div>
         <!-- /.card -->
         <!--        Tabela  -->

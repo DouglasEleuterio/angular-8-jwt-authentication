@@ -23,6 +23,7 @@ export class AquisicaoService extends BaseService<AquisicaoModel> {
   }
 
   save(entity): Observable<any> {
+     entity.ativo = true;
      return super.save(entity, AQUISICAO_RESOURCE);
   }
 

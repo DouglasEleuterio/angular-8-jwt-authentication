@@ -31,7 +31,7 @@ export class ComboComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.obtemValor();
+    this.obtemValor('');
     this.criarFormSearch();
     this.carregarTransportadores();
     this.carregaTipoDescarte();
@@ -45,13 +45,13 @@ export class ComboComponent extends BaseComponent implements OnInit {
   }
 
   carregarTransportadores() {
-    this.transportadorService.get().subscribe( transportadores => {
-      this.transportadores = transportadores.content;
+    this.transportadorService.getAtivos().subscribe( transportadores => {
+      this.transportadores = transportadores;
     });
   }
 
   carregaTipoDescarte() {
-    this.tipoDescarteService.getAtivo().subscribe( data => {
+    this.tipoDescarteService.getAtivos().subscribe(data => {
       this.descartes = data;
     });
   }

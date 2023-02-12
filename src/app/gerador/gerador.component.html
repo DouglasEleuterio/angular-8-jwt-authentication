@@ -32,14 +32,14 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="custom-control custom-radio">
-                      <input class="custom-control-input" type="radio" id="fisica" name="customRadio"
+                      <input class="custom-control-input" #isFisica type="radio" id="fisica" name="customRadio"
                              (click)="pessoaFisica()" [checked]="fisica">
                       <label for="fisica" class="custom-control-label">Pessoa Fisica</label>
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="custom-control custom-radio">
-                      <input class="custom-control-input" type="radio" id="juridica" name="customRadio"
+                      <input class="custom-control-input" #isJuridica type="radio" id="juridica" name="customRadio"
                              (click)="pessoaJuridica()" [checked]="juridica">
                       <label for="juridica" class="custom-control-label">Pessoa Juridica</label>
                     </div>
@@ -48,7 +48,7 @@
               </div>
               <div class="form-group">
                 <div class="row">
-                  <div class="col-8" *ngIf="fisica === true">
+                  <div class="col-sm-12 col-md-6" *ngIf="fisica === true">
                     <label for="nome">Nome</label>
                     <input
                       [(ngModel)]="gerador.nome"
@@ -61,7 +61,7 @@
                       placeholder="Nome"
                     >
                   </div>
-                  <div class="col-8" *ngIf="juridica === true">
+                  <div class="col-sm-12 col-md-6" *ngIf="juridica === true">
                     <label for="nome">Razão Social</label>
                     <input
                       [(ngModel)]="gerador.razaoSocial"
@@ -74,7 +74,7 @@
                       placeholder="Razão Social"
                     >
                   </div>
-                  <div class="col-4" *ngIf="juridica">
+                  <div class="col-sm-12 col-md-6" *ngIf="juridica">
                     <label for="cnpj">CNPJ</label>
                     <input
                       [textMask]="{mask: cnpjMask}"
@@ -88,7 +88,7 @@
                       placeholder="CNPJ"
                     >
                   </div>
-                  <div class="col-4" *ngIf="fisica">
+                  <div class="col-sm-12 col-md-6" *ngIf="fisica">
                     <label for="cpf">CPF</label>
                     <input
                       [textMask]="{mask: cpfMask}"
@@ -102,7 +102,7 @@
                       placeholder="CPF"
                     >
                   </div>
-                  <div class="col-6" *ngIf="fisica || juridica">
+                  <div class="col-sm-12 col-md-6" *ngIf="fisica || juridica">
                     <label for="email">Email</label>
                     <input
                       [(ngModel)]="gerador.email"
@@ -115,7 +115,7 @@
                       placeholder="E-mail"
                     >
                   </div>
-                  <div class="col-6" *ngIf="fisica || juridica">
+                  <div class="col-sm-12 col-md-6" *ngIf="fisica || juridica">
                     <label for="telefone">Telefone</label>
                     <input
                       [textMask]="{mask: phoneMask}"
@@ -156,20 +156,20 @@
 
             <div class="card-body">
               <div class="form-group">
-                <label for="logradouro">Logradouro</label>
-                <input
-                  [(ngModel)]="gerador.retirada.logradouro"
-                  formControlName="logradouro"
-                  type="text"
-                  id="logradouro"
-                  class="form-control col-12"
-                  name="logradouro"
-                  required
-                  placeholder="Rua, Avenida, Área, Fazenda">
-              </div>
-              <div class="form-group">
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-sm-12 col-md-6">
+                    <label for="logradouro">Logradouro</label>
+                    <input
+                      [(ngModel)]="gerador.retirada.logradouro"
+                      formControlName="logradouro"
+                      type="text"
+                      id="logradouro"
+                      class="form-control col-12"
+                      name="logradouro"
+                      required
+                      placeholder="Rua, Avenida, Área, Fazenda">
+                  </div>
+                  <div class="col-sm-12 col-md-6">
                     <label for="numero">Numero</label>
                     <input
                       [(ngModel)]="gerador.retirada.numero"
@@ -179,10 +179,13 @@
                       class="form-control"
                       name="numero"
                       required
-                      placeholder="numero"
-                    >
+                      placeholder="numero">
                   </div>
-                  <div class="col-8">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
                     <label for="complemento">Complemento</label>
                     <input
                       [(ngModel)]="gerador.retirada.complemento"
@@ -192,14 +195,9 @@
                       class="form-control"
                       name="complemento"
                       required
-                      placeholder="Complemento"
-                    >
+                      placeholder="Complemento">
                   </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-4">
+                  <div class="col-sm-12 col-md-6">
                     <label for="bairro">Bairro</label>
                     <input
                       [(ngModel)]="gerador.retirada.bairro"
@@ -209,10 +207,13 @@
                       class="form-control"
                       name="bairro"
                       required
-                      placeholder="Bairro"
-                    >
+                      placeholder="Bairro">
                   </div>
-                  <div class="col-4">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
                     <label for="cidade">Cidade</label>
                     <input
                       [(ngModel)]="gerador.retirada.cidade"
@@ -222,10 +223,9 @@
                       class="form-control"
                       name="cidade"
                       required
-                      placeholder="Cidade"
-                    >
+                      placeholder="Cidade">
                   </div>
-                  <div class="col-4">
+                  <div class="col-sm-12 col-md-6">
                     <label for="estado">Estado</label>
                     <input
                       [(ngModel)]="gerador.retirada.estado"
@@ -235,48 +235,49 @@
                       class="form-control"
                       name="estado"
                       required
-                      placeholder="Estado"
-                    >
+                      placeholder="Estado">
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-4">
-                  <label for="cep">CEP</label>
-                  <input
-                    [textMask]="{mask: cepMask}"
-                    [(ngModel)]="gerador.retirada.cep"
-                    formControlName="cep"
-                    type="text"
-                    id="cep"
-                    class="form-control"
-                    name="cep"
-                    required
-                    placeholder="CEP"
-                  >
-                </div>
-                <div class="col-8">
-                  <label for="observacao">Observação</label>
-                  <input
-                    [(ngModel)]="gerador.retirada.observacao"
-                    formControlName="observacao"
-                    type="text"
-                    id="observacao"
-                    class="form-control"
-                    name="observacao"
-                    required
-                    placeholder="Observação"
-                  >
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12 col-md-4">
+                    <label for="cep">CEP</label>
+                    <input
+                      [textMask]="{mask: cepMask}"
+                      [(ngModel)]="gerador.retirada.cep"
+                      formControlName="cep"
+                      type="text"
+                      id="cep"
+                      class="form-control"
+                      name="cep"
+                      required
+                      placeholder="CEP">
+                  </div>
+                  <div class="col-sm-12 col-md-8">
+                    <label for="observacao">Observação</label>
+                    <input
+                      [(ngModel)]="gerador.retirada.observacao"
+                      formControlName="observacao"
+                      type="text"
+                      id="observacao"
+                      class="form-control"
+                      name="observacao"
+                      required
+                      placeholder="Observação">
+                  </div>
                 </div>
               </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
               <button type="submit"
-                      class="btn btn-success fa-pull-right">Salvar</button>
+                      class="btn btn-success fa-pull-right">Salvar
+              </button>
               <span></span>
               <button type="submit" style="margin-right: 10px;" (click)="limpar()"
-                      class="btn btn-secondary fa-pull-right">Limpar</button>
+                      class="btn btn-secondary fa-pull-right">Limpar
+              </button>
             </div>
           </div>
           <!-- /.card -->
@@ -296,34 +297,34 @@
     <div class="row">
       <div class="col-12 table-responsive">
         <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Tipo</th>
-          <th>CPF/CNPJ</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let entity of entities | paginate: {
+          <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Nome</th>
+            <th>CPF/CNPJ</th>
+            <th colspan="2" class="text-center">Ação</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let entity of entities | paginate: {
                                 itemsPerPage: 5,
                                 currentPage: currentPage,
                                 totalItems: count};">
-          <td> {{entity.nome}} {{entity.razaoSocial}}</td>
-          <td> Pessoa {{entity.cnpj ? 'Juridica' : 'Fisica'}}</td>
-          <td> {{entity.cpf}} {{entity.cnpj}}</td>
-
-<!--          <td>-->
-<!--            <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i-->
-<!--              class="fas fa-edit" data-toggle="modal" data-target="#content"></i></button>-->
-<!--          </td>-->
-<!--          <td>-->
-<!--            <button (click)="tipoDescarteAexcluir(entity)" title="Excluir" class="btn  btn-outline-danger"-->
-<!--                    data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i>-->
-<!--            </button>-->
-<!--          </td>-->
-        </tr>
-        </tbody>
-      </table>
+            <td> Pessoa {{entity.cnpj ? 'Juridica' : 'Fisica'}}</td>
+            <td> {{entity.nome}} {{entity.razaoSocial}}</td>
+            <td> {{entity.cpf}} {{entity.cnpj}}</td>
+            <td>
+              <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
+                class="fas fa-edit" data-toggle="modal" data-target="#content"></i></button>
+            </td>
+<!--            <td>-->
+<!--              <button (click)="tipoDescarteAexcluir(entity)" title="Excluir" class="btn  btn-outline-danger"-->
+<!--                      data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i>-->
+<!--              </button>-->
+<!--            </td>-->
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

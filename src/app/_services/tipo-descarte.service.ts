@@ -30,8 +30,8 @@ save(tipoDescarte): Observable<any> {
     return this.http.post(environment.apiUrl + DESCARTE_RESOURCE, tipoDescarte.value, httpOptions);
   }
 
-  getAtivo(): Observable<any> {
-    return  this.http.get<TipoDescarteModel>(environment.apiUrl + DESCARTE_RESOURCE , {});
+  getAtivos(): Observable<any> {
+    return super.findListWithRsql('search=ativo==true');
   }
 
   delete(tipoDescarte): Observable<any> {

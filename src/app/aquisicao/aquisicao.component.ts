@@ -54,11 +54,14 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
     this.carregaTipoDescarte();
     this.carregaFormaPagamento();
     this.aquisicao = new AquisicaoModel();
+    this.aquisicao.ativo = null;
   }
 
   createForm(model: AquisicaoModel) {
     model.combo = new ComboModel();
+    model.combo.ativo = true;
     model.formaPagamento = new FormaPagamentoModel();
+    model.formaPagamento.ativo = true;
     this.form = new FormGroup({
       quantidadeAdquirida: new FormControl(model.quantidadeAdquirida),
       dataPagamento: new FormControl(model.dataPagamento),
@@ -68,10 +71,13 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
   }
 
   onSubmit() {
+    this.aquisicao.combo.ativo = true;
+    this.aquisicao.formaPagamento.ativo = true;
+    this.aquisicao.combo.saldo = this.aquisicao.quantidadeAdquirida;
     this.aquisicaoService.save(this.aquisicao).subscribe(
       data => {
         this.notifier.notify('success', 'Aquisição criada!');
-        this.routerLink('combo');
+        this.router.navigate(['/combo']);
       }, err => {
         this.notifier.notify('error', err.error.message );
       }
@@ -83,20 +89,20 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
   }
 
   carregarTransportadores() {
-    this.transportadorService.get().subscribe( transportadores => {
-      this.transportadores = transportadores.content;
+    this.transportadorService.getAtivos().subscribe( transportadores => {
+      this.transportadores = transportadores;
     });
   }
 
   carregaTipoDescarte() {
-    this.tipoDescarteService.getAtivo().subscribe( data => {
+    this.tipoDescarteService.getAtivos().subscribe(data => {
       this.descartes = data;
     });
   }
 
   carregaFormaPagamento() {
-    this.formaPagamentoService.get().subscribe( data => {
-      data = this.limparFormasPagamento(data.content);
+    this.formaPagamentoService.getAtivos().subscribe( data => {
+      data = this.limparFormasPagamento(data);
       this.formasPagamento = data;
     });
   }
@@ -106,7 +112,6 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
   }
 
   private limparFormasPagamento(data: any) {
-    data = data.filter( forma => forma.ativo);
     data = data.filter( forma => forma.nome !== 'Combo');
     return data;
   }

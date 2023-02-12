@@ -6,4 +6,7 @@ export class ComboModel {
   tipoDescarte: TipoDescarteModel = new TipoDescarteModel();
   transportador: TransportadorModel = new TransportadorModel();
   saldo = 0;
+  ativo: boolean;
+
+  dataPagamento: Date;
 }

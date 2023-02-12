@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {BaseComponent} from '../commons/BaseComponent';
 import {GeradorService} from '../_services/gerador.service';
 import {NotifierService} from 'angular-notifier';
 import {GeradorModel} from '../model/gerador-model';
 import {FormControl, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-gerador',
@@ -17,8 +18,12 @@ export class GeradorComponent extends BaseComponent implements OnInit {
   juridica: boolean;
   isEdicao = false;
   entities: GeradorModel[];
+  @ViewChild('isFisica', null) isFisica: ElementRef;
+  @ViewChild('isJuridica', null) isJuridica: ElementRef;
 
-  constructor(private geradorService: GeradorService, notifier: NotifierService) {
+  constructor(private geradorService: GeradorService,
+              notifier: NotifierService,
+              private router: Router) {
     super(notifier);
   }
 
@@ -55,9 +60,7 @@ export class GeradorComponent extends BaseComponent implements OnInit {
   onSubmit() {
     this.geradorService.save(this.gerador).subscribe(
       data => {
-        super.notifier.notify('success', 'Gerador: salvo!');
-        this.createForm(new GeradorModel());
-        this.obtemValor();
+        this.router.navigate(['/geradorAuxiliar']);
       }, err => {
         super.notifier.notify('error', err.error.message );
       }
@@ -80,5 +83,19 @@ export class GeradorComponent extends BaseComponent implements OnInit {
 
   getService(): any {
     return this.geradorService;
+  }
+
+  editar(entity: GeradorModel): void {
+    this.isEdicao = true;
+    this.gerador = {...entity};
+    this.gerador.id = entity.id;
+    if (entity.cpf !== undefined && entity.cpf !== null) {
+      this.isFisica.nativeElement.checked = true;
+      this.pessoaFisica();
+    }
+    if (entity.cnpj !== undefined && entity.cnpj !== null) {
+      this.isJuridica.nativeElement.checked = true;
+      this.pessoaJuridica();
+    }
   }
 }

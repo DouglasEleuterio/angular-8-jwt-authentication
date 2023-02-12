@@ -26,23 +26,17 @@ export class FormaPagamentoComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createForm(new FormaPagamentoModel());
+    this.formaPagamento = new FormaPagamentoModel();
     this.obtemValor();
     this.criarFormSearch();
   }
 
-  createForm(model: FormaPagamentoModel) {
-    this.form = new FormGroup({
-      id: new FormControl(model.id),
-      nome: new FormControl(model.nome),
-      ativo: new FormControl(model.ativo)
-    });
-  }
 
   onSubmit() {
-    this.formaPagamentoService.save(this.form).subscribe(
+    this.formaPagamentoService.save(this.formaPagamento).subscribe(
       data => {
-        this.createForm(new FormaPagamentoModel());
+        this.formaPagamento = new FormaPagamentoModel();
+        this.notifier.notify('success', 'Forma pagamento salva!');
         this.obtemValor();
       }, err => {
         this.errorMessage = err.error.message;
@@ -62,7 +56,7 @@ export class FormaPagamentoComponent extends BaseComponent implements OnInit {
     this.formaPagamentoService.alteraSituacao(this.formaPagamento).subscribe(
       data => {
         this.closebutton.nativeElement.click();
-        this.notifier.notify('success', 'Tipo Pagamento: ' + this.formaPagamento.nome + ' alterado!');
+        this.notifier.notify('success', 'Forma Pagamento: ' + this.formaPagamento.nome + ' alterado!');
         this.obtemValor();
       }, err => {
         this.errorMessage = err.error.message;
@@ -75,8 +69,10 @@ export class FormaPagamentoComponent extends BaseComponent implements OnInit {
   }
 
   editar(entity: FormaPagamentoModel): void {
+    this.formaPagamento = new FormaPagamentoModel();
+    this.formaPagamento = {...entity};
     this.isEdicao = true;
-    this.createForm(entity);
+    this.formaPagamento.id = entity.id;
   }
 
   criarFormSearch() {

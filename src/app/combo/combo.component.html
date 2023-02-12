@@ -36,7 +36,7 @@
           <table class="table table-striped">
             <thead>
             <tr>
-              <th style="width: 5%">Id</th>
+              <th>Aquisição</th>
               <th>Transportadora</th>
               <th>Tipo Descarte</th>
               <th>Saldo</th>
@@ -48,7 +48,7 @@
                                 itemsPerPage: 5,
                                 currentPage: currentPage,
                                 totalItems: count};">
-              <td> {{combo.id}}</td>
+              <td> {{combo.dataPagamento | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
               <td> {{combo.transportador.nome}}</td>
               <td> {{combo.tipoDescarte.nome}}</td>
               <td> {{combo.saldo}}</td>

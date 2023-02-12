@@ -37,6 +37,7 @@ const routes: Routes = [
   { path: 'transportadorAuxiliar', component: TransportadorComponent },
   { path: 'veiculo', component: VeiculoComponent },
   { path: 'gerador', component: GeradorComponent },
+  { path: 'geradorAuxiliar', component: GeradorComponent },
   { path: 'ctr', component: CtrComponent },
   { path: 'listar-ctr', component: CtrListComponent },
   { path: 'motorista', component: MotoristaComponent },

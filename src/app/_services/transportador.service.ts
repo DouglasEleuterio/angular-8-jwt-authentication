@@ -36,6 +36,10 @@ export class TransportadorService extends BaseService<TransportadorModel> {
     return this.http.get<TransportadorModel>(environment.apiUrl + TRANSPORTADOR_RESOURCE + '/all', {});
   }
 
+  getAtivos(): Observable<any> {
+    return super.findListWithRsql('search=ativo==true');
+  }
+
   getResource(): string {
     return TRANSPORTADOR_RESOURCE;
   }

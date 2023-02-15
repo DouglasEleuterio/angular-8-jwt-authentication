@@ -3,8 +3,8 @@ import {CtrModel} from '../../model/ctr-model';
 import {CtrService} from '../../_services/ctr.service';
 import {BaseComponent} from '../../commons/BaseComponent';
 import {TransportadorModel} from '../../model/transportador-model';
-import {TransportadorService} from "../../_services/transportador.service";
-import {FormControl, FormGroup} from "@angular/forms";
+import {TransportadorService} from '../../_services/transportador.service';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-ctr-list',
@@ -33,7 +33,7 @@ export class CtrListComponent extends BaseComponent implements OnInit {
       dataAte: this.filterGroup.value.dataAte,
       transportadorId: this.filterGroup.value.transportador.id,
       page: event ? event.page - 1 : 0};
-    this.obtemValor(this.params);
+    this.obtemValor();
   }
 
   carregarTransportadores() {
@@ -61,5 +61,12 @@ export class CtrListComponent extends BaseComponent implements OnInit {
       total += pagamento.valor;
     });
     return total;
+  }
+
+
+  obtemValor(params?: any) {
+    this.ctrService.getWithParams().subscribe( data => {
+      this.entities = data.content;
+    });
   }
 }

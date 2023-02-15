@@ -19,6 +19,8 @@ import {NotifierService} from 'angular-notifier';
 import {Router} from '@angular/router';
 import {MotoristaService} from '../_services/motorista.service';
 import {MotoristaModel} from '../model/motorista-model';
+import {InstituicaoBancariaModel} from '../model/instituicaobancaria-model';
+import {InstituicaoBancariaService} from '../_services/instituicao.bancaria.service';
 
 @Component({
   selector: 'app-ctr',
@@ -33,15 +35,6 @@ export class CtrComponent implements OnInit {
   currentTutorial = null;
   page: number;
   count: number;
-
-  veiculoService: VeiculoService;
-  transportadorService: TransportadorService;
-  geradorService: GeradorService;
-  destinatarioService: DestinatarioService;
-  tipoDescarteService: TipoDescarteService;
-  formaPagamentoService: FormaPagamentoService;
-  motoristaService: MotoristaService;
-  ctrService: CtrService;
 
   veiculos: VeiculoModel[];
   veiculoSelecionado: VeiculoModel;
@@ -73,18 +66,20 @@ export class CtrComponent implements OnInit {
 
   ctr: CtrModel;
 
-  private readonly notifier: NotifierService;
   numero: number;
+  instituicaoBancaria: InstituicaoBancariaModel[];
+  instituicaoBancariaSelecionada: InstituicaoBancariaModel;
 
-  constructor(veiculoService: VeiculoService,
-              transportadorService: TransportadorService,
-              geradorService: GeradorService,
-              destinatarioService: DestinatarioService,
-              tipoDescarteService: TipoDescarteService,
-              formaPagamentoService: FormaPagamentoService,
-              ctrService: CtrService,
-              motoristaService: MotoristaService,
-              notifier: NotifierService,
+  constructor(private veiculoService: VeiculoService,
+              private transportadorService: TransportadorService,
+              private geradorService: GeradorService,
+              private destinatarioService: DestinatarioService,
+              private tipoDescarteService: TipoDescarteService,
+              private formaPagamentoService: FormaPagamentoService,
+              private ctrService: CtrService,
+              private motoristaService: MotoristaService,
+              private notifier: NotifierService,
+              private instituicaoBancariaService: InstituicaoBancariaService,
               private router: Router
   ) {
     this.veiculoService = veiculoService;
@@ -107,6 +102,7 @@ export class CtrComponent implements OnInit {
     this.carregaTipoDescarte();
     this.carregaFormaPagamento();
     this.carregarMotoristas();
+    this.carregarInstituicaoBancaria();
   }
 
   createForm(model: CtrModel) {
@@ -126,62 +122,70 @@ export class CtrComponent implements OnInit {
   }
 
   carregarVeiculos() {
-    this.veiculoService.get().subscribe(data => {
-      this.veiculos = data.content;
+    this.veiculoService.findListWithRsql('search=ativo==true').subscribe(data => {
+      this.veiculos = data;
     });
   }
 
   carregarTransportadores() {
-    this.transportadorService.get().subscribe( transportadores => {
-      this.transportadores = transportadores.content;
+    this.transportadorService.findListWithRsql('search=ativo==true').subscribe( transportadores => {
+      this.transportadores = transportadores;
     });
   }
 
   carregarGerador() {
-    this.geradorService.get().subscribe( data => {
-      this.geradores = data.content;
+    this.geradorService.findListWithRsql('search=ativo==true').subscribe( data => {
+      this.geradores = data;
     });
   }
 
   carregarMotoristas() {
-    this.motoristaService.get().subscribe( data => {
+    this.motoristaService.findListWithRsql('search=id!=null').subscribe( data => {
       this.motoristas = data;
     });
   }
 
   carregarDestinatario() {
-    this.destinatarioService.get().subscribe( data => {
+    this.destinatarioService.findListWithRsql().subscribe( data => {
       this.destinatarios = data;
     });
   }
 
   carregaTipoDescarte() {
-    this.tipoDescarteService.getAtivos().subscribe(data => {
+    this.tipoDescarteService.findListWithRsql('search=ativo==true').subscribe(data => {
       this.descartes = data;
     });
   }
 
   carregaFormaPagamento() {
-    this.formaPagamentoService.get().subscribe( data => {
-      this.formasPagamento = data.content;
+    this.formaPagamentoService.findListWithRsql('search=ativo==true').subscribe( data => {
+      this.formasPagamento = data;
+    });
+  }
+
+  private carregarInstituicaoBancaria() {
+    this.instituicaoBancariaService.findListWithRsql('search=ativo==true').subscribe( data => {
+      this.instituicaoBancaria = data;
     });
   }
 
   adicionarPagamento() {
-    let pagamentoModel = new PagamentoModel();
+    const pagamentoModel = new PagamentoModel();
     pagamentoModel.dataPagamento = new Date();
     pagamentoModel.formaPagamento = this.formaPagamentoSelecionado;
     pagamentoModel.ativo = true;
     pagamentoModel.valor = this.valorPagamento;
+    pagamentoModel.instituicaoBancaria = this.instituicaoBancariaSelecionada;
     this.pagamentosAdicionado.push(pagamentoModel);
     this.ctr.pagamentos = this.pagamentosAdicionado;
     this.formaPagamentoSelecionado = new FormaPagamentoModel();
+    this.instituicaoBancariaSelecionada = new InstituicaoBancariaModel();
     this.valorPagamento = null;
     this.validaFormaPagamento();
   }
 
   adicionarDescartes() {
-    let tipoDescarteModel = this.tipoDescarteSelecionado;
+    const tipoDescarteModel = this.tipoDescarteSelecionado;
     this.descartesAdicionado.push(tipoDescarteModel);
     this.ctr.tipoDescartes = this.descartesAdicionado;
     this.tipoDescarteSelecionado = new TipoDescarteModel();
@@ -308,6 +312,6 @@ export class CtrComponent implements OnInit {
 
 
   vinculaNumeroCTR() {
-    this.ctr.id = this.numero;
+    this.ctr.numero = this.numero;
   }
 }

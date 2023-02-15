@@ -19,7 +19,7 @@ export abstract class BaseService<T> {
     return this.http.get<T>(environment.apiUrl + this.getResource() + '?' + params );
   }
 
-  findListWithRsql(rsql: any): Observable<any> {
+  findListWithRsql(rsql?: any): Observable<any> {
     return this.http.get<T>(environment.apiUrl + this.getResource() + '/find-list?' + rsql );
   }
 
@@ -28,12 +28,9 @@ export abstract class BaseService<T> {
   }
 
   save(entity, resource): Observable<any> {
-    if (entity.id) {
+    if (entity.id && (entity.ativo === undefined || entity.ativo === null)) {
       entity.ativo = true;
       return this.update(entity);
-    }
-    if (entity.ativo === null) {
-      entity.ativo = true;
     }
     return this.http.post(environment.apiUrl + this.getResource(), entity, this.httpOptions);
   }

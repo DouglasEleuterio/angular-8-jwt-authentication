@@ -144,6 +144,17 @@
                       </option>
                     </select>
                   </div>
+
+                  <div class="col-12">
+                    <label>Instituição Bancária</label>
+                    <select [(ngModel)]="instituicaoBancariaSelecionada" id="insBancaria"
+                            class="form-control select2" style="width: 100%;">
+                      <option *ngFor="let instBancaria of instituicaoBancaria" [ngValue]="instBancaria">
+                        {{instBancaria.nome}} - {{instBancaria.agencia}} - {{instBancaria.conta}}
+                      </option>
+                    </select>
+                  </div>
+
                   <div class="col-12" *ngIf="formaPagamentoSelecionado.nome !== 'Combo'">
                     <label>Valor</label>
                     <input
@@ -189,7 +200,7 @@
                   </div>
                 </mat-tab>
               </mat-tab-group>
-
+              {{pagamentosAdicionado | json}}
             </div>
           </div>
           <!-- /.card-body -->

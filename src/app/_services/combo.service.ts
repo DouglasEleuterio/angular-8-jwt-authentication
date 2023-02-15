@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {BaseService} from './BaseService';
 import {ComboModel} from '../model/combo-model';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 
 const COMBO_RESOURCE = 'combo';
 
@@ -21,5 +20,4 @@ export class ComboService extends BaseService<ComboModel> {
   getResource(): string {
     return COMBO_RESOURCE;
   }
-
 }

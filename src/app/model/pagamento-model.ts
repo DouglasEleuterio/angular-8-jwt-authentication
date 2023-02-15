@@ -1,5 +1,6 @@
 import {FormaPagamentoModel} from './FormaPagamentoModel';
 import {CtrModel} from './ctr-model';
+import {InstituicaoBancariaModel} from './instituicaobancaria-model';
 
 export class PagamentoModel {
   id: string;
@@ -8,4 +9,6 @@ export class PagamentoModel {
   formaPagamento: FormaPagamentoModel;
   ativo: boolean;
   ctr: CtrModel;
+
+  instituicaoBancaria: InstituicaoBancariaModel;
 }

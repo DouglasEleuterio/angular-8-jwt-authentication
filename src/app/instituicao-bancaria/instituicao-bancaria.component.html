@@ -1,0 +1,134 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Instituição Bancária</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Instituição Bancária</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Dados Cadastrais</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+
+            <div class="card-body">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <label for="nome">Nome</label>
+                    <input
+                      formControlName="nome"
+                      type="text"
+                      id="nome"
+                      class="form-control"
+                      name="nome"
+                      required
+                      placeholder="Bradesco, Banco do Brasil, Itau...">
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <label for="nome">Agencia</label>
+                    <input
+                      formControlName="agencia"
+                      type="text"
+                      id="razao"
+                      class="form-control"
+                      name="agencia"
+                      required
+                      placeholder="003">
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <label for="conta">Conta</label>
+                    <input
+                      formControlName="conta"
+                      type="text"
+                      id="conta"
+                      class="form-control"
+                      name="conta"
+                      required
+                      placeholder="9999-9">
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <label for="status">Status</label>
+                    <select
+                      formControlName="ativo"
+                      required
+                      type="select"
+                      class="form-control"
+                      id="status">
+                      <option [ngValue]="true">Ativo</option>
+                      <option [ngValue]="false">Inativo</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="button" (click)="onSubmit()" class="btn btn-primary fa-pull-right">Salvar</button>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!--/.col (left) -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+</form>
+<section>
+  <div class="card card-success">
+    <div class="card-header">
+      <h3 class="card-title">Lista</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="row">
+      <div class="col-12 table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Nome</th>
+            <th>CPF/CNPJ</th>
+            <th colspan="2" class="text-center">Ação</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let entity of entities | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: currentPage,
+                                totalItems: count};">
+            <td> {{entity.nome}}</td>
+            <td> {{entity.agencia}}</td>
+            <td> {{entity.conta}}</td>
+            <td>
+              <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
+                class="fas fa-edit" data-toggle="modal" data-target="#content"></i></button>
+            </td>
+            <!--            <td>-->
+            <!--              <button (click)="tipoDescarteAexcluir(entity)" title="Excluir" class="btn  btn-outline-danger"-->
+            <!--                      data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i>-->
+            <!--              </button>-->
+            <!--            </td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

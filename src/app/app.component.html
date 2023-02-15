@@ -24,7 +24,7 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex" *ngIf="isLoggedIn">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex" *ngIf="isLoggedIn; else naoLogado">
       <div class="info">
         <a href="#" class="d-block">{{user.firstname}} {{user.lastname}}</a>
         <a href="#" class="d-block" *ngFor="let auth of user.authorities">
@@ -32,6 +32,14 @@
           {{auth.name.replace('ROLE_', '')}}</a>
       </div>
     </div>
+
+    <ng-template #naoLogado>
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+          <p style="color: wheat; align-content: center"  class="d-block">Você não está logado</p>
+        </div>
+      </div>
+    </ng-template>
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
@@ -60,6 +68,12 @@
           <a href="/forma-pagamento" routerLink="forma-pagamento" class="nav-link">
             <i class="nav-icon fas fa-money-check-alt"></i>
             <p>Forma de Pagamento</p>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="showAdminBoard">
+          <a href="/instituicao-bancaria" routerLink="instituicao-bancaria" class="nav-link">
+            <i class="nav-icon fas fa-money-check-alt"></i>
+            <p>Instituição Bancária</p>
           </a>
         </li>
         <li class="nav-item" *ngIf="showAdminBoard">

@@ -4,6 +4,7 @@ import {GeradorModel} from '../model/gerador-model';
 import {HttpClient} from '@angular/common/http';
 import {CtrModel} from '../model/ctr-model';
 import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment.prod';
 
 const CTR_RESOURCE = 'ctr';
 
@@ -24,16 +25,11 @@ export class CtrService extends BaseService<GeradorModel> {
   }
 
   save(ctr): Observable<any> {
-    return super.save({
-      id: ctr.id,
-      gerador: ctr.gerador,
-      veiculo: ctr.veiculo,
-      destinatario: ctr.destinatario,
-      transportador: ctr.transportador,
-      pagamentos: ctr.pagamentos,
-      tipoDescartes: ctr.tipoDescartes,
-      motorista: ctr.motorista
-    }, CTR_RESOURCE);
+    return this.http.post(environment.apiUrl + CTR_RESOURCE + '/save', ctr, this.httpOptions);
+  }
+
+  getWithParams(params?: any): Observable<any> {
+    return this.http.get<GeradorModel>(environment.apiUrl + this.getResource() + '/all-old?' + params );
   }
 
   getResource(): string {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NotifierService} from 'angular-notifier';
 import {ComboService} from '../_services/combo.service';
 import {ComboModel} from '../model/combo-model';
@@ -19,7 +19,6 @@ export class ComboComponent extends BaseComponent implements OnInit {
   combos: ComboModel[];
   combo: ComboModel;
   notifier: NotifierService;
-  transportadorSelecionado: TransportadorModel;
   transportadores: TransportadorModel[];
   descartes: TipoDescarteModel[];
 
@@ -45,7 +44,7 @@ export class ComboComponent extends BaseComponent implements OnInit {
   }
 
   carregarTransportadores() {
-    this.transportadorService.getAtivos().subscribe( transportadores => {
+    this.transportadorService.getAtivos().subscribe(transportadores => {
       this.transportadores = transportadores;
     });
   }
@@ -57,15 +56,25 @@ export class ComboComponent extends BaseComponent implements OnInit {
   }
 
   carregarEntidades(event?: any) {
-    this.params = {
-      tipoDescarteId: this.filterGroup.value.tipoDescarte.id,
-      transportadorId: this.filterGroup.value.transportador.id ,
-      page: event ? event.page - 1 : 0
-    };
-    this.obtemValor(this.params);
+    let search = `size=5&page=${event - 1}&search=tipoDescarte.id!=null;transportador.id!=null`;
+    if (this.filterGroup.value.tipoDescarte.id !== undefined) {
+      search = search.replace('tipoDescarte.id!=null', 'tipoDescarte.id==' + this.filterGroup.value.tipoDescarte.id);
+    }
+    if (this.filterGroup.value.transportador.id !== undefined) {
+      search = search.replace('transportador.id!=null', 'transportador.id==' + this.filterGroup.value.transportador.id);
+    }
+    this.getService().getWithParams(search).subscribe(data => {
+      this.entities = data.content;
+      this.currentPage = data.number;
+    });
   }
 
   getService(): any {
     return this.comboService;
+  }
+
+
+  getFilters(event?: any): any {
+    return {page: event ? event.page - 1 : 0 , nomeFiler: new FormControl('')};
   }
 }

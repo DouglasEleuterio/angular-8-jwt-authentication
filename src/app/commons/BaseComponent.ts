@@ -42,7 +42,7 @@ export abstract class BaseComponent implements OnInit {
       data => {
         this.entities = data.content;
         this.count = data.totalElements;
-        this.currentPage = data.pageable.pageNumber + 1;
+        this.currentPage = data.number + 1;
       }, err => {
         console.log(err);
       });

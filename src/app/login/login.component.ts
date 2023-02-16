@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/painel-financeiro']);
   }
   navegarParaHome() {
-    // window.location.href = 'https://aterrosystem.com.br/';
-    window.location.href = 'http://localhost:4200';
+    window.location.href = 'https://aterrosystem.com.br/';
+    // window.location.href = 'http://localhost:4200';
   }
 }

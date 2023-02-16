@@ -1,6 +1,6 @@
 {
-  "name": "angular8-jwt-auth",
-  "version": "0.0.0",
+  "name": "aterrosystem",
+  "version": "0.0.1",
   "engines": {
     "node": "16.x",
     "npm": "8.11.0"

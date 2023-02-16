@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
   logout() {
     this.isLoggedIn = false;
     this.tokenStorageService.signOut();
-    window.location.href = '/aterrosystem-frontend';
+    window.location.href = '/';
   }
 
   navegarParaDashboard() {

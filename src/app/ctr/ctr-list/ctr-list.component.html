@@ -11,7 +11,7 @@
         <select
           formControlName="transportador"
           id="transportador"
-          class="form-control select2" style="width: 100%;" (change)="carregarEntidades()">
+          class="form-control select2" style="width: 100%;" (change)="carregarEntidades()" (blur)="carregarEntidades()">
           <option *ngFor="let transp of transportadores" [ngValue]="transp">
             Razão Social: {{transp.razaoSocial}} | CNPJ: {{transp.cnpj}}</option>
         </select>
@@ -21,6 +21,7 @@
         <input
           formControlName="numeroFiltro"
           (change)="carregarEntidades()"
+          (blur)="carregarEntidades()"
           type="number"
           class="form-control"
           id="numeroFiltro"
@@ -30,6 +31,7 @@
         <label for="dataDe">Data Início</label>
         <input
           formControlName="dataDe"
+          (change)="carregarEntidades()"
           (blur)="carregarEntidades()"
           type="date"
           class="form-control"
@@ -39,11 +41,18 @@
         <label for="dataAte">Data Fim</label>
         <input
           formControlName="dataAte"
+          (change)="carregarEntidades()"
           (blur)="carregarEntidades()"
           type="date"
           class="form-control"
           id="dataAte">
       </div>
+    </div>
+  </div>
+  <div class="card-footer" style="background-color: white">
+    <div class="col-sm-12">
+      <button class="btn btn-warning float-left" (click)="limpar()">Limpar</button>
+      <button class="btn btn-success float-right">Buscar</button>
     </div>
   </div>
   <div class="card-body">
@@ -64,7 +73,7 @@
                                 itemsPerPage: 5,
                                 currentPage: currentPage,
                                 totalItems: count};">
-            <td style="height: 15px"> <b>{{entity.id | numeroCtr}}</b></td>
+            <td style="height: 15px"><b>{{entity.numero | numeroCtr}}</b></td>
             <td style="height: 15px"> {{entity.geracao | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
             <td style="height: 15px"> {{entity.transportador.nome}}</td>
             <td style="height: 15px"> {{valorTotal(entity) | currency: 'BRL'}}</td>

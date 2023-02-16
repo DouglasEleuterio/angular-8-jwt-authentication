@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CtrService} from '../_services/ctr.service';
 import {NotifierService} from 'angular-notifier';
 import {ActivatedRoute} from '@angular/router';
 import {CtrModel} from '../model/ctr-model';
+import {CtrOldService} from '../_services/ctr-old.service';
+
 
 @Component({
   selector: 'app-invoice',
@@ -18,12 +19,12 @@ export class InvoiceComponent implements OnInit {
   pagamentos: any;
   descartes: any;
 
-  ctrService: CtrService;
+  ctrService: CtrOldService;
 
   private readonly notifier: NotifierService;
   valorDesconto: any;
 
-  constructor(ctrService: CtrService,
+  constructor(ctrService: CtrOldService,
               notifier: NotifierService,
               private route: ActivatedRoute) {
     this.ctrService = ctrService;
@@ -32,7 +33,7 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params.id; // (+) converts string 'id' to a number
+      this.id = params.id; // (+) converts string 'id' to a number
       this.ctrService.find(this.id).subscribe(
         data => {
           this.ctr = data;
@@ -54,7 +55,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   desconto(ctr: CtrModel): boolean {
-    let totalDescartes = this.valorTotalDescartes(ctr);
+    const totalDescartes = this.valorTotalDescartes(ctr);
     if (this.total(ctr) < totalDescartes) {
         this.valorDesconto = totalDescartes - this.total(ctr);
         return true;
@@ -62,7 +63,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   valorTotalDescartes(ctr: CtrModel): number {
-    let totalDescartes = ctr.tipoDescartes.reduce((accumulator, obj) => {
+    const totalDescartes = ctr.tipoDescartes.reduce((accumulator, obj) => {
       return accumulator + obj.valor;
     }, 0);
     return totalDescartes;

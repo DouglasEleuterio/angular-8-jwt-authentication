@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import {Router} from '@angular/router';
-import {AuthoritiesModel} from "../model/authorities-model";
+import {AuthoritiesModel} from '../model/authorities-model';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().authorities;
-        this.navegarParaDashboard();
+        this.navegarParaHome();
       },
       err => {
         this.errorMessage = err.error.message;
@@ -48,5 +48,9 @@ export class LoginComponent implements OnInit {
 
   navegarParaDashboard() {
     this.router.navigate(['/painel-financeiro']);
+  }
+  navegarParaHome() {
+    // window.location.href = 'https://aterrosystem.com.br/';
+    window.location.href = 'http://localhost:4200';
   }
 }

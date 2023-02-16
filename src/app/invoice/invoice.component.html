@@ -68,7 +68,7 @@
             <div class="row">
               <div class="col-12">
                 <h4>
-                  <small class="float-right"><strong>Número CTR: </strong>{{ctr.id | numeroCtr}}</small>
+                  <small class="float-right"><strong>Número CTR: </strong>{{ctr.numero | numeroCtr}}</small>
                 </h4>
               </div>
               <!-- /.col -->
@@ -126,6 +126,7 @@
                 <table class="table">
                   <tr *ngFor="let pagamento of pagamentos">
                     <th>{{pagamento.formaPagamento.nome}}</th>
+                    <th>{{pagamento.instituicaoBancaria.nome}}</th>
                     <td>{{pagamento.valor | currency:'BRL'}}</td>
                   </tr>
                 </table>

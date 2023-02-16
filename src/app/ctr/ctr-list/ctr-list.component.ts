@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CtrModel} from '../../model/ctr-model';
-import {CtrService} from '../../_services/ctr.service';
 import {BaseComponent} from '../../commons/BaseComponent';
 import {TransportadorModel} from '../../model/transportador-model';
 import {TransportadorService} from '../../_services/transportador.service';
 import {FormControl, FormGroup} from '@angular/forms';
+import {CtrOldService} from '../../_services/ctr-old.service';
 
 @Component({
   selector: 'app-ctr-list',
@@ -15,10 +15,11 @@ export class CtrListComponent extends BaseComponent implements OnInit {
   entities: CtrModel[];
   transportadores: TransportadorModel[];
 
-  constructor(private ctrService: CtrService,
+  constructor(private ctrService: CtrOldService,
               private transportadorService: TransportadorService) {
     super();
   }
+
 
   ngOnInit() {
     this.criarFormSearch();
@@ -33,12 +34,12 @@ export class CtrListComponent extends BaseComponent implements OnInit {
       dataAte: this.filterGroup.value.dataAte,
       transportadorId: this.filterGroup.value.transportador.id,
       page: event ? event.page - 1 : 0};
-    this.obtemValor();
+    this.obtemValor(this.params);
   }
 
   carregarTransportadores() {
     this.transportadorService.get().subscribe( transportadores => {
-      this.transportadores = transportadores.content;
+      this.transportadores = transportadores;
     });
   }
 
@@ -65,8 +66,13 @@ export class CtrListComponent extends BaseComponent implements OnInit {
 
 
   obtemValor(params?: any) {
-    this.ctrService.getWithParams().subscribe( data => {
+    this.ctrService.getWithParams(params).subscribe(data => {
       this.entities = data.content;
     });
+  }
+
+  limpar() {
+    this.criarFormSearch();
+    this.obtemValor();
   }
 }

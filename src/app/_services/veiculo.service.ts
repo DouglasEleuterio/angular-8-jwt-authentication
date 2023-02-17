@@ -4,7 +4,8 @@ import {Observable} from 'rxjs';
 import {TransportadorModel} from '../model/transportador-model';
 import {VeiculoModel} from '../model/veiculo-model';
 import {BaseService} from './BaseService';
-import {Params} from '../model/params';
+import {environment} from '../../environments/environment.prod';
+
 
 const VEICULO_RESOURCE = 'veiculo';
 
@@ -24,8 +25,11 @@ export class VeiculoService extends BaseService<VeiculoModel> {
    this.transportador = new TransportadorModel();
   }
 
-  save(veiculo): Observable<any> {
-    return super.save(veiculo, VEICULO_RESOURCE);
+  save(entity): Observable<any> {
+    if (entity.id) {
+      return this.update(entity);
+    }
+    return this.http.post( environment.apiUrl + this.getResource(), entity, this.httpOptions);
   }
 
   getResource(): string {

@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormControlName, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormControlName, FormGroup, Validators} from '@angular/forms';
 import {TransportadorModel} from '../model/transportador-model';
 import {VeiculoService} from '../_services/veiculo.service';
 import {VeiculoModel} from '../model/veiculo-model';
@@ -26,18 +26,15 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
   placa: any;
   modelo: any;
   page: any;
-
+  filterSearch = {modeloFilter: '', placaFilter: '', ativo: '', transportador: {id: ''}};
 
   constructor(private veiculoService: VeiculoService,
+              private formBuilder: FormBuilder,
               notifier: NotifierService, private transportadorService: TransportadorService) {
     super(notifier);
   }
 
   ngOnInit() {
-    this.veiculo = new VeiculoModel();
-    this.veiculo.id = null;
-    this.veiculo.ativo = null;
-    this.transportador = new TransportadorModel();
     this.createForm(new VeiculoModel());
     this.carregarTransportadores();
     this.obtemValor();
@@ -45,19 +42,21 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
   }
 
   criarFormSearch() {
-    this.filterGroup = new FormGroup({
-      modeloFilter: new FormControl(''),
-      statusFilter: new FormControl(''),
-      placaFilter: new FormControl('')
+    this.filterGroup = this.formBuilder.group({
+      modeloFilter: ['', null],
+      placaFilter: ['', null],
+      ativo: ['', null],
+      transportador: ['', null]
     });
   }
 
   onSubmit() {
     this.veiculo.transportador = this.transportadorSelecionado;
+    this.veiculo = this.form.value;
     this.veiculoService.save(this.veiculo).subscribe(
       data => {
         this.notifier.notify('success', 'Veículo: ' + data.modelo + ' cadastrado!');
-        window.location.reload();
+        this.createForm(new VeiculoModel());
       }, err => {
         this.notifier.notify('error', err.error.message );
       }
@@ -65,19 +64,18 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
   }
 
   createForm(model: VeiculoModel) {
-    model.transportador = new TransportadorModel();
-    this.form = new FormGroup({
-      marca: new FormControl(model.marca),
-      modelo: new FormControl(model.modelo),
-      placa: new FormControl(model.placa),
-      transportador: new FormControl(model.transportador)
+    this.form = this.formBuilder.group({
+      id: [model.id, null],
+      marca: [model.marca, [ Validators.required ] ],
+      modelo: [model.modelo, [ Validators.required ] ],
+      placa: [model.placa, [ Validators.required ] ],
+      ativo: [model.ativo, [ Validators.required ] ],
+      transportador: [model.transportador, [ Validators.required ] ]
     });
   }
 
   limpar() {
-    this.isEdicao = false;
-    this.veiculo = new VeiculoModel();
-    this.transportadorSelecionado = new TransportadorModel();
+    this.createForm(new VeiculoModel());
   }
 
   carregarTransportadores() {
@@ -87,9 +85,7 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
   }
 
   editar(entity: VeiculoModel): void {
-    this.isEdicao = true;
-    this.veiculo = entity;
-    this.transportadorSelecionado = entity.transportador;
+    this.createForm({...entity});
   }
 
   prepararExclusao(entity: VeiculoModel) {
@@ -108,9 +104,23 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
   }
 
   carregarEntidades(event?: any) {
-    this.params = {placa: this.filterGroup.value.placaFilter, modelo: this.filterGroup.value.modeloFilter,
-      ativo: this.filterGroup.value.statusFilter, page: event ? event.page - 1 : 0 };
-    this.obtemValor(this.params);
+    this.filterSearch = this.filterGroup.value;
+    let search = 'search=modelo!=null;placa!=null;ativo!=null;transportador.id!=null';
+    if (this.filterSearch.modeloFilter) {
+      search = search.replace('modelo!=null', `modelo==*${this.filterSearch.modeloFilter}`);
+    }
+    if (this.filterSearch.placaFilter) {
+      search = search.replace('placa!=null', `placa==${this.filterSearch.placaFilter}`);
+    }
+    if (this.filterSearch.ativo !== undefined && this.filterSearch.ativo !== null && this.filterSearch.ativo !== '') {
+      search = search.replace('ativo!=null', `ativo==${this.filterSearch.ativo}`);
+    }
+    if (this.filterSearch.transportador.id) {
+      search = search.replace('transportador.id!=null', `transportador.id==${this.filterSearch.transportador.id}`);
+    }
+    this.veiculoService.getWithParams(search).subscribe( data => {
+      this.entities = data.content;
+    });
   }
 
   getService(): any {

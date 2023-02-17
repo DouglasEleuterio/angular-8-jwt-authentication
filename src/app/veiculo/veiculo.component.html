@@ -27,7 +27,7 @@
             <div class="card-header">
               <h3 class="card-title">Cadastro</h3>
               <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-toggle="collapse" data-target="#body"
+                <button type="button" id="btnCadastro" class="btn btn-tool" data-toggle="collapse" data-target="#body"
                         aria-expanded="true"
                         aria-controls="body" data-card-widget="collapse">
                   <i class="icon-action fa fa-chevron-down"></i>
@@ -40,10 +40,9 @@
               <div class="card-body">
                 <div class="form-group">
                   <div class="row">
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-sm-12 col-md-4">
                       <label for="marca">Marca</label>
                       <input
-                        [(ngModel)]="veiculo.marca"
                         formControlName="marca"
                         type="text"
                         id="marca"
@@ -52,10 +51,9 @@
                         required
                         placeholder="Marca do Veículo">
                     </div>
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-sm-12 col-md-4">
                       <label for="modelo">Modelo</label>
                       <input
-                        [(ngModel)]="veiculo.modelo"
                         formControlName="modelo"
                         type="text"
                         id="modelo"
@@ -64,14 +62,9 @@
                         required
                         placeholder="Modelo do Veículo">
                     </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-sm-12 col-md-4">
                       <label for="placa">Placa</label>
                       <input
-                        [(ngModel)]="veiculo.placa"
                         formControlName="placa"
                         type="text"
                         id="placa"
@@ -80,11 +73,29 @@
                         required
                         placeholder="Placa do Veículo">
                     </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                      <label for="status">Status</label>
+                      <select
+                        formControlName="ativo"
+                        required
+                        type="tex"
+                        class="form-control"
+                        id="status">
+                        <option [ngValue]="" disabled></option>
+                        <option [ngValue]=true>Ativo</option>
+                        <option [ngValue]=false>Inativo</option>
+                      </select>
+                    </div>
                     <div class="col-sm-12 col-md-6">
                       <label>Transportadora</label>
-                      <select formControlName="transportador" [(ngModel)]="transportadorSelecionado" id="transportador"
+                      <select formControlName="transportador" id="transportador"
                               class="form-control select2" style="width: 100%;">
-                        <option *ngFor="let transp of transportadores" [ngValue]="transp">{{transp.nome}}</option>
+                        <option *ngFor="let transp of transportadores"
+                                [ngValue]="transp">{{transp.nome}}</option>
                       </select>
                     </div>
                   </div>
@@ -116,9 +127,9 @@
         <h3 class="card-title">Lista</h3>
       </div>
       <!-- /.card-header -->
-      <div class="card-body">
-        <div class="list row" [formGroup]="filterGroup">
-          <div class="col-sm-12 col-md-4">
+      <div class="card-body" [formGroup]="filterGroup">
+        <div class="list row">
+          <div class="col-sm-12 col-md-6">
             <label for="modeloFiltro">Modelo</label>
             <input
               (change)="carregarEntidades()"
@@ -129,7 +140,7 @@
               id="modeloFiltro"
               placeholder="Modelo">
           </div>
-          <div class="col-sm-12 col-md-4">
+          <div class="col-sm-12 col-md-6">
             <label for="placaFiltro">Placa</label>
             <input
               (change)="carregarEntidades()"
@@ -140,18 +151,28 @@
               id="placaFiltro"
               placeholder="Placa">
           </div>
-          <div class="col-sm-12 col-md-4">
+        </div>
+        <div class="list row">
+          <div class="col-sm-12 col-md-6">
+            <label>Transportadora</label>
+            <select (change)="carregarEntidades()" (blur)="carregarEntidades()" formControlName="transportador" id="transportadorSearch"
+                    class="form-control select2" style="width: 100%;">
+              <option *ngFor="let transp of transportadores"
+                      [ngValue]="transp">{{transp.nome}}</option>
+            </select>
+          </div>
+          <div class="col-sm-12 col-md-6">
             <label for="statusFiltro">Status</label>
             <select
-              [value]="true"
               (change)="carregarEntidades()"
+              formControlName="ativo"
               required
-              formControlName="statusFilter"
               type="tex"
               class="form-control"
               id="statusFiltro">
-              <option value="true">Ativo</option>
-              <option value="false">Inativo</option>
+              <option [ngValue]="" disabled></option>
+              <option [ngValue]=true>Ativo</option>
+              <option [ngValue]=false>Inativo</option>
             </select>
           </div>
         </div>
@@ -180,7 +201,8 @@
                   <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                     <input disabled type="checkbox" class="custom-control-input" [checked]="entity.ativo"
                            #customSwitch3 id="customSwitch3">
-                    <label class="custom-control-label" for="customSwitch3">{{entity.ativo === true ? 'Ativo' : 'Inativo' }}</label>
+                    <label class="custom-control-label"
+                           for="customSwitch3">{{entity.ativo ? 'Ativo' : 'Inativo' }}</label>
                   </div>
                 </td>
                 <td class="text-center">
@@ -192,7 +214,7 @@
                     class="fas fa-eye"></i></button>
                 </td>
                 <td class="text-center">
-                  <button (click)="prepararExclusao(entity)" title="Excluir" class="btn  btn-outline-danger"
+                  <button (click)="prepararExclusao(entity)" disabled title="Excluir" class="btn  btn-outline-danger"
                           data-toggle="modal"
                           data-target="#modal-default"><i class="fas fa-trash"></i>
                   </button>

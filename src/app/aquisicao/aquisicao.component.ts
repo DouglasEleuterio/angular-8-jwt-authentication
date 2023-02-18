@@ -4,12 +4,13 @@ import {NotifierService} from 'angular-notifier';
 import {TransportadorService} from '../_services/transportador.service';
 import {AquisicaoModel} from '../model/aquisicao-model';
 import {ComboModel} from '../model/combo-model';
-import {FormaPagamentoModel} from '../model/FormaPagamentoModel';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {TipoDescarteService} from '../_services/tipo-descarte.service';
 import {AquisicaoService} from '../_services/aquisicao.service';
 import {FormaPagamentoService} from '../_services/forma-pagamento.service';
 import {Router} from '@angular/router';
+import {InstituicaoBancariaService} from '../_services/instituicao.bancaria.service';
+import {PagamentoModel} from '../model/pagamento-model';
 
 @Component({
   selector: 'app-aquisicao',
@@ -17,32 +18,24 @@ import {Router} from '@angular/router';
   styleUrls: ['./aquisicao.component.css']
 })
 export class AquisicaoComponent extends BaseComponent implements OnInit {
-  transportadorSelecionado: any;
   transportadores: any;
-  tipoDescarteSelecionado: any;
   descartes: any;
+  formasPagamento: any;
+  instituicaoBancaria: any;
   aquisicao: AquisicaoModel;
 
-  transportadorService: TransportadorService;
-  tipoDescarteService: TipoDescarteService;
-  aquisicaoService: AquisicaoService;
-  formaPagamentoService: FormaPagamentoService;
-
   valorPago: any;
-  formaPagamentoSelecionado: any;
-  formasPagamento: any;
+  valorDesconto = 0;
 
   constructor(notifierService: NotifierService,
-              transportadorService: TransportadorService,
-              tipoDescarteService: TipoDescarteService,
-              aquisicaoService: AquisicaoService,
-              formaPagamentoService: FormaPagamentoService,
+              private transportadorService: TransportadorService,
+              private tipoDescarteService: TipoDescarteService,
+              private aquisicaoService: AquisicaoService,
+              private formaPagamentoService: FormaPagamentoService,
+              private instituicaoBancariaService: InstituicaoBancariaService,
+              private formBuilder: FormBuilder,
               private router: Router) {
     super(notifierService);
-    this.transportadorService = transportadorService;
-    this.tipoDescarteService = tipoDescarteService;
-    this.aquisicaoService = aquisicaoService;
-    this.formaPagamentoService = formaPagamentoService;
   }
 
   vinculaTransportador() {
@@ -50,36 +43,49 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.aquisicao = new AquisicaoModel();
+    this.createFormNew(new AquisicaoModel());
     this.carregarTransportadores();
     this.carregaTipoDescarte();
     this.carregaFormaPagamento();
-    this.aquisicao = new AquisicaoModel();
-    this.aquisicao.ativo = null;
+    this.carregainstituicaoBancaria();
   }
 
-  createForm(model: AquisicaoModel) {
-    model.combo = new ComboModel();
-    model.combo.ativo = true;
-    model.formaPagamento = new FormaPagamentoModel();
-    model.formaPagamento.ativo = true;
-    this.form = new FormGroup({
-      quantidadeAdquirida: new FormControl(model.quantidadeAdquirida),
-      dataPagamento: new FormControl(model.dataPagamento),
-      valorPago: new FormControl(model.valorPago),
-      desconto: new FormControl(model.desconto)
+  createFormNew(model: AquisicaoModel) {
+    this.form = this.formBuilder.group({
+      id: [model.id, null],
+      transportador: [model.combo.transportador, null],
+      tipoDescarte: [model.combo.tipoDescarte, null],
+      quantidadeAdquirida: [model.quantidadeAdquirida, null],
+      dataPagamento: [model.dataPagamento, null],
+      valorPago: [model.valorPago, null],
+      desconto: [model.desconto, null],
+      formaPagamento: [model.pagamento.formaPagamento, null],
+      instituicaoBancaria: [model.pagamento.instituicaoBancaria, null]
     });
   }
 
   onSubmit() {
+    this.aquisicao = this.form.value;
+    this.aquisicao.combo = new ComboModel();
+    this.aquisicao.combo.tipoDescarte = this.form.value.tipoDescarte;
+    this.aquisicao.combo.transportador = this.form.value.transportador;
+    this.aquisicao.combo.saldo = this.form.value.quantidadeAdquirida;
     this.aquisicao.combo.ativo = true;
-    this.aquisicao.formaPagamento.ativo = true;
-    this.aquisicao.combo.saldo = this.aquisicao.quantidadeAdquirida;
-    this.aquisicaoService.save(this.aquisicao).subscribe(
+    const pagamento = new PagamentoModel();
+    pagamento.dataPagamento = this.form.value.dataPagamento,
+      pagamento.valor = this.form.value.valorPago,
+      pagamento.formaPagamento = this.form.value.formaPagamento,
+      pagamento.ativo = true,
+      pagamento.instituicaoBancaria = this.form.value.instituicaoBancaria;
+    this.aquisicao.combo.pagamentos = [ pagamento ];
+    this.aquisicao.combo.pagamentos.push(pagamento);
+    this.aquisicaoService.save(this.form.value).subscribe(
       data => {
         this.notifier.notify('success', 'Aquisição criada!');
         this.router.navigate(['/combo']);
       }, err => {
-        this.notifier.notify('error', err.error.message );
+        this.notifier.notify('error', err.error.message);
       }
     );
   }
@@ -89,7 +95,7 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
   }
 
   carregarTransportadores() {
-    this.transportadorService.getAtivos().subscribe( transportadores => {
+    this.transportadorService.getAtivos().subscribe(transportadores => {
       this.transportadores = transportadores;
     });
   }
@@ -101,9 +107,14 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
   }
 
   carregaFormaPagamento() {
-    this.formaPagamentoService.getAtivos().subscribe( data => {
+    this.formaPagamentoService.getAtivos().subscribe(data => {
       data = this.limparFormasPagamento(data);
       this.formasPagamento = data;
+    });
+  }
+  carregainstituicaoBancaria() {
+    this.instituicaoBancariaService.getAtivos().subscribe(data => {
+      this.instituicaoBancaria = data;
     });
   }
 
@@ -112,21 +123,25 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
   }
 
   private limparFormasPagamento(data: any) {
-    data = data.filter( forma => forma.nome !== 'Combo');
+    data = data.filter(forma => forma.nome !== 'Combo');
     return data;
   }
 
+
   calculaValorPago() {
+    this.aquisicao = this.form.value;
+    this.aquisicao.combo = new ComboModel();
+    this.aquisicao.combo.tipoDescarte = this.form.value.tipoDescarte;
     if (this.aquisicao.quantidadeAdquirida !== undefined ? this.aquisicao.quantidadeAdquirida : 0 &&
-        this.aquisicao.combo.tipoDescarte !== undefined) {
-        this.aquisicao.valorPago = this.aquisicao.quantidadeAdquirida * this.aquisicao.combo.tipoDescarte.valor;
+      this.aquisicao.combo.tipoDescarte !== undefined) {
+      this.aquisicao.valorPago = this.aquisicao.quantidadeAdquirida * this.aquisicao.combo.tipoDescarte.valor;
     }
     this.atualizaDesconto();
   }
 
   public atualizaDesconto() {
-    if (this.aquisicao.desconto !== undefined) {
-      this.aquisicao.desconto = this.aquisicao.valorPago - (this.aquisicao.quantidadeAdquirida * this.aquisicao.combo.tipoDescarte.valor);
+    if (this.aquisicao.valorPago !== undefined && this.aquisicao.valorPago !== null) {
+      this.valorDesconto = this.aquisicao.valorPago - this.aquisicao.quantidadeAdquirida * this.aquisicao.combo.tipoDescarte.valor;
     }
   }
 

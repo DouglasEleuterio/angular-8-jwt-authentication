@@ -19,7 +19,7 @@ export class AquisicaoService extends BaseService<AquisicaoModel> {
   }
 
   getSpecifiedPathWithId(id: string): Observable<any> {
-    return super.getSpecifiedPathWithId(AQUISICAO_RESOURCE, '/combo-id/', id);
+    return super.getSpecifiedPathWithId(AQUISICAO_RESOURCE, '/combo/', id);
   }
 
   save(entity): Observable<any> {

@@ -12,9 +12,8 @@ import {DescartePorComboService} from '../_services/descarte-por-combo.service';
 })
 export class ComboHistoricoComponent implements OnInit {
 
-  comboId: any;
+  comboId: string;
   aquisicao: AquisicaoModel = new AquisicaoModel();
-  valorPago = 1800.00;
   aquisicaoService: AquisicaoService;
   descartePorCombo: DescartePorComboModel[];
   descatePorComboService: DescartePorComboService;
@@ -28,14 +27,13 @@ export class ComboHistoricoComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.comboId = +params.comboId;
+      this.comboId = params.comboId;
     });
 
     this.aquisicaoService
       .getSpecifiedPathWithId(this.comboId).subscribe(
       data => {
         this.aquisicao = data;
-      }, error => {
       });
     this.descatePorComboService.find(this.comboId).subscribe(
       data => {
@@ -43,11 +41,5 @@ export class ComboHistoricoComponent implements OnInit {
       }, error => {
         console.log(error);
       });
-  }
-
-  getQuantidadeUtilizada(): number {
-    let totalUtilizado = 0;
-    this.descartePorCombo.forEach(value => totalUtilizado += value.quantidade);
-    return totalUtilizado;
   }
 }

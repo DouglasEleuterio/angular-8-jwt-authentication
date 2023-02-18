@@ -73,7 +73,6 @@ export class ComboComponent extends BaseComponent implements OnInit {
     return this.comboService;
   }
 
-
   getFilters(event?: any): any {
     return {page: event ? event.page - 1 : 0 , nomeFiler: new FormControl('')};
   }

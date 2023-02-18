@@ -42,7 +42,6 @@ export class AppComponent implements OnInit {
       }
     }
 
-    this.roles.forEach(value => console.log(value.name));
   }
 
   logout() {

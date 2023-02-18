@@ -31,15 +31,14 @@ export class TokenStorageService {
   }
 
   public getUser(): UserModel {
-    let response = JSON.parse(sessionStorage.getItem(USER_KEY));
-    let user = new UserModel(
+    const response = JSON.parse(sessionStorage.getItem(USER_KEY));
+    const user = new UserModel(
       response.user.username,
       response.user.firstname,
       response.user.lastname,
       response.user.email,
       response.user.activated,
       response.user.authorities);
-    console.log(user);
     return user;
   }
 }

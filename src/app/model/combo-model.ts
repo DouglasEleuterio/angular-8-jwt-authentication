@@ -1,12 +1,12 @@
 import {TipoDescarteModel} from './tipo-descarte-model';
 import {TransportadorModel} from './transportador-model';
+import {PagamentoModel} from './pagamento-model';
 
 export class ComboModel {
   id: string;
-  tipoDescarte: TipoDescarteModel = new TipoDescarteModel();
-  transportador: TransportadorModel = new TransportadorModel();
+  tipoDescarte = new TipoDescarteModel();
+  transportador = new TransportadorModel();
   saldo = 0;
   ativo: boolean;
-
-  dataPagamento: Date;
+  pagamentos: PagamentoModel[] = [new PagamentoModel()];
 }

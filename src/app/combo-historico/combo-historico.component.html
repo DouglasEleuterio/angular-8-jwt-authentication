@@ -23,36 +23,37 @@
         <div class="invoice p-3 mb-3">
           <!-- info row -->
           <div class="row invoice-info">
-            <div class="col-sm-3 invoice-col">
-              Código Aquisição: <b>{{aquisicao.id}}</b>
-            </div>
+<!--            <div class="col-sm-3 invoice-col">-->
+<!--              Código Aquisição: <b>{{aquisicao.id}}</b>-->
+<!--            </div>-->
             <div class="col-sm-3 invoice-col">
               Data Aquisição: <b> {{aquisicao.dataPagamento | date: 'dd/MM/yyyy'}}</b>
             </div>
             <div class="col-sm-3 invoice-col">
-              Quantidade adquirida: <b>{{aquisicao.quantidadeAdquirida}}</b>
+              Forma Pagamento: <b>{{aquisicao.formaPagamento.nome}}</b>
             </div>
             <div class="col-sm-3 invoice-col">
               Tipo Descarte: <b>{{aquisicao.combo.tipoDescarte.nome}}</b>
+            </div>
+            <div class="col-sm-3 invoice-col">
+              Valor Pago:  <b>{{aquisicao.valorPago | currency: 'BRL'}}</b>
             </div>
           </div>
           <!-- /.row -->
           <!-- info row -->
           <div class="row invoice-info">
             <div class="col-sm-3 invoice-col">
-              Valor Pago:  <b>{{aquisicao.valorPago | currency: 'BRL'}}</b>
-            </div>
-            <div class="col-sm-3 invoice-col">
                 Desconto: <b>{{aquisicao.desconto | currency: 'BRL'}}</b>
             </div>
+
             <div class="col-sm-3 invoice-col">
-              Forma Pagamento: <b>{{aquisicao.formaPagamento.nome}}</b>
+              Quantidade adquirida: <b>{{aquisicao.quantidadeAdquirida}}</b>
             </div>
             <div class="col-sm-3 invoice-col">
-              Quantidade Utilizada: <b>{{getQuantidadeUtilizada()}}</b>
+              Quantidade Utilizada: <b>{{aquisicao.quantidadeAdquirida - aquisicao.combo.saldo}}</b>
             </div>
             <div class="col-sm-3 invoice-col">
-              Saldo Remanescente: <b>{{aquisicao.quantidadeAdquirida - getQuantidadeUtilizada()}}</b>
+              Saldo Remanescente: <b>{{aquisicao.combo.saldo}}</b>
             </div>
           </div>
           <!-- /.row -->
@@ -76,7 +77,7 @@
                   <td>{{entity.quantidade}}</td>
                   <td style="text-align: center">
                     <a [routerLink]="['/invoice/', entity.ctr.id]"  title="Visualizar">
-                      {{entity.ctr.id}}
+                      {{entity.ctr.numero}}
                     </a>
                   </td>
                 </tr>

@@ -201,7 +201,6 @@ export class PainelFinanceiroComponent implements OnInit {
         console.log(value);
         this.pagamentos = value;
         this.totalPagamentos = this.calcularTotalPagamentos();
-        console.log(this.totalPagamentos);
         this.createChart();
       }, error => {
         console.log(error);

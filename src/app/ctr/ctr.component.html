@@ -178,6 +178,7 @@
                       <thead>
                       <tr>
                         <th>Nome</th>
+                        <th>Instituição Bancária</th>
                         <th>Valor</th>
                         <th style="width: 10%; text-align: center">Excluir</th>
                       </tr>
@@ -185,6 +186,7 @@
                       <tbody>
                       <tr *ngFor="let pagamento of ctr.pagamentos">
                         <td> {{pagamento.formaPagamento.nome}}</td>
+                        <td> {{pagamento.instituicaoBancaria.nome}}</td>
                         <td> {{pagamento.valor | currency:'BRL'}}</td>
                         <td>
                           <button (click)="excluirPagamento(pagamento)" title="Excluir" class="btn  btn-outline-danger"><i

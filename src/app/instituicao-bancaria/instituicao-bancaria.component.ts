@@ -15,10 +15,11 @@ export class InstituicaoBancariaComponent extends BaseComponent implements OnIni
   constructor(private iBancariaService: InstituicaoBancariaService,
               notifier: NotifierService,
               private formBuilder: FormBuilder) {
-    super(notifier);
+    super(notifier, iBancariaService);
   }
 
   instituicaoBancariaModel: InstituicaoBancariaModel;
+  protected searchParams = {ativo: undefined};
 
   ngOnInit() {
     this.instituicaoBancariaModel = new InstituicaoBancariaModel();
@@ -56,5 +57,9 @@ export class InstituicaoBancariaComponent extends BaseComponent implements OnIni
 
   getService(): any {
     return this.iBancariaService;
+  }
+
+  getSearchParams(event: any) {
+    return this.searchParams;
   }
 }

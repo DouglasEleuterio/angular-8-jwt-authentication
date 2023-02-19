@@ -26,12 +26,12 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
   placa: any;
   modelo: any;
   page: any;
-  filterSearch = {modeloFilter: '', placaFilter: '', ativo: '', transportador: {id: ''}};
+  filterSearch = {modelo: undefined, placa: undefined, ativo: undefined, transportador: {id: undefined}, page: 0};
 
   constructor(private veiculoService: VeiculoService,
               private formBuilder: FormBuilder,
               notifier: NotifierService, private transportadorService: TransportadorService) {
-    super(notifier);
+    super(notifier, veiculoService);
   }
 
   ngOnInit() {
@@ -43,8 +43,8 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
 
   criarFormSearch() {
     this.filterGroup = this.formBuilder.group({
-      modeloFilter: ['', null],
-      placaFilter: ['', null],
+      modelo: ['', null],
+      placa: ['', null],
       ativo: ['', null],
       transportador: ['', null]
     });
@@ -56,6 +56,7 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
     this.veiculoService.save(this.veiculo).subscribe(
       data => {
         this.notifier.notify('success', 'Veículo: ' + data.modelo + ' cadastrado!');
+        this.obtemValor();
         this.createForm(new VeiculoModel());
       }, err => {
         this.notifier.notify('error', err.error.message );
@@ -103,28 +104,37 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
       }, err => {});
   }
 
-  carregarEntidades(event?: any) {
-    this.filterSearch = this.filterGroup.value;
-    let search = 'search=modelo!=null;placa!=null;ativo!=null;transportador.id!=null';
-    if (this.filterSearch.modeloFilter) {
-      search = search.replace('modelo!=null', `modelo==*${this.filterSearch.modeloFilter}`);
-    }
-    if (this.filterSearch.placaFilter) {
-      search = search.replace('placa!=null', `placa==${this.filterSearch.placaFilter}`);
-    }
-    if (this.filterSearch.ativo !== undefined && this.filterSearch.ativo !== null && this.filterSearch.ativo !== '') {
-      search = search.replace('ativo!=null', `ativo==${this.filterSearch.ativo}`);
-    }
-    if (this.filterSearch.transportador.id) {
-      search = search.replace('transportador.id!=null', `transportador.id==${this.filterSearch.transportador.id}`);
-    }
-    this.veiculoService.getWithParams(search).subscribe( data => {
-      this.entities = data.content;
-    });
-  }
+  // carregarEntidades(event?: any) {
+  //   this.filterSearch = this.filterGroup.value;
+  //   let search = 'search=modelo!=null;placa!=null;ativo!=null;transportador.id!=null';
+  //   if (this.filterSearch.modeloFilter) {
+  //     search = search.replace('modelo!=null', `modelo==*${this.filterSearch.modeloFilter}`);
+  //   }
+  //   if (this.filterSearch.placaFilter) {
+  //     search = search.replace('placa!=null', `placa==${this.filterSearch.placaFilter}`);
+  //   }
+  //   if (this.filterSearch.ativo !== undefined && this.filterSearch.ativo !== null && this.filterSearch.ativo !== '') {
+  //     search = search.replace('ativo!=null', `ativo==${this.filterSearch.ativo}`);
+  //   }
+  //   if (this.filterSearch.transportador.id) {
+  //     search = search.replace('transportador.id!=null', `transportador.id==${this.filterSearch.transportador.id}`);
+  //   }
+  //   this.veiculoService.getWithParams(search).subscribe( data => {
+  //     this.entities = data.content;
+  //   });
+  // }
 
   getService(): any {
     return this.veiculoService;
   }
 
+  getSearchParams(event): any {
+    this.filterSearch = this.filterGroup.value;
+    return this.filterSearch;
+  }
+
+  filtrar() {
+    this.filterSearch.transportador.id = this.filterGroup.transportador.id;
+    super.handlePageChange(0);
+  }
 }

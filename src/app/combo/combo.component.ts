@@ -3,7 +3,7 @@ import {NotifierService} from 'angular-notifier';
 import {ComboService} from '../_services/combo.service';
 import {ComboModel} from '../model/combo-model';
 import {BaseComponent} from '../commons/BaseComponent';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {TransportadorModel} from '../model/transportador-model';
 import {TransportadorService} from '../_services/transportador.service';
 import {TipoDescarteModel} from '../model/tipo-descarte-model';
@@ -25,6 +25,7 @@ export class ComboComponent extends BaseComponent implements OnInit {
   constructor(private comboService: ComboService,
               private transportadorService: TransportadorService,
               private tipoDescarteService: TipoDescarteService,
+              private formBuilder: FormBuilder,
               notifier: NotifierService) {
     super(notifier);
   }
@@ -37,7 +38,7 @@ export class ComboComponent extends BaseComponent implements OnInit {
   }
 
   criarFormSearch() {
-    this.filterGroup = new FormGroup({
+    this.filterGroup = this.formBuilder.group({
       tipoDescarte: new FormControl(''),
       transportador: new FormControl(''),
     });
@@ -75,5 +76,14 @@ export class ComboComponent extends BaseComponent implements OnInit {
 
   getFilters(event?: any): any {
     return {page: event ? event.page - 1 : 0 , nomeFiler: new FormControl('')};
+  }
+
+  limparFiltro() {
+    this.criarFormSearch();
+    this.obtemValor();
+  }
+
+  getSearchParams(event: any) {
+    throw new Error('Method not implemented.');
   }
 }

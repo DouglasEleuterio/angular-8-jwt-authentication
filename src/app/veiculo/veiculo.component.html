@@ -85,7 +85,6 @@
                         type="tex"
                         class="form-control"
                         id="status">
-                        <option [ngValue]="" disabled></option>
                         <option [ngValue]=true>Ativo</option>
                         <option [ngValue]=false>Inativo</option>
                       </select>
@@ -132,9 +131,8 @@
           <div class="col-sm-12 col-md-6">
             <label for="modeloFiltro">Modelo</label>
             <input
-              (change)="carregarEntidades()"
               required
-              formControlName="modeloFilter"
+              formControlName="modelo"
               type="tex"
               class="form-control"
               id="modeloFiltro"
@@ -143,9 +141,8 @@
           <div class="col-sm-12 col-md-6">
             <label for="placaFiltro">Placa</label>
             <input
-              (change)="carregarEntidades()"
               required
-              formControlName="placaFilter"
+              formControlName="placa"
               type="tex"
               class="form-control"
               id="placaFiltro"
@@ -155,8 +152,11 @@
         <div class="list row">
           <div class="col-sm-12 col-md-6">
             <label>Transportadora</label>
-            <select (change)="carregarEntidades()" (blur)="carregarEntidades()" formControlName="transportador" id="transportadorSearch"
-                    class="form-control select2" style="width: 100%;">
+            <select formControlName="transportador"
+                    id="transportadorSearch"
+                    class="form-control
+                    select2"
+                    style="width: 100%;">
               <option *ngFor="let transp of transportadores"
                       [ngValue]="transp">{{transp.nome}}</option>
             </select>
@@ -164,19 +164,18 @@
           <div class="col-sm-12 col-md-6">
             <label for="statusFiltro">Status</label>
             <select
-              (change)="carregarEntidades()"
               formControlName="ativo"
               required
               type="tex"
               class="form-control"
               id="statusFiltro">
-              <option [ngValue]="" disabled></option>
+              <option [ngValue]="null">Todos</option>
               <option [ngValue]=true>Ativo</option>
               <option [ngValue]=false>Inativo</option>
             </select>
           </div>
         </div>
-        <button style="margin-top: 15px" type="button" class="btn btn-primary fa-pull-right">Filtrar</button>
+        <button style="margin-top: 15px" type="button" (click)="filtrar()" class="btn btn-primary fa-pull-right">Filtrar</button>
       </div>
       <div class="card-body">
         <div class="row">

@@ -119,7 +119,7 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
   }
 
   limpar() {
-    alert('Funcionalidade não implementada');
+    this.createFormNew(new AquisicaoModel());
   }
 
   private limparFormasPagamento(data: any) {
@@ -150,5 +150,9 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
 
   getService(): any {
     return this.aquisicaoService;
+  }
+
+  getSearchParams(event: any) {
+    throw new Error('Method not implemented.');
   }
 }

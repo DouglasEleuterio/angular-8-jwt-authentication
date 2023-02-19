@@ -80,6 +80,7 @@
               </div>
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary fa-pull-right">Salvar</button>
+                <button type="button" class="btn btn-warning fa-pull-left" (click)="limpar()">Limpar</button>
               </div>
             </div>
             <!-- /.card-body -->
@@ -105,8 +106,7 @@
                 <div class="col-sm-12 col-md-6">
                   <label for="nomeFiltro">Nome</label>
                   <input
-                    (change)="carregarEntidades()"
-                    formControlName="nomeFilter"
+                    formControlName="nome"
                     type="text"
                     class="form-control"
                     id="nomeFiltro"
@@ -117,18 +117,18 @@
                   <label for="statusFiltro">Status</label>
                   <select
                     [value]="true"
-                    (change)="carregarEntidades()"
                     required
-                    formControlName="statusFilter"
+                    formControlName="ativo"
                     type="tex"
                     class="form-control"
                     id="statusFiltro">
-                    <option value="true" >Ativo</option>
-                    <option value="false">Inativo</option>
+                    <option [ngValue]="null">Todos</option>
+                    <option value="true" [ngValue]="true" >Ativo</option>
+                    <option value="false" [ngValue]="false" >Inativo</option>
                   </select>
                 </div>
               </div>
-              <button style="margin-top: 15px" type="button" class="btn btn-primary fa-pull-right">Filtrar</button>
+              <button style="margin-top: 15px" type="button" (click)="filtrar()" class="btn btn-primary fa-pull-right">Filtrar</button>
             </div>
             <div class="card-body">
               <div class="row">
@@ -167,7 +167,6 @@
                         nextLabel="Próximo"
                         responsive="true"
                         (pageChange)="handlePageChange(getParams($event))">
-
                       </pagination-controls>
                     </div>
                     </tbody>
@@ -185,25 +184,3 @@
   </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
-
-<div class="modal fade" id="modal-default">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Excluir Tipo de Descarte</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Deseja excluir: <b>{{tipoDescarteExcluir.nome}}?</b></p>
-      </div>
-      <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" #closebutton data-dismiss="modal">Cancelar</button>
-        <button (click)="excluirTipoDescarte()" id="closebutton" type="button" class="btn btn-danger">Excluir</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>

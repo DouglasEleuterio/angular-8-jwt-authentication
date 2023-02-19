@@ -23,4 +23,7 @@ export class FormaPagamentoListComponent  extends BaseComponent {
     return {page: event ? event.page - 1 : 0};
   }
 
+  getSearchParams(event: any) {
+    throw new Error('Method not implemented.');
+  }
 }

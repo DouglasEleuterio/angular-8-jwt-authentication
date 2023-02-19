@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {TipoDescarteService} from '../_services/tipo-descarte.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 import {TipoDescarteModel} from '../model/tipo-descarte-model';
 import {NotifierService} from 'angular-notifier';
 import {BaseComponent} from '../commons/BaseComponent';
@@ -18,10 +18,12 @@ export class TipoDescarteComponent extends BaseComponent implements OnInit {
   form: FormGroup;
   tipoDescarteExcluir = new TipoDescarteModel() ;
   isEdicao = false;
+  protected searchParams = {nome: undefined, ativo: undefined , page: 0};
 
   constructor(private tipoDescarteService: TipoDescarteService,
+              private fb: FormBuilder,
               notifier: NotifierService) {
-    super(notifier);
+    super(notifier, tipoDescarteService);
   }
 
   ngOnInit() {
@@ -94,9 +96,9 @@ export class TipoDescarteComponent extends BaseComponent implements OnInit {
   }
 
   criarFormSearch() {
-    this.filterGroup = new FormGroup({
-      nomeFilter: new FormControl(''),
-      statusFilter: new FormControl('')
+      this.filterGroup = this.fb.group({
+      nome: new FormControl(''),
+      ativo: ['', null],
     });
   }
 
@@ -105,16 +107,20 @@ export class TipoDescarteComponent extends BaseComponent implements OnInit {
     this.obtemValor(this.params);
   }
 
-  carregarEntidades(event?: any) {
-    if (this.filterGroup.value.statusFilter === undefined || this.filterGroup.value.statusFilter === '') {
-      this.filterGroup.value.statusFilter = true;
-    }
-    this.params = {nome: this.filterGroup.value.nomeFilter, ativo: this.filterGroup.value.statusFilter,
-    page: event ? event.page - 1 : 0 };
-    this.obtemValor(this.params);
-  }
-
   getService(): any {
     return this.tipoDescarteService;
+  }
+
+  limpar() {
+    this.createForm(new TipoDescarteModel());
+  }
+
+  getSearchParams(event): any {
+    this.searchParams = this.filterGroup.value;
+    return this.searchParams;
+  }
+
+  filtrar() {
+    super.handlePageChange(0);
   }
 }

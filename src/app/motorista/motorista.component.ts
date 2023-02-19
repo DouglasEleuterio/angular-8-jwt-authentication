@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MotoristaModel} from '../model/motorista-model';
 import {MotoristaService} from '../_services/motorista.service';
 import {NotifierService} from 'angular-notifier';
@@ -19,6 +19,7 @@ export class MotoristaComponent extends BaseComponent implements OnInit {
 
   constructor(private motoristaService: MotoristaService,
               notifier: NotifierService,
+              private formBuilder: FormBuilder,
               private router: Router) {
     super(notifier);
   }
@@ -29,15 +30,15 @@ export class MotoristaComponent extends BaseComponent implements OnInit {
   }
 
   onSubmit() {
-    this.motoristaService.save(this.motorista).subscribe(
+    this.motoristaService.save(this.form.value).subscribe(
       data => {
-        this.notifier.notify('success', 'Motorista ' + this.motorista.nome + ', salvo com sucesso!');
+        this.notifier.notify('success', 'Motorista ' + this.form.value.nome + ', salvo com sucesso!');
         this.createForm(new MotoristaModel());
         this.isEdicao = false;
         this.carregarMotoristas();
       }, err => {
-        this.notifier.notify('warning', err.error.message);
         this.notifier.notify('error', 'Erro ao salvar motorista!');
+        this.notifier.notify('warning', err.error.message);
       }
     );
   }
@@ -52,7 +53,7 @@ export class MotoristaComponent extends BaseComponent implements OnInit {
   }
 
   createForm(model: MotoristaModel) {
-    this.form = new FormGroup({
+    this.form = this.formBuilder.group({
       id: new FormControl(model.id),
       nome: new FormControl(model.nome),
       cnh: new FormControl(model.cnh),
@@ -61,11 +62,11 @@ export class MotoristaComponent extends BaseComponent implements OnInit {
   }
 
   editar(entity: MotoristaModel) {
-    window.alert('Funcionalidade ainda não implementada');
+    this.createForm(entity);
   }
 
   limpar() {
-    window.alert('Funcionalidade ainda não implementada');
+    this.createForm(new MotoristaModel());
   }
 
   carregarEntidades() {
@@ -74,5 +75,9 @@ export class MotoristaComponent extends BaseComponent implements OnInit {
 
   getService(): any {
     return this.motoristaService;
+  }
+
+  getSearchParams(event: any) {
+    throw new Error('Method not implemented.');
   }
 }

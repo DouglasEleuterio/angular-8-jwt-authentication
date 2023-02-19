@@ -60,9 +60,10 @@ export class GeradorComponent extends BaseComponent implements OnInit {
   onSubmit() {
     this.geradorService.save(this.gerador).subscribe(
       data => {
-        this.router.navigate(['/geradorAuxiliar']);
+        this.obtemValor();
+        this.createForm(new GeradorModel());
       }, err => {
-        super.notifier.notify('error', err.error.message );
+        super.notifier.notify('error', err.error.message);
       }
     );
   }
@@ -97,5 +98,10 @@ export class GeradorComponent extends BaseComponent implements OnInit {
       this.isJuridica.nativeElement.checked = true;
       this.pessoaJuridica();
     }
+
+  }
+
+  getSearchParams(event: any) {
+    throw new Error('Method not implemented.');
   }
 }

@@ -81,6 +81,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <button type="button" (click)="onSubmit()" class="btn btn-primary fa-pull-right">Salvar</button>
+              <button type="button" (click)="onSubmit()" class="btn btn-warning fa-pull-left">Limpar</button>
             </div>
           </div>
           <!-- /.card -->
@@ -105,6 +106,7 @@
             <th>Nome</th>
             <th>Agencia</th>
             <th>Conta</th>
+            <th>Situação</th>
             <th colspan="2" class="text-center">Ação</th>
           </tr>
           </thead>
@@ -117,6 +119,15 @@
             <td> {{entity.agencia}}</td>
             <td> {{entity.conta}}</td>
             <td>
+              <div class="form-group">
+                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                  <input type="checkbox" disabled class="custom-control-input" [checked]="entity.ativo"
+                         #customSwitch3 id="customSwitch3">
+                  <label class="custom-control-label" for="customSwitch3">{{situacao(entity.ativo)}}</label>
+                </div>
+              </div>
+            </td>
+            <td>
               <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
                 class="fas fa-edit" data-toggle="modal" data-target="#content"></i></button>
             </td>
@@ -126,6 +137,15 @@
             <!--              </button>-->
             <!--            </td>-->
           </tr>
+          <div class="col-12">
+            <pagination-controls
+              previousLabel="Anterior"
+              nextLabel="Próximo"
+              responsive="true"
+              (pageChange)="handlePageChange(getParams($event))">
+
+            </pagination-controls>
+          </div>
           </tbody>
         </table>
       </div>

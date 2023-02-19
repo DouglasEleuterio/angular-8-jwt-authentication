@@ -28,7 +28,7 @@ export abstract class BaseService<T> {
   }
 
   save(entity, resource): Observable<any> {
-    if (entity.id && (entity.ativo === undefined || entity.ativo === null)) {
+    if (entity.id) {
       entity.ativo = true;
       return this.update(entity);
     }

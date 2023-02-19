@@ -11,6 +11,10 @@ import {FormControl} from '@angular/forms';
 })
 export class VeiculoListComponent extends BaseComponent {
 
+  getSearchParams(event: any) {
+        throw new Error("Method not implemented.");
+    }
+
   constructor( notifier: NotifierService,
                veiculoService: VeiculoService) {
     super(notifier, veiculoService);

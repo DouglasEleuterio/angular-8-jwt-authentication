@@ -1,10 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {TransportadorService} from '../_services/transportador.service';
 import {NotifierService} from 'angular-notifier';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {TransportadorModel} from '../model/transportador-model';
 import {BaseComponent} from '../commons/BaseComponent';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-transportador',
@@ -19,18 +18,20 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
   isEdicao = false;
   transportador = new TransportadorModel();
   transpExcluir = new TransportadorModel();
+  protected searchParams = {};
 
   constructor(private transportadorService: TransportadorService,
-              notifier: NotifierService,
-              private router: Router) {
-    super(notifier);
+              private fb: FormBuilder,
+              notifier: NotifierService) {
+    super(notifier, transportadorService);
   }
 
   ngOnInit() {
+    this.createForm(new TransportadorModel());
     this.obtemValor();
+    this.criarFormSearch();
     this.transportador = new TransportadorModel();
     this.transportador.ativo = true;
-    this.createForm(new TransportadorModel());
   }
 
   createForm(model: TransportadorModel) {
@@ -104,5 +105,23 @@ export class TransportadorComponent extends BaseComponent implements OnInit {
 
   getService(): any {
     return this.transportadorService;
+  }
+
+  criarFormSearch() {
+    this.filterGroup = this.fb.group({
+      razaoSocial: ['', null],
+      nome: ['', null],
+      cnpj: ['', null],
+      ativo: ['', null]
+    });
+  }
+
+  getSearchParams(event): any {
+    this.searchParams = this.filterGroup.value;
+    return this.searchParams;
+  }
+
+  filtrar() {
+    this.handlePageChange(0);
   }
 }

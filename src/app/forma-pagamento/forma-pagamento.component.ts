@@ -19,10 +19,11 @@ export class FormaPagamentoComponent extends BaseComponent implements OnInit {
   errorMessage = '';
   formaPagamento = new FormaPagamentoModel();
   private isEdicao: boolean;
+  protected searchParams = {ativo: undefined};
 
   constructor(private formaPagamentoService: FormaPagamentoService,
               notifier: NotifierService) {
-    super(notifier);
+    super(notifier, formaPagamentoService);
   }
 
   ngOnInit() {
@@ -77,8 +78,8 @@ export class FormaPagamentoComponent extends BaseComponent implements OnInit {
 
   criarFormSearch() {
     this.filterGroup = new FormGroup({
-      nomeFilter: new FormControl(''),
-      statusFilter: new FormControl('')
+      nome: new FormControl(''),
+      ativo: new FormControl('')
     });
   }
 
@@ -93,5 +94,10 @@ export class FormaPagamentoComponent extends BaseComponent implements OnInit {
 
   getService(): any {
     return this.formaPagamentoService;
+  }
+
+  getSearchParams(event): any {
+    this.searchParams = this.filterGroup.value;
+    return this.searchParams;
   }
 }

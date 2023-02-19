@@ -29,6 +29,7 @@
         </div>
       </div>
       <button style="margin-top: 15px" type="button" class="btn btn-primary fa-pull-right">Filtrar</button>
+      <button style="margin-top: 15px" type="button" class="btn btn-warning fa-pull-left" (click)="limparFiltro()">Limpar Filtro</button>
     </div>
     <div class="card-body">
       <div class="row">
@@ -36,7 +37,6 @@
           <table class="table table-striped">
             <thead>
             <tr>
-              <th>Aquisição</th>
               <th>Transportadora</th>
               <th>Tipo Descarte</th>
               <th>Saldo</th>
@@ -48,7 +48,6 @@
                                 itemsPerPage: 5,
                                 currentPage: currentPage,
                                 totalItems: count};">
-              <td> {{combo.dataPagamento | date: 'dd/MM/yyyy' }}</td>
               <td> {{combo.transportador.nome}}</td>
               <td> {{combo.tipoDescarte.nome}}</td>
               <td> {{combo.saldo}}</td>

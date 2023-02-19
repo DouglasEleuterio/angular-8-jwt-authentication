@@ -13,6 +13,7 @@ export abstract class BaseComponent implements OnInit {
   currentPage: number;
   protected params = {};
   filterGroup: any;
+  service: any;
 
   form: FormGroup;
   notifier: NotifierService;
@@ -21,8 +22,9 @@ export abstract class BaseComponent implements OnInit {
   public cnpjMask = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   public cepMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
-  constructor(notifier?: NotifierService, private service?: any) {
+  constructor(notifier?: NotifierService, service?: any) {
     this.notifier = notifier;
+    this.service = service;
   }
 
   ngOnInit() {
@@ -48,17 +50,55 @@ export abstract class BaseComponent implements OnInit {
       });
   }
 
+  situacao(status: boolean): any {
+    if (status === true) {
+      return 'Ativo';
+    } else {
+      return 'Inativo';
+    }
+  }
+
   nomeTabela(): string {
     return '';
   }
 
-  handlePageChange(event) {
-    this.carregarEntidades(event);
+  handlePageChange(event): void {
+    const paramsObj = this.getSearchParams(event);
+    let paramsTxt = this.convertObjToTxtParams(paramsObj, event);
+    paramsTxt = paramsTxt.substring(0, paramsTxt.length - 1);
+    this.service.getWithParams(paramsTxt).subscribe(data2 => {
+      this.entities = data2.content;
+      this.count = data2.totalElements;
+      this.currentPage = data2.number + 1;
+    });
+  }
+
+  private convertObjToTxtParams(searchParams, pageNumber): string {
+    let searchString = `page=${pageNumber.page === undefined ? 0 : pageNumber.page - 1}&search=`;
+    let countParam = 0;
+    for (const [key, value] of Object.entries(searchParams)) {
+      countParam++;
+      if (value !== undefined && value !== null && value !== '') {
+        if (key !== 'ativo') {
+          searchString += `${key}==%${value}%;`;
+        } else {
+          searchString += `${key}==${value};`;
+        }
+      } else {
+        searchString += `${key}!=null;`;
+      }
+    }
+    return searchString;
   }
 
   getParams(event): Params {
     this.params = {page: event};
     return this.params as Params;
+  }
+
+  limparSearch() {
+    this.criarFormSearch();
+    this.obtemValor();
   }
 
   criarFormSearch() {
@@ -75,4 +115,6 @@ export abstract class BaseComponent implements OnInit {
 
   getFilters(event?: any): any {
   }
+
+  abstract getSearchParams(event): any;
 }

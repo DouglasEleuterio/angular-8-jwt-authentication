@@ -75,4 +75,8 @@ export class CtrListComponent extends BaseComponent implements OnInit {
     this.criarFormSearch();
     this.obtemValor();
   }
+
+  getSearchParams(event: any) {
+    throw new Error('Method not implemented.');
+  }
 }

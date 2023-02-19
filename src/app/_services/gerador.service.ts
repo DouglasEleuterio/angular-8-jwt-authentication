@@ -19,6 +19,9 @@ export class GeradorService extends BaseService<GeradorModel> {
   }
 
     save(gerador): Observable<any> {
+      if (gerador.id) {
+        return super.update(gerador);
+      }
       return super.save(gerador, GERADOR_RESOURCE);
     }
 

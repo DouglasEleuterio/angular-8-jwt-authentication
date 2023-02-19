@@ -81,7 +81,7 @@
                 <label for="nomeFiltro">Nome</label>
                 <input
                   (change)="carregarEntidades()"
-                  formControlName="nomeFilter"
+                  formControlName="nome"
                   type="text"
                   class="form-control"
                   id="nomeFiltro"
@@ -94,7 +94,7 @@
                   [value]="true"
                   (change)="carregarEntidades()"
                   required
-                  formControlName="statusFilter"
+                  formControlName="ativo"
                   type="tex"
                   class="form-control"
                   id="statusFiltro">

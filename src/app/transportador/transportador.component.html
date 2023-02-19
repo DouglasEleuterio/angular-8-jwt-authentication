@@ -245,9 +245,11 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="submit"  class="btn btn-{{isEdicao ? 'warning' : 'success'}} fa-pull-right">{{isEdicao ? 'Alterar' : 'Salvar'}}</button>
+              <button type="submit"
+                      class="btn btn-{{isEdicao ? 'warning' : 'success'}} fa-pull-right">{{isEdicao ? 'Alterar' : 'Salvar'}}</button>
               <span></span>
-              <button type="button" style="margin-right: 10px;" (click)="limpar()" class="btn btn-secondary fa-pull-right">{{isEdicao ? 'Cancelar':'Limpar'}}</button>
+              <button type="button" style="margin-right: 10px;" (click)="limpar()"
+                      class="btn btn-secondary fa-pull-right">{{isEdicao ? 'Cancelar' : 'Limpar'}}</button>
             </div>
           </div>
           <!-- /.card -->
@@ -266,50 +268,118 @@
         <h3 class="card-title">Lista</h3>
       </div>
       <!-- /.card-header -->
+      <div class="card-body" [formGroup]="filterGroup">
+        <div class="list row">
+          <div class="col-sm-12 col-md-6">
+            <label for="nomeFiltro">Nome</label>
+            <input
+              formControlName="nome"
+              type="text"
+              class="form-control"
+              id="nomeFiltro"
+              placeholder="Nome"
+            >
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <label for="razaoFiltro">Razão Social</label>
+            <input
+              formControlName="razaoSocial"
+              type="text"
+              class="form-control"
+              id="razaoFiltro"
+              placeholder="Razão Social"
+            >
+          </div>
+        </div>
+          <div class="list row">
+            <div class="col-sm-12 col-md-6">
+              <label for="cnpjSearch">CNPJ</label>
+              <input
+                [textMask]="{mask: cnpjMask}"
+                formControlName="cnpj"
+                type="text"
+                class="form-control"
+                id="cnpjSearch"
+                placeholder="00.000.000/000-00">
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <label for="statusFiltro">Status</label>
+              <select
+                formControlName="ativo"
+                [value]="true"
+                required
+                type="tex"
+                class="form-control"
+                id="statusFiltro">
+                <option [ngValue]="null">Todos</option>
+                <option value="true" [ngValue]="true">Ativo</option>
+                <option value="false" [ngValue]="false">Inativo</option>
+              </select>
+            </div>
+        </div>
+        <button style="margin-top: 15px" type="button" (click)="filtrar()" class="btn btn-primary fa-pull-right">
+          Filtrar
+        </button>
+        <button style="margin-top: 15px" type="button" (click)="limparSearch()"
+                class="btn btn-warning fa-pull-left">
+          Limpar
+        </button>
+      </div>
       <div class="card-body">
         <div class="row">
           <div class="col-12 table-responsive">
             <table class="table table-striped">
-          <thead>
-          <tr>
-            <th class="text-center">Nome</th>
-            <th class="text-center">Razão Social</th>
-            <th class="text-center">CNPJ</th>
-            <th class="text-center">Situação</th>
-            <th class="text-center col-2" colspan="3">Ação</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let entity of entities | paginate: {
+              <thead>
+              <tr>
+                <th class="text-center">Nome</th>
+                <th class="text-center">Razão Social</th>
+                <th class="text-center">CNPJ</th>
+                <th class="text-center">Situação</th>
+                <th class="text-center col-2" colspan="3">Ação</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let entity of entities | paginate: {
                                 itemsPerPage: 5,
                                 currentPage: currentPage,
                                 totalItems: count};">
-            <td> {{entity.nome}} </td>
-            <td> {{entity.razaoSocial}}</td>
-            <td> {{entity.cnpj}}</td>
-            <td>
-              <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                <input disabled type="checkbox" class="custom-control-input" [checked]="entity.ativo"
-                       #customSwitch3 id="customSwitch3">
-                <label class="custom-control-label" for="customSwitch3">{{entity.ativo === true ? 'Ativo' : 'Inativo' }}</label>
+                <td> {{entity.nome}} </td>
+                <td> {{entity.razaoSocial}}</td>
+                <td> {{entity.cnpj}}</td>
+                <td>
+                  <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                    <input disabled type="checkbox" class="custom-control-input" [checked]="entity.ativo"
+                           #customSwitch3 id="customSwitch3">
+                    <label class="custom-control-label"
+                           for="customSwitch3">{{entity.ativo === true ? 'Ativo' : 'Inativo' }}</label>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
+                    class="fas fa-edit"></i></button>
+                </td>
+                <td class="text-center">
+                  <button title="Visualizar" class="btn  btn-outline-success"><i
+                    class="fas fa-eye"></i></button>
+                </td>
+                <td class="text-center">
+                  <button (click)="prepararExclusao(entity)" title="Inativar" class="btn  btn-outline-danger"
+                          data-toggle="modal"
+                          data-target="#modal-default"><i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <div class="col-12">
+                <pagination-controls
+                  previousLabel="Anterior"
+                  nextLabel="Próximo"
+                  responsive="true"
+                  (pageChange)="handlePageChange(getParams($event))">
+
+                </pagination-controls>
               </div>
-            </td>
-            <td class="text-center">
-              <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
-                class="fas fa-edit"></i></button>
-            </td>
-            <td class="text-center">
-              <button title="Visualizar" class="btn  btn-outline-success"><i
-                class="fas fa-eye"></i></button>
-            </td>
-            <td class="text-center">
-              <button (click)="prepararExclusao(entity)" title="Inativar" class="btn  btn-outline-danger" data-toggle="modal"
-                      data-target="#modal-default"><i class="fas fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

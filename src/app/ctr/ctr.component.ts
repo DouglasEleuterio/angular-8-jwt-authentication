@@ -232,7 +232,11 @@ export class CtrComponent implements OnInit {
 
   valorTotalPagamentos(): any {
     let total = 0;
-    this.ctr.pagamentos.forEach(value => total += value.valor);
+    this.ctr.pagamentos.forEach(value => {
+      if(value.formaPagamento.nome !== 'Combo'){
+        total += value.valor
+      }
+    });
     return total;
   }
 
@@ -270,18 +274,8 @@ export class CtrComponent implements OnInit {
   }
 
   validarForm() {
-    if (this.ctr.pagamentos.length === 0) {
-      this.notifier.notify('error', 'É necessário adicionar pelo menos uma forma de pagamento!');
-      return false;
-    }
-    this.ctr.pagamentos.forEach( pagamento => {
-      if (pagamento.valor === undefined || pagamento.valor === 0) {
-        this.notifier.notify('error', 'Valor de pagamento não pode ser 0!');
-        return false;
-      }
-    });
-    if (this.ctr.tipoDescartes.length === 0) {
-      this.notifier.notify('error', 'É necessário adicionar pelo menos um tipo de descarte!');
+    if (this.ctr.numero === undefined || this.ctr.numero == null) {
+      this.notifier.notify('error', 'É necessário informar um número!');
       return false;
     }
     if (this.veiculoSelecionado === undefined || this.veiculoSelecionado.id === undefined) {
@@ -296,11 +290,31 @@ export class CtrComponent implements OnInit {
       this.notifier.notify('error', 'É necessário selecionar um transportador!');
       return false;
     }
+    if (this.geradorSelecionado === undefined || this.geradorSelecionado.id === undefined) {
+      this.notifier.notify('error', 'É necessário selecionar um gerador!');
+      return false;
+    }
     if (this.destinatarioSelecionado === undefined || this.destinatarioSelecionado.id === undefined) {
       this.notifier.notify('error', 'É necessário selecionar um destinatario!');
       return false;
     }
-
+    if (this.ctr.tipoDescartes.length === 0) {
+      this.notifier.notify('error', 'É necessário adicionar pelo menos um tipo de descarte!');
+      return false;
+    }
+    if (this.ctr.pagamentos.length === 0) {
+      this.notifier.notify('error', 'É necessário adicionar pelo menos uma forma de pagamento!');
+      return false;
+    }
+    this.ctr.pagamentos.forEach( pagamento => {
+      if(pagamento.formaPagamento.nome === 'Combo') {
+        pagamento.valor = 0;
+      }
+      if (pagamento.formaPagamento.nome !== 'Combo' && (pagamento.valor === undefined || pagamento.valor === 0)) {
+        this.notifier.notify('error', 'Valor de pagamento não pode ser 0!');
+        return false;
+      }
+    });
     return true;
   }
 

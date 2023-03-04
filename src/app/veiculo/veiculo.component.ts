@@ -104,6 +104,10 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
       }, err => {});
   }
 
+  carregarEntidades(event?: any) {
+    super.handlePageChange(0);
+  }
+
   // carregarEntidades(event?: any) {
   //   this.filterSearch = this.filterGroup.value;
   //   let search = 'search=modelo!=null;placa!=null;ativo!=null;transportador.id!=null';
@@ -133,8 +137,4 @@ export class VeiculoComponent extends BaseComponent implements OnInit {
     return this.filterSearch;
   }
 
-  filtrar() {
-    this.filterSearch.transportador.id = this.filterGroup.transportador.id;
-    super.handlePageChange(0);
-  }
 }

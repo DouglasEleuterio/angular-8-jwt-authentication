@@ -3,8 +3,9 @@ import {CtrModel} from '../../model/ctr-model';
 import {BaseComponent} from '../../commons/BaseComponent';
 import {TransportadorModel} from '../../model/transportador-model';
 import {TransportadorService} from '../../_services/transportador.service';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {CtrOldService} from '../../_services/ctr-old.service';
+import {CtrService} from '../../_services/ctr.service';
 
 @Component({
   selector: 'app-ctr-list',
@@ -12,12 +13,16 @@ import {CtrOldService} from '../../_services/ctr-old.service';
   styleUrls: ['./ctr-list.component.css']
 })
 export class CtrListComponent extends BaseComponent implements OnInit {
+
   entities: CtrModel[];
   transportadores: TransportadorModel[];
+  protected searchParams = {numero: '', geracao: '', dataDe: '', dataAte: '', transportadoraId: ''};
 
-  constructor(private ctrService: CtrOldService,
-              private transportadorService: TransportadorService) {
-    super();
+  constructor(private ctrService: CtrService,
+              private transportadorService: TransportadorService,
+              private fb: FormBuilder
+              ) {
+    super(null, ctrService);
   }
 
 
@@ -28,13 +33,7 @@ export class CtrListComponent extends BaseComponent implements OnInit {
   }
 
   carregarEntidades(event?: any) {
-    this.params = {
-      numero: this.filterGroup.value.numeroFiltro,
-      dataDe: this.filterGroup.value.dataDe,
-      dataAte: this.filterGroup.value.dataAte,
-      transportadorId: this.filterGroup.value.transportador.id,
-      page: event ? event.page - 1 : 0};
-    this.obtemValor(this.params);
+    super.handlePageChange(0);
   }
 
   carregarTransportadores() {
@@ -44,9 +43,9 @@ export class CtrListComponent extends BaseComponent implements OnInit {
   }
 
   criarFormSearch() {
-    this.filterGroup = new FormGroup({
-      numeroFiltro: new FormControl(''),
-      transportador: new FormControl(''),
+    this.filterGroup = this.fb.group({
+      numero: new FormControl(''),
+      transportadoraId: new FormControl(''),
       dataDe: new FormControl(''),
       dataAte: new FormControl(''),
     });
@@ -64,19 +63,40 @@ export class CtrListComponent extends BaseComponent implements OnInit {
     return total;
   }
 
-
-  obtemValor(params?: any) {
-    this.ctrService.getWithParams(params).subscribe(data => {
-      this.entities = data.content;
-    });
-  }
-
   limpar() {
     this.criarFormSearch();
     this.obtemValor();
   }
 
   getSearchParams(event: any) {
-    throw new Error('Method not implemented.');
+    this.searchParams = this.filterGroup.value;
+    return this.searchParams;
+  }
+
+  handlePageChange(event): void {
+    const paramsObj = this.getSearchParams(event);
+    let paramsTxt = this.convertObjToTxtParams(paramsObj, event);
+    paramsTxt = paramsTxt.substring(0, paramsTxt.length - 1);
+    this.service.getWithParams(paramsTxt).subscribe(data2 => {
+      this.entities = data2.content;
+      this.count = data2.totalElements;
+      this.currentPage = data2.number + 1;
+    });
+  }
+
+  public convertObjToTxtParams(searchParams, pageNumber): string {
+    let searchString = `page=${pageNumber.page === undefined ? 0 : pageNumber.page - 1}&`;
+    let countParam = 0;
+    for (const [key, value] of Object.entries(searchParams)) {
+      countParam++;
+      if (value !== undefined && value !== null && value !== '' && key !== 'transportadoraId') {
+        searchString += `${key}=${value}&`;
+      }
+      if (key === 'transportadoraId' && key !== null && key !== undefined && value !== '') {
+        const transportador = searchParams.transportadoraId;
+        searchString += `${key}=${transportador.id}&`;
+      }
+    }
+    return searchString;
   }
 }

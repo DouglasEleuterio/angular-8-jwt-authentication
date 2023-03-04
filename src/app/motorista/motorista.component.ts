@@ -4,7 +4,7 @@ import {MotoristaModel} from '../model/motorista-model';
 import {MotoristaService} from '../_services/motorista.service';
 import {NotifierService} from 'angular-notifier';
 import {BaseComponent} from '../commons/BaseComponent';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-motorista',
@@ -16,12 +16,13 @@ export class MotoristaComponent extends BaseComponent implements OnInit {
   motorista = new MotoristaModel();
   isEdicao = false;
   entities: MotoristaModel[];
+  protected searchParams = {nome: undefined};
 
   constructor(private motoristaService: MotoristaService,
               notifier: NotifierService,
               private formBuilder: FormBuilder,
               private router: Router) {
-    super(notifier);
+    super(notifier, motoristaService);
   }
 
   ngOnInit() {
@@ -78,6 +79,6 @@ export class MotoristaComponent extends BaseComponent implements OnInit {
   }
 
   getSearchParams(event: any) {
-    throw new Error('Method not implemented.');
+    return this.searchParams;
   }
 }

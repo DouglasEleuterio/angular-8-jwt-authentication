@@ -9,7 +9,7 @@
       <div class="col-sm-12 col-md-6">
         <label>Transportador</label>
         <select
-          formControlName="transportador"
+          formControlName="transportadoraId"
           id="transportador"
           class="form-control select2" style="width: 100%;" (change)="carregarEntidades()" (blur)="carregarEntidades()">
           <option *ngFor="let transp of transportadores" [ngValue]="transp">
@@ -19,9 +19,7 @@
       <div class="col-sm-12 col-md-6">
         <label for="numeroFiltro">Número CTR</label>
         <input
-          formControlName="numeroFiltro"
-          (change)="carregarEntidades()"
-          (blur)="carregarEntidades()"
+          formControlName="numero"
           type="number"
           class="form-control"
           id="numeroFiltro"
@@ -31,8 +29,6 @@
         <label for="dataDe">Data Início</label>
         <input
           formControlName="dataDe"
-          (change)="carregarEntidades()"
-          (blur)="carregarEntidades()"
           type="date"
           class="form-control"
           id="dataDe">
@@ -41,8 +37,6 @@
         <label for="dataAte">Data Fim</label>
         <input
           formControlName="dataAte"
-          (change)="carregarEntidades()"
-          (blur)="carregarEntidades()"
           type="date"
           class="form-control"
           id="dataAte">
@@ -52,7 +46,7 @@
   <div class="card-footer" style="background-color: white">
     <div class="col-sm-12">
       <button class="btn btn-warning float-left" (click)="limpar()">Limpar</button>
-      <button class="btn btn-success float-right">Buscar</button>
+      <button class="btn btn-success float-right" (click)="carregarEntidades()">Buscar</button>
     </div>
   </div>
   <div class="card-body">
@@ -99,4 +93,3 @@
     </div>
   </div>
 </div>
-<!--        /. Tabela  -->

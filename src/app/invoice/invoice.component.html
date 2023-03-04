@@ -103,27 +103,24 @@
           <div class="row">
             <!-- accepted payments column -->
             <div class="col-4">
-              <p class="lead">Descartes</p>
+              <p class="lead d-flex justify-content-center">Descartes</p>
             <div class="table-responsive">
               <table class="table">
-                <tr *ngFor="let descarte of descartes">
+               <tr *ngFor="let descarte of descartes">
                   <td>{{descarte.nome}}</td>
-                  <td>{{descarte.valor | currency: 'BRL'}}</td>
                 </tr>
-                <tfoot>
-                  <tr>
-                    <th>Total</th>
-                    <th>{{valorTotalDescartes(ctr) | currency: 'BRL'}}</th>
-                  </tr>
               </table>
             </div>
           </div>
             <!-- /.col -->
             <div class="col-4">
-              <p class="lead">Forma Pagamento</p>
+              <p class="lead d-flex justify-content-center">Forma Pagamento</p>
 
               <div class="table-responsive">
                 <table class="table">
+                  <td>Nome</td>
+                  <td>Instituição Bancária</td>
+                  <td>Valor</td>
                   <tr *ngFor="let pagamento of pagamentos">
                     <th>{{pagamento.formaPagamento.nome}}</th>
                     <th>{{pagamento.instituicaoBancaria.nome}}</th>
@@ -133,7 +130,7 @@
               </div>
             </div>
             <div class="col-4">
-              <p class="lead">Pagamento</p>
+              <p class="lead d-flex justify-content-center">Pagamento</p>
 
               <div class="table-responsive">
                 <table class="table">

@@ -80,9 +80,11 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="submit"  class="btn btn-{{isEdicao ? 'warning' : 'success'}} fa-pull-right">{{isEdicao ? 'Alterar' : 'Salvar'}}</button>
+              <button type="submit"
+                      class="btn btn-{{isEdicao ? 'warning' : 'success'}} fa-pull-right">{{isEdicao ? 'Alterar' : 'Salvar'}}</button>
               <span></span>
-              <button type="button" style="margin-right: 10px;" (click)="limpar()" class="btn btn-secondary fa-pull-right">{{isEdicao ? 'Cancelar':'Limpar'}}</button>
+              <button type="button" style="margin-right: 10px;" (click)="limpar()"
+                      class="btn btn-secondary fa-pull-right">{{isEdicao ? 'Cancelar' : 'Limpar'}}</button>
             </div>
           </div>
           <!-- /.card -->
@@ -94,17 +96,15 @@
   </section>
 </form>
 
-<section class="content">
-  <div class="container-fluid">
-    <div class="card card-success">
-      <div class="card-header">
-        <h3 class="card-title">Lista</h3>
-      </div>
-      <!-- /.card-header -->
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 table-responsive">
-            <table class="table table-striped">
+<section>
+  <div class="card card-success">
+    <div class="card-header">
+      <h3 class="card-title">Lista</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="row">
+      <div class="col-12 table-responsive">
+        <table class="table table-striped">
           <thead>
           <tr>
             <th class="text-center">Nome</th>
@@ -114,19 +114,29 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let entity of entities">
+          <tr *ngFor="let entity of entities | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: currentPage,
+                                totalItems: count};">
             <td> {{entity.nome}}</td>
             <td> {{entity.telefone}}</td>
             <td> {{entity.cnh}}</td>
-             <td class="text-center">
+            <td class="text-center">
               <button title="Editar" (click)="editar(entity)" class="btn  btn-outline-warning"><i
                 class="fas fa-edit"></i></button>
             </td>
           </tr>
+          <div class="col-12">
+            <pagination-controls
+              previousLabel="Anterior"
+              nextLabel="Próximo"
+              responsive="true"
+              (pageChange)="handlePageChange(getParams($event))">
+
+            </pagination-controls>
+          </div>
           </tbody>
         </table>
-          </div>
-        </div>
       </div>
     </div>
   </div>

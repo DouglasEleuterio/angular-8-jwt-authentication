@@ -145,7 +145,7 @@
                     </select>
                   </div>
 
-                  <div class="col-12">
+                  <div class="col-12" *ngIf="formaPagamentoSelecionado.nome !== 'Combo'">
                     <label>Instituição Bancária</label>
                     <select [(ngModel)]="instituicaoBancariaSelecionada" id="insBancaria"
                             class="form-control select2" style="width: 100%;">
@@ -186,8 +186,8 @@
                       <tbody>
                       <tr *ngFor="let pagamento of ctr.pagamentos">
                         <td> {{pagamento.formaPagamento.nome}}</td>
-                        <td> {{pagamento.instituicaoBancaria.nome}}</td>
-                        <td> {{pagamento.valor | currency:'BRL'}}</td>
+                        <td> {{pagamento.instituicaoBancaria === undefined ? '--' : pagamento.instituicaoBancaria.nome}}</td>
+                        <td> {{pagamento.formaPagamento.nome !== 'Combo' ? pagamento.valor : 0.00 | currency:'BRL'}}</td>
                         <td>
                           <button (click)="excluirPagamento(pagamento)" title="Excluir" class="btn  btn-outline-danger"><i
                             class="fas fa-trash"></i>

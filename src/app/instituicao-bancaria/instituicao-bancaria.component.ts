@@ -62,4 +62,8 @@ export class InstituicaoBancariaComponent extends BaseComponent implements OnIni
   getSearchParams(event: any) {
     return this.searchParams;
   }
+  
+  carregarEntidades(event?: any) {
+    super.handlePageChange(0);
+  }
 }

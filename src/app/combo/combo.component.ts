@@ -21,13 +21,14 @@ export class ComboComponent extends BaseComponent implements OnInit {
   notifier: NotifierService;
   transportadores: TransportadorModel[];
   descartes: TipoDescarteModel[];
+  protected searchParams = {};
 
   constructor(private comboService: ComboService,
               private transportadorService: TransportadorService,
               private tipoDescarteService: TipoDescarteService,
               private formBuilder: FormBuilder,
               notifier: NotifierService) {
-    super(notifier);
+    super(notifier, comboService);
   }
 
   ngOnInit() {
@@ -84,6 +85,6 @@ export class ComboComponent extends BaseComponent implements OnInit {
   }
 
   getSearchParams(event: any) {
-    throw new Error('Method not implemented.');
+    return this.searchParams;
   }
 }

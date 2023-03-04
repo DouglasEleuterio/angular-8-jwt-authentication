@@ -18,13 +18,14 @@ export class GeradorComponent extends BaseComponent implements OnInit {
   juridica: boolean;
   isEdicao = false;
   entities: GeradorModel[];
+  protected searchParams = {nome: undefined, ativo: undefined};
   @ViewChild('isFisica', null) isFisica: ElementRef;
   @ViewChild('isJuridica', null) isJuridica: ElementRef;
 
   constructor(private geradorService: GeradorService,
               notifier: NotifierService,
               private router: Router) {
-    super(notifier);
+    super(notifier, geradorService);
   }
 
   ngOnInit() {
@@ -102,6 +103,6 @@ export class GeradorComponent extends BaseComponent implements OnInit {
   }
 
   getSearchParams(event: any) {
-    throw new Error('Method not implemented.');
+    return this.searchParams;
   }
 }

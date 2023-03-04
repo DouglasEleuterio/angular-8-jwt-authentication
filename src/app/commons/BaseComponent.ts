@@ -73,13 +73,17 @@ export abstract class BaseComponent implements OnInit {
     });
   }
 
-  private convertObjToTxtParams(searchParams, pageNumber): string {
+  public convertObjToTxtParams(searchParams, pageNumber): string {
     let searchString = `page=${pageNumber.page === undefined ? 0 : pageNumber.page - 1}&search=`;
     let countParam = 0;
     for (const [key, value] of Object.entries(searchParams)) {
       countParam++;
       if (value !== undefined && value !== null && value !== '') {
-        if (key !== 'ativo') {
+        if(key == 'nome'){
+          searchString += `${key}==*${value}*;`;
+        } else if(key == 'placa'){
+          searchString += `${key}==*${value}*;`;
+        } else if (key !== 'ativo') {
           searchString += `${key}==%${value}%;`;
         } else {
           searchString += `${key}==${value};`;

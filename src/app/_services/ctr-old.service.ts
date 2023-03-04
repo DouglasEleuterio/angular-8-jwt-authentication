@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {CtrModel} from '../model/ctr-model';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment.prod';
-import {ListarCtr} from "../model/params/listar-ctr";
+import {ListarCtr} from '../model/params/listar-ctr';
 
 const CTR_RESOURCE = 'ctr/old';
 

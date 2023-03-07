@@ -3,6 +3,7 @@ import {NotifierService} from 'angular-notifier';
 import {ActivatedRoute} from '@angular/router';
 import {CtrModel} from '../model/ctr-model';
 import {CtrOldService} from '../_services/ctr-old.service';
+import {GeradorModel} from "../model/gerador-model";
 
 
 @Component({
@@ -39,12 +40,26 @@ export class InvoiceComponent implements OnInit {
           this.ctr = data;
           this.pagamentos = data.pagamentos;
           this.descartes = data.tipoDescartes;
+
+          if (this.ctr.gerador === null || this.ctr.gerador === undefined) {
+            const geradorNaoInformado = new GeradorModel();
+            geradorNaoInformado.nome = '';
+            geradorNaoInformado.retirada.logradouro = '';
+            geradorNaoInformado.retirada.numero = '';
+            geradorNaoInformado.retirada.complemento = '';
+            geradorNaoInformado.retirada.bairro = '';
+            geradorNaoInformado.retirada.cidade = '';
+            geradorNaoInformado.retirada.estado = '';
+            geradorNaoInformado.telefone = '';
+            geradorNaoInformado.email = '';
+            this.ctr.gerador = new GeradorModel();
+          }
+
         }, error => {
           this.notifier.notify('error', error);
           console.log(error);
         }
       );
-      // In a real app: dispatch action to load the details here.
     });
   }
 

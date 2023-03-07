@@ -290,10 +290,6 @@ export class CtrComponent implements OnInit {
       this.notifier.notify('error', 'É necessário selecionar um transportador!');
       return false;
     }
-    if (this.geradorSelecionado === undefined || this.geradorSelecionado.id === undefined) {
-      this.notifier.notify('error', 'É necessário selecionar um gerador!');
-      return false;
-    }
     if (this.destinatarioSelecionado === undefined || this.destinatarioSelecionado.id === undefined) {
       this.notifier.notify('error', 'É necessário selecionar um destinatario!');
       return false;

@@ -34,20 +34,29 @@
           <!-- info row -->
           <div class="row invoice-info">
             <div class="col-sm-4 invoice-col">
-              Origem
-              <address>
-                <strong>{{ctr.gerador.nome}}{{ctr.gerador.razaoSocial}}</strong><br>
-                {{ctr.gerador.retirada.logradouro}} <span *ngIf="ctr.gerador.retirada.numero">Nº </span> {{ctr.gerador.retirada.numero}} {{ctr.gerador.retirada.complemento}} {{ctr.gerador.retirada.bairro}}<br>
-                {{ctr.gerador.retirada.cidade}} - {{ctr.gerador.retirada.estado}}<br>
-                Telefone: {{ctr.gerador.telefone}}<br>
-                Email: {{ctr.gerador.email}}
-              </address>
+              <div *ngIf="ctr.gerador.id !== null && ctr.gerador.id !== undefined">
+                Origem
+                <address>
+                  <strong>{{ctr.gerador.nome}}{{ctr.gerador.razaoSocial}}</strong><br>
+                  {{ctr.gerador.retirada.logradouro}} <span
+                  *ngIf="ctr.gerador.retirada.numero">Nº </span> {{ctr.gerador.retirada.numero}} {{ctr.gerador.retirada.complemento}} {{ctr.gerador.retirada.bairro}}
+                  <br>
+                  {{ctr.gerador.retirada.cidade}} - {{ctr.gerador.retirada.estado}}<br>
+                  Telefone: {{ctr.gerador.telefone}}<br>
+                  Email: {{ctr.gerador.email}}
+                </address>
+              </div>
+              <div *ngIf="ctr.gerador.id == '' || ctr.gerador.id === undefined">
+                <p>Gerador não informado</p>
+              </div>
             </div>
             <div class="col-sm-4 invoice-col">
               Destino
               <address>
                 <strong>{{ctr.destinatario.razaoSocial}}</strong><br>
-                {{ctr.destinatario.enderecoRecebimento.logradouro}} <span *ngIf="ctr.destinatario.enderecoRecebimento.numero">Nº </span> {{ctr.destinatario.enderecoRecebimento.numero}} {{ctr.destinatario.enderecoRecebimento.complemento}} {{ctr.destinatario.enderecoRecebimento.bairro}}<br>
+                {{ctr.destinatario.enderecoRecebimento.logradouro}} <span
+                *ngIf="ctr.destinatario.enderecoRecebimento.numero">Nº </span> {{ctr.destinatario.enderecoRecebimento.numero}} {{ctr.destinatario.enderecoRecebimento.complemento}} {{ctr.destinatario.enderecoRecebimento.bairro}}
+                <br>
                 {{ctr.destinatario.enderecoRecebimento.cidade}} - {{ctr.destinatario.enderecoRecebimento.estado}}<br>
                 Telefone: {{ctr.destinatario.telefone}}<br>
                 Email: {{ctr.destinatario.email}}
@@ -58,7 +67,9 @@
               Transportadora
               <address>
                 <strong>{{ctr.transportador.razaoSocial}}</strong><br>
-                {{ctr.transportador.endereco.logradouro}} <span *ngIf="ctr.transportador.endereco.numero">Nº </span> {{ctr.transportador.endereco.numero}} {{ctr.transportador.endereco.complemento}} {{ctr.transportador.endereco.bairro}}<br>
+                {{ctr.transportador.endereco.logradouro}} <span
+                *ngIf="ctr.transportador.endereco.numero">Nº </span> {{ctr.transportador.endereco.numero}} {{ctr.transportador.endereco.complemento}} {{ctr.transportador.endereco.bairro}}
+                <br>
                 {{ctr.transportador.endereco.cidade}} - {{ctr.transportador.endereco.estado}}<br>
                 Telefone: {{ctr.transportador.telefone}}<br>
                 Email: {{ctr.transportador.email}}
@@ -104,14 +115,14 @@
             <!-- accepted payments column -->
             <div class="col-4">
               <p class="lead d-flex justify-content-center">Descartes</p>
-            <div class="table-responsive">
-              <table class="table">
-               <tr *ngFor="let descarte of descartes">
-                  <td>{{descarte.nome}}</td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="table">
+                  <tr *ngFor="let descarte of descartes">
+                    <td>{{descarte.nome}}</td>
+                  </tr>
+                </table>
+              </div>
             </div>
-          </div>
             <!-- /.col -->
             <div class="col-4">
               <p class="lead d-flex justify-content-center">Forma Pagamento</p>
@@ -135,7 +146,7 @@
               <div class="table-responsive">
                 <table class="table">
                   <tr *ngIf="desconto(ctr)">
-                  <th>Desconto</th>
+                    <th>Desconto</th>
                     <td>{{valorDesconto | currency: 'BRL'}}</td>
                   </tr>
                   <tr>

@@ -8,7 +8,6 @@ import {MotoristaModel} from './motorista-model';
 
 export class CtrModel {
   id: string;
-
   numero: number;
   veiculo: VeiculoModel = new VeiculoModel();
   transportador: TransportadorModel = new TransportadorModel();

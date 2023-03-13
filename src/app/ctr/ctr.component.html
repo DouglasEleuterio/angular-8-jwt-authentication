@@ -30,7 +30,7 @@
           <div class="card-body">
             <div class="form-group">
               <mat-tab-group animationDuration="0ms">
-                <mat-tab label="Número CTR">
+                <mat-tab label="Número e Data">
                   <div class="col-12">
                     <label for="numero">Número CTR</label>
                     <input
@@ -40,6 +40,16 @@
                       class="form-control"
                       placeholder="Número CTR"
                       [(ngModel)]="numero"
+                    />
+                    </div>
+                  <div class="col-12">
+                    <label for="data">Data CTR</label>
+                    <input
+                      (change)="vinculaData()"
+                      id="data"
+                      type="datetime-local"
+                      class="form-control"
+                      [(ngModel)]="data"
                     />
                     </div>
                 </mat-tab>

@@ -67,6 +67,7 @@ export class CtrComponent implements OnInit {
   ctr: CtrModel;
 
   numero: number;
+  data: any;
   instituicaoBancaria: InstituicaoBancariaModel[];
   instituicaoBancariaSelecionada: InstituicaoBancariaModel;
 
@@ -103,6 +104,7 @@ export class CtrComponent implements OnInit {
     this.carregaFormaPagamento();
     this.carregarMotoristas();
     this.carregarInstituicaoBancaria();
+    this.data = Date.now();
   }
 
   createForm(model: CtrModel) {
@@ -278,6 +280,10 @@ export class CtrComponent implements OnInit {
       this.notifier.notify('error', 'É necessário informar um número!');
       return false;
     }
+    if (this.ctr.geracao === undefined || this.ctr.geracao == null) {
+      this.notifier.notify('error', 'É necessário informar uma Data!');
+      return false;
+    }
     if (this.veiculoSelecionado === undefined || this.veiculoSelecionado.id === undefined) {
       this.notifier.notify('error', 'É necessário selecionar um veículo!');
       return false;
@@ -323,5 +329,9 @@ export class CtrComponent implements OnInit {
 
   vinculaNumeroCTR() {
     this.ctr.numero = this.numero;
+  }
+
+  vinculaData() {
+    this.ctr.geracao = this.data;
   }
 }

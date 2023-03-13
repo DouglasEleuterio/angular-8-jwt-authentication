@@ -73,7 +73,7 @@ export class InvoiceComponent implements OnInit {
     let result: boolean;
     const totalDescartes = this.valorTotalDescartes(ctr);
     ctr.pagamentos.forEach(element => {
-      if(element.formaPagamento.nome == 'Combo') {
+      if (element.formaPagamento.nome == 'Combo') {
         result = false;
       } else if (this.total(ctr) < totalDescartes) {
         this.valorDesconto = totalDescartes - this.total(ctr);

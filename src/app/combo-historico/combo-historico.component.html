@@ -43,7 +43,7 @@
           <!-- info row -->
           <div class="row invoice-info">
             <div class="col-sm-3 invoice-col">
-                Desconto: <b>{{aquisicao.desconto | currency: 'BRL'}}</b>
+                Desconto: <b *ngIf="aquisicao.desconto > 0 ">{{aquisicao.desconto | currency: 'BRL'}}</b>
             </div>
 
             <div class="col-sm-3 invoice-col">

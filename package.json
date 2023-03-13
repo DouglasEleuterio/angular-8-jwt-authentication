@@ -15,7 +15,7 @@
     "heroku-postbuild": "ng build --prod",
     "deploy:ghdocs": "ng build --prod --output-path docs --base-href /aterrosystem-frontend/",
     "deploy:hostinger-prod": "ng build --prod --output-path hostinger-prod --base-href /",
-    "deploy:hostinger-prod-descarte": "ng build --prod --output-path hostinger-prod/tipo-descarte --base-href /",
+    "deploy:hostinger-prod-descarte": "ng build --prod --output-path hostinger-prod --base-href /",
     "deploy:hostinger-homolog": "ng build --prod --output-path hostinger-homolog --base-href /novo"
   },
   "private": true,

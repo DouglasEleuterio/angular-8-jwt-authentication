@@ -79,7 +79,6 @@ export class AquisicaoComponent extends BaseComponent implements OnInit {
       pagamento.ativo = true,
       pagamento.instituicaoBancaria = this.form.value.instituicaoBancaria;
     this.aquisicao.combo.pagamentos = [ pagamento ];
-    this.aquisicao.combo.pagamentos.push(pagamento);
     this.aquisicaoService.save(this.form.value).subscribe(
       data => {
         this.notifier.notify('success', 'Aquisição criada!');

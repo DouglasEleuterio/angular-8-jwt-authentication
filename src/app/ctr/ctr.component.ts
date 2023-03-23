@@ -68,6 +68,7 @@ export class CtrComponent implements OnInit {
 
   numero: number;
   data: any;
+  dataPagamento: any;
   instituicaoBancaria: InstituicaoBancariaModel[];
   instituicaoBancariaSelecionada: InstituicaoBancariaModel;
 
@@ -332,6 +333,8 @@ export class CtrComponent implements OnInit {
   }
 
   vinculaData() {
-    this.ctr.geracao = this.data;
+    this.ctr.pagamentos.forEach(value => {
+      value.dataPagamento = this.dataPagamento;
+    });
   }
 }

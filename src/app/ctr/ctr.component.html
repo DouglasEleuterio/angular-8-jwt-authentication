@@ -41,7 +41,7 @@
                       placeholder="Número CTR"
                       [(ngModel)]="numero"
                     />
-                    </div>
+                  </div>
                   <div class="col-12">
                     <label for="data">Data CTR</label>
                     <input
@@ -51,9 +51,9 @@
                       class="form-control"
                       [(ngModel)]="data"
                     />
-                    </div>
+                  </div>
                 </mat-tab>
-                <mat-tab  label="Veículo">
+                <mat-tab label="Veículo">
                   <div class="col-12">
                     <label>Veículo</label>
                     <select [(ngModel)]="veiculoSelecionado" id="veiculo"
@@ -145,7 +145,8 @@
                   </div>
                 </mat-tab>
                 <mat-tab label="Pagamento">
-                  <div class="col-12">
+
+                  <div>
                     <label>Forma Pagamento</label>
                     <select [(ngModel)]="formaPagamentoSelecionado" id="formaPagamento"
                             class="form-control select2" style="width: 100%;">
@@ -155,7 +156,7 @@
                     </select>
                   </div>
 
-                  <div class="col-12" *ngIf="formaPagamentoSelecionado.nome !== 'Combo'">
+                  <div *ngIf="formaPagamentoSelecionado.nome !== 'Combo'">
                     <label>Instituição Bancária</label>
                     <select [(ngModel)]="instituicaoBancariaSelecionada" id="insBancaria"
                             class="form-control select2" style="width: 100%;">
@@ -164,8 +165,7 @@
                       </option>
                     </select>
                   </div>
-
-                  <div class="col-12" *ngIf="formaPagamentoSelecionado.nome !== 'Combo'">
+                  <div class="col-6 col-xs-12" *ngIf="formaPagamentoSelecionado.nome !== 'Combo'">
                     <label>Valor</label>
                     <input
                       currencyMask
@@ -178,7 +178,17 @@
                       id="pagamento"
                       placeholder="R$ 0.00">
                   </div>
-                  <button [disabled]="formaPagamentoSelecionado.nome == null" type="button" (click)="adicionarPagamento()"
+                  <div class="col-6 col-xs-12">
+                    <label for="dataPagamento">Data Pagamento</label>
+                    <input
+                      id="dataPagamento"
+                      type="date"
+                      class="form-control"
+                      [(ngModel)]="dataPagamento"
+                    />
+                  </div>
+                  <button [disabled]="formaPagamentoSelecionado.nome == null" type="button"
+                          (click)="adicionarPagamento()"
                           id="adicionarpagamentobutton"
                           class="btn btn-info fa-pull-right ">Adicionar Pagamento
                   </button>
@@ -188,6 +198,7 @@
                       <thead>
                       <tr>
                         <th>Nome</th>
+                        <th>Data Pagamento</th>
                         <th>Instituição Bancária</th>
                         <th>Valor</th>
                         <th style="width: 10%; text-align: center">Excluir</th>
@@ -196,18 +207,21 @@
                       <tbody>
                       <tr *ngFor="let pagamento of ctr.pagamentos">
                         <td> {{pagamento.formaPagamento.nome}}</td>
+                        <td> {{pagamento.dataPagamento | date}}</td>
                         <td> {{pagamento.instituicaoBancaria === undefined ? '--' : pagamento.instituicaoBancaria.nome}}</td>
                         <td> {{pagamento.formaPagamento.nome !== 'Combo' ? pagamento.valor : 0.00 | currency:'BRL'}}</td>
                         <td>
-                          <button (click)="excluirPagamento(pagamento)" title="Excluir" class="btn  btn-outline-danger"><i
-                            class="fas fa-trash"></i>
+                          <button (click)="excluirPagamento(pagamento)" title="Excluir" class="btn  btn-outline-danger">
+                            <i
+                              class="fas fa-trash"></i>
                           </button>
                         </td>
                       </tr>
                       </tbody>
                     </table>
                     <div class="card-footer text-center">
-                      <span href="javascript:void(0)" class="uppercase">Valor Total: {{valorTotalPagamentos() | currency: 'BRL'}}</span>
+                      <span href="javascript:void(0)"
+                            class="uppercase">Valor Total: {{valorTotalPagamentos() | currency: 'BRL'}}</span>
                     </div>
                   </div>
                 </mat-tab>
@@ -216,9 +230,9 @@
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-              <button (click)="limpar()" type="button" class="btn btn-warning ">Limpar</button>
-              <button type="button" (click)="onSubmit()" class="btn btn-success fa-pull-right ">Salvar CTR</button>
-            </div>
+            <button (click)="limpar()" type="button" class="btn btn-warning ">Limpar</button>
+            <button type="button" (click)="onSubmit()" class="btn btn-success fa-pull-right ">Salvar CTR</button>
+          </div>
         </div>
         <!-- /.card -->
       </div>

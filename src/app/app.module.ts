@@ -46,6 +46,7 @@ import { MotoristaListComponent } from './motorista/motorista-list/motorista-lis
 import { TipoDescarteListComponent } from './tipo-descarte/tipo-descarte-list/tipo-descarte-list.component';
 import { FormaPagamentoListComponent } from './forma-pagamento/forma-pagamento-list/forma-pagamento-list.component';
 import { InstituicaoBancariaComponent } from './instituicao-bancaria/instituicao-bancaria.component';
+import { PagamentosComponent } from './pagamentos/pagamentos.component';
 
 /**
  * Custom angular notifier options
@@ -121,7 +122,8 @@ registerLocaleData(ptBr);
     MotoristaListComponent,
     TipoDescarteListComponent,
     FormaPagamentoListComponent,
-    InstituicaoBancariaComponent
+    InstituicaoBancariaComponent,
+    PagamentosComponent
   ],
   imports: [
     BrowserModule,

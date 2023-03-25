@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-// import { environment } from '../../environments/environment.prod';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {BaseService} from './BaseService';
+import {PagamentoModel} from '../model/pagamento-model';
 
-const PAGAMENTO_RESOURCE = '/pagamento';
+const PAGAMENTO_RESOURCE = 'pagamento';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,9 +12,11 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class PagamentoService {
+export class PagamentoService extends BaseService<PagamentoModel> {
 
-  constructor(private http: HttpClient) { }
+  constructor(http: HttpClient) {
+    super(http);
+  }
 
 /*  save(pagamento): Observable<any> {
     this.http.post(environment.apiUrl + PAGAMENTO_RESOURCE, {
@@ -28,4 +30,8 @@ export class PagamentoService {
   cancelarPagamento(pagamento): Observable<any> {
     this.http.patch(environment.apiUrl + PAGAMENTO_RESOURCE + pagamento.id, {}, httpOptions);
   }*/
+
+  getResource(): string {
+    return PAGAMENTO_RESOURCE;
+  }
 }

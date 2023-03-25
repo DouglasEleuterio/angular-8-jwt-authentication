@@ -23,6 +23,7 @@ import {ComboHistoricoComponent} from './combo-historico/combo-historico.compone
 import {AquisicaoComponent} from './aquisicao/aquisicao.component';
 import {VeiculoListComponent} from './veiculo/veiculo-list/veiculo-list.component';
 import {InstituicaoBancariaComponent} from './instituicao-bancaria/instituicao-bancaria.component';
+import {PagamentosComponent} from './pagamentos/pagamentos.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'painel-financeiro', component: PainelFinanceiroComponent },
   { path: 'veiculo-list', component: VeiculoListComponent },
   { path: 'instituicao-bancaria', component: InstituicaoBancariaComponent },
+  { path: 'pagamentos', component: PagamentosComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

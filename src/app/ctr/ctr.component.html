@@ -31,26 +31,28 @@
             <div class="form-group">
               <mat-tab-group animationDuration="0ms">
                 <mat-tab label="Número e Data">
-                  <div class="col-12">
-                    <label for="numero">Número CTR</label>
-                    <input
-                      (change)="vinculaNumeroCTR()"
-                      id="numero"
-                      type="number"
-                      class="form-control"
-                      placeholder="Número CTR"
-                      [(ngModel)]="numero"
-                    />
-                  </div>
-                  <div class="col-12">
-                    <label for="data">Data CTR</label>
-                    <input
-                      (change)="vinculaData()"
-                      id="data"
-                      type="datetime-local"
-                      class="form-control"
-                      [(ngModel)]="data"
-                    />
+                  <div class="row" style="margin-right: auto;">
+                    <div class="col-6 col-xs-12">
+                      <label for="numero">Número CTR</label>
+                      <input
+                        (change)="vinculaNumeroCTR()"
+                        id="numero"
+                        type="number"
+                        class="form-control"
+                        placeholder="Número CTR"
+                        [(ngModel)]="numero"
+                      />
+                    </div>
+                    <div class="col-6 col-xs-12">
+                      <label for="data">Data CTR</label>
+                      <input
+                        (change)="vinculaData()"
+                        id="data"
+                        type="datetime-local"
+                        class="form-control"
+                        [(ngModel)]="data"
+                      />
+                    </div>
                   </div>
                 </mat-tab>
                 <mat-tab label="Veículo">
@@ -145,47 +147,51 @@
                   </div>
                 </mat-tab>
                 <mat-tab label="Pagamento">
+                  <div class="row">
+                    <div class="col-6 col-xs-12">
+                      <label>Forma Pagamento</label>
+                      <select [(ngModel)]="formaPagamentoSelecionado" id="formaPagamento"
+                              class="form-control select2" style="width: 100%;">
+                        <option *ngFor="let formaPagamento of formasPagamento" [ngValue]="formaPagamento">
+                          {{formaPagamento.nome}}
+                        </option>
+                      </select>
+                    </div>
 
-                  <div>
-                    <label>Forma Pagamento</label>
-                    <select [(ngModel)]="formaPagamentoSelecionado" id="formaPagamento"
-                            class="form-control select2" style="width: 100%;">
-                      <option *ngFor="let formaPagamento of formasPagamento" [ngValue]="formaPagamento">
-                        {{formaPagamento.nome}}
-                      </option>
-                    </select>
+                    <div class="col-6 col-xs-12" *ngIf="formaPagamentoSelecionado.nome !== 'Combo' ">
+                      <label>Instituição Bancária</label>
+                      <select [(ngModel)]="instituicaoBancariaSelecionada" id="insBancaria"
+                              class="form-control select2" style="width: 100%;">
+                        <option *ngFor="let instBancaria of instituicaoBancaria" [ngValue]="instBancaria">
+                          {{instBancaria.nome}} - {{instBancaria.agencia}} - {{instBancaria.conta}}
+                        </option>
+                      </select>
+                    </div>
                   </div>
-
-                  <div *ngIf="formaPagamentoSelecionado.nome !== 'Combo'">
-                    <label>Instituição Bancária</label>
-                    <select [(ngModel)]="instituicaoBancariaSelecionada" id="insBancaria"
-                            class="form-control select2" style="width: 100%;">
-                      <option *ngFor="let instBancaria of instituicaoBancaria" [ngValue]="instBancaria">
-                        {{instBancaria.nome}} - {{instBancaria.agencia}} - {{instBancaria.conta}}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="col-6 col-xs-12" *ngIf="formaPagamentoSelecionado.nome !== 'Combo'">
-                    <label>Valor</label>
-                    <input
-                      currencyMask
-                      [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
-                      [(ngModel)]="valorPagamento"
-                      type="text"
-                      class="form-control"
-                      name="pagamento"
-                      required
-                      id="pagamento"
-                      placeholder="R$ 0.00">
-                  </div>
-                  <div class="col-6 col-xs-12">
-                    <label for="dataPagamento">Data Pagamento</label>
-                    <input
-                      id="dataPagamento"
-                      type="date"
-                      class="form-control"
-                      [(ngModel)]="dataPagamento"
-                    />
+                  <div class="row">
+                    <div class="col-6 col-xs-12" *ngIf="formaPagamentoSelecionado.nome !== 'Combo'">
+                      <label>Valor</label>
+                      <input
+                        currencyMask
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                        [(ngModel)]="valorPagamento"
+                        type="text"
+                        class="form-control"
+                        name="pagamento"
+                        required
+                        id="pagamento"
+                        placeholder="R$ 0.00">
+                    </div>
+                    <div class="col-6 col-xs-12">
+                      <label for="dataPagamento">Data Pagamento</label>
+                      <input
+                        (change)="vinculaDataPagamento()"
+                        id="dataPagamento"
+                        type="date"
+                        class="form-control"
+                        [(ngModel)]="dataPagamento"
+                      />
+                    </div>
                   </div>
                   <button [disabled]="formaPagamentoSelecionado.nome == null" type="button"
                           (click)="adicionarPagamento()"

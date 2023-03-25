@@ -32,4 +32,8 @@ export class InstituicaoBancariaService extends BaseService<InstituicaoBancariaM
   getResource(): string {
     return INSTITUICAO_BANCARIA_RESOURCE;
   }
+
+  get(): Observable<any> {
+    return this.http.get<InstituicaoBancariaModel>(environment.apiUrl + this.getResource() + '/all');
+  }
 }

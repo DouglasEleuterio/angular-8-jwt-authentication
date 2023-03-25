@@ -1,0 +1,152 @@
+<!--        Tabela  -->
+<div class="card card-success">
+  <div class="card-header">
+    <h3 class="card-title">Lista</h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <div [formGroup]="filterGroup">
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <label for="status">Status</label>
+          <select formControlName="ativo" required type="select"
+                  class="form-control" id="status">
+            <option [ngValue]="null">Todos</option>
+            <option value="true" [ngValue]="true">Ativo</option>
+            <option value="false" [ngValue]="false">Inativo</option>
+          </select>
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <label>Forma Pagamento</label>
+          <select id="formaPagamentoA"
+                  class="form-control select2"
+                  style="width: 100%;"
+                  formControlName="formaPagamento">
+            <option *ngFor="let formaPagamento of formasPagamento"
+                    [ngValue]="formaPagamento.id">
+              {{formaPagamento.nome}}
+            </option>
+          </select>
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <label>Instituição Bancária</label>
+          <select id="formaPagamento2A"
+                  formControlName="instituicaoBancaria"
+                  class="form-control select2"
+                  style="width: 100%;">
+            <option *ngFor="let iBancaria of instituicaoBancaria"
+                    [ngValue]="iBancaria.id">
+              {{iBancaria.nome}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <!--      <div class="row">-->
+      <!--        <div class="col-sm-12 col-md-6">-->
+      <!--          <label>Transportador</label>-->
+      <!--          <select-->
+      <!--            formControlName="transportadoraId"-->
+      <!--            id="transportador"-->
+      <!--            class="form-control select2" style="width: 100%;">-->
+      <!--            <option *ngFor="let transp of transportadores" [ngValue]="transp.id">-->
+      <!--              Razão Social: {{transp.razaoSocial}} | CNPJ: {{transp.cnpj}}</option>-->
+      <!--          </select>-->
+      <!--        </div>-->
+      <!--        <div class="col-sm-12 col-md-6">-->
+      <!--          <label for="origem">Origem</label>-->
+      <!--          <select id="origem"-->
+      <!--                  formControlName="origem"-->
+      <!--                  class="form-control select2"-->
+      <!--                  style="width: 100%;">-->
+      <!--            <option [ngValue]="null">Todos</option>-->
+      <!--            <option [ngValue]="'ctr'">CTR</option>-->
+      <!--            <option [ngValue]="'combo'">Combo</option>-->
+      <!--          </select>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <div class="row">
+        <!--        <div class="col-sm-12 col-md-4">-->
+        <!--          <label for="numeroFiltro">Número CTR</label>-->
+        <!--          <input-->
+        <!--            formControlName="ctr"-->
+        <!--            type="number"-->
+        <!--            class="form-control"-->
+        <!--            id="numeroFiltro"-->
+        <!--            placeholder="Número CTR">-->
+        <!--        </div>-->
+        <div class="col-sm-12 col-md-6">
+          <label for="dataDe">Data Início</label>
+          <input
+            formControlName="dataDe"
+            type="date"
+            class="form-control"
+            id="dataDe">
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label for="dataAte">Data Fim</label>
+          <input
+            formControlName="dataAte"
+            type="date"
+            class="form-control"
+            id="dataAte">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer" style="background-color: white">
+    <div class="col-sm-12">
+      <!--      <button class="btn btn-warning float-left" (click)="limpar()">Limpar</button>-->
+      <button class="btn btn-primary float-right" (click)="filtrar()">Buscar</button>
+      <button class="btn btn-success float-left" (click)="filtrar()">Gerar Relatório</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Valor</th>
+            <th>Forma Pagamento</th>
+            <th>Instituição Bancária</th>
+            <th>Tipo Pagamento</th>
+            <th>Transportadora</th>
+            <th>Ação</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let entity of entities | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: currentPage,
+                                totalItems: count};">
+            <td style="height: 15px"><b>{{entity.ativo ? 'Ativo' : 'Inativo'}}</b></td>
+            <td style="height: 15px"><b>{{entity.dataPagamento | date: 'dd/MM/yyyy'}}</b></td>
+            <td style="height: 15px"><b>{{entity.valor | currency: 'BRL'}}</b></td>
+            <td style="height: 15px"><b>{{entity.formaPagamento.nome}}</b></td>
+            <td style="height: 15px"><b>{{entity.instituicaoBancaria.nome}}</b></td>
+            <td style="height: 15px" *ngIf="entity.combo"><a href="#">Combo</a></td>
+            <td style="height: 15px" *ngIf="entity.ctr"><a href="#">CTR</a></td>
+            <td style="height: 15px" *ngIf="!entity.ctr && !entity.combo"><b>Sem vínculo</b></td>
+            <td style="height: 15px" *ngIf="entity.ctr"><b >{{entity.ctr.transportador.nome}}</b></td>
+            <td style="height: 15px" *ngIf="entity.combo"><b >{{entity.combo.transportador.nome}}</b></td>
+            <td *ngIf="entity.formaPagamento.nome.includes('Aberto')"><a href="#">Informar Pagamento</a> </td>
+            <td style="height: 15px" *ngIf="!entity.formaPagamento.nome.includes('Aberto')"><b></b></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer clearfix">
+    <div class="col-12">
+      <pagination-controls
+        previousLabel="Anterior"
+        nextLabel="Próximo"
+        responsive="true"
+        (pageChange)="handlePageChange(getParams($event))">
+      </pagination-controls>
+    </div>
+  </div>
+</div>

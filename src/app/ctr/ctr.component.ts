@@ -105,7 +105,6 @@ export class CtrComponent implements OnInit {
     this.carregaFormaPagamento();
     this.carregarMotoristas();
     this.carregarInstituicaoBancaria();
-    this.data = Date.now();
   }
 
   createForm(model: CtrModel) {
@@ -174,7 +173,7 @@ export class CtrComponent implements OnInit {
 
   adicionarPagamento() {
     const pagamentoModel = new PagamentoModel();
-    pagamentoModel.dataPagamento = new Date();
+    pagamentoModel.dataPagamento = this.dataPagamento;
     pagamentoModel.formaPagamento = this.formaPagamentoSelecionado;
     pagamentoModel.ativo = true;
     pagamentoModel.valor = this.valorPagamento;
@@ -184,6 +183,7 @@ export class CtrComponent implements OnInit {
     this.formaPagamentoSelecionado = new FormaPagamentoModel();
     this.instituicaoBancariaSelecionada = new InstituicaoBancariaModel();
     this.valorPagamento = null;
+    this.dataPagamento = null;
     this.validaFormaPagamento();
   }
 
@@ -236,8 +236,8 @@ export class CtrComponent implements OnInit {
   valorTotalPagamentos(): any {
     let total = 0;
     this.ctr.pagamentos.forEach(value => {
-      if(value.formaPagamento.nome !== 'Combo'){
-        total += value.valor
+      if (value.formaPagamento.nome !== 'Combo') {
+        total += value.valor;
       }
     });
     return total;
@@ -261,6 +261,8 @@ export class CtrComponent implements OnInit {
     this.motoristaSelecionado = new MotoristaModel();
     this.tipoDescarteSelecionado = null;
     this.descartesAdicionado.length = 0;
+    this.dataPagamento = null;
+    this.data = null;
   }
 
   validaFormaPagamento() {
@@ -310,7 +312,7 @@ export class CtrComponent implements OnInit {
       return false;
     }
     this.ctr.pagamentos.forEach( pagamento => {
-      if(pagamento.formaPagamento.nome === 'Combo') {
+      if (pagamento.formaPagamento.nome === 'Combo') {
         pagamento.valor = 0;
       }
       if (pagamento.formaPagamento.nome !== 'Combo' && (pagamento.valor === undefined || pagamento.valor === 0)) {
@@ -333,8 +335,12 @@ export class CtrComponent implements OnInit {
   }
 
   vinculaData() {
-    this.ctr.pagamentos.forEach(value => {
-      value.dataPagamento = this.dataPagamento;
+    this.ctr.geracao = this.data;
+  }
+
+  vinculaDataPagamento() {
+    this.ctr.pagamentos.forEach(pagamento => {
+      pagamento.dataPagamento = this.dataPagamento;
     });
   }
 }

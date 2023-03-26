@@ -19,12 +19,12 @@ export class PagamentosComponent extends BaseComponent implements OnInit {
   protected searchParams = {
     status: '',
     formaPagamento: '',
-    instituicaoBancaria: '',
+    instituicaoBancaria: ''
     // origem: '',
     // transportadoraId: '',
     // numeroCtr: '',
-    dataDe: '',
-    dataAte: ''
+    // dataDe: '',
+    // dataAte: ''
   };
 
   transportadores: TransportadorModel[];
@@ -55,8 +55,8 @@ export class PagamentosComponent extends BaseComponent implements OnInit {
       // origem: new FormControl(''),
       // transportadoraId: new FormControl(''),
       // ctr: new FormControl(''),
-      dataDe: new FormControl(''),
-      dataAte: new FormControl(''),
+      // dataDe: new FormControl(''),
+      // dataAte: new FormControl(''),
     });
   }
 

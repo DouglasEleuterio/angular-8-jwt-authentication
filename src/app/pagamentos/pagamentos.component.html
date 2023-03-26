@@ -74,22 +74,22 @@
         <!--            id="numeroFiltro"-->
         <!--            placeholder="Número CTR">-->
         <!--        </div>-->
-        <div class="col-sm-12 col-md-6">
-          <label for="dataDe">Data Início</label>
-          <input
-            formControlName="dataDe"
-            type="date"
-            class="form-control"
-            id="dataDe">
-        </div>
-        <div class="col-sm-12 col-md-6">
-          <label for="dataAte">Data Fim</label>
-          <input
-            formControlName="dataAte"
-            type="date"
-            class="form-control"
-            id="dataAte">
-        </div>
+<!--        <div class="col-sm-12 col-md-6">-->
+<!--          <label for="dataDe">Data Início</label>-->
+<!--          <input-->
+<!--            formControlName="dataDe"-->
+<!--            type="date"-->
+<!--            class="form-control"-->
+<!--            id="dataDe">-->
+<!--        </div>-->
+<!--        <div class="col-sm-12 col-md-6">-->
+<!--          <label for="dataAte">Data Fim</label>-->
+<!--          <input-->
+<!--            formControlName="dataAte"-->
+<!--            type="date"-->
+<!--            class="form-control"-->
+<!--            id="dataAte">-->
+<!--        </div>-->
       </div>
     </div>
   </div>
@@ -97,6 +97,7 @@
     <div class="col-sm-12">
       <!--      <button class="btn btn-warning float-left" (click)="limpar()">Limpar</button>-->
       <button class="btn btn-primary float-right" (click)="filtrar()">Buscar</button>
+      <button class="btn btn-warning float-right" style="margin-right: 5px;" (click)="limparSearch()">Limpar</button>
       <button class="btn btn-success float-left" (click)="filtrar()">Gerar Relatório</button>
     </div>
   </div>
@@ -127,11 +128,12 @@
             <td style="height: 15px"><b>{{entity.formaPagamento.nome}}</b></td>
             <td style="height: 15px"><b>{{entity.instituicaoBancaria.nome}}</b></td>
             <td style="height: 15px" *ngIf="entity.combo"><a href="#">Combo</a></td>
-            <td style="height: 15px" *ngIf="entity.ctr"><a href="#">CTR</a></td>
+            <td style="height: 15px" *ngIf="entity.ctr"><a [routerLink]="['/invoice/', entity.ctr.id]"  title="Visualizar">CTR</a></td>
             <td style="height: 15px" *ngIf="!entity.ctr && !entity.combo"><b>Sem vínculo</b></td>
             <td style="height: 15px" *ngIf="entity.ctr"><b >{{entity.ctr.transportador.nome}}</b></td>
             <td style="height: 15px" *ngIf="entity.combo"><b >{{entity.combo.transportador.nome}}</b></td>
-            <td *ngIf="entity.formaPagamento.nome.includes('Aberto')"><a href="#">Informar Pagamento</a> </td>
+            <td *ngIf="entity.formaPagamento.nome.includes('ABERTO') || entity.formaPagamento.nome.includes('Aberto')"><button type="button" title="Informar Pagamento" class="btn btn-success"><i class="icon-action fa fa-edit"></i></button> </td>
+            <td *ngIf="!entity.formaPagamento.nome.includes('ABERTO') || !entity.formaPagamento.nome.includes('Aberto')"> </td>
             <td style="height: 15px" *ngIf="!entity.formaPagamento.nome.includes('Aberto')"><b></b></td>
           </tr>
           </tbody>

@@ -17,9 +17,9 @@ import {InstituicaoBancariaService} from '../_services/instituicao.bancaria.serv
 export class PagamentosComponent extends BaseComponent implements OnInit {
 
   protected searchParams = {
-    status: '',
-    formaPagamento: '',
-    instituicaoBancaria: ''
+    ativo: '',
+    formaPagamento: new FormaPagamentoModel(),
+    instituicaoBancaria: new InstituicaoBancariaModel()
     // origem: '',
     // transportadoraId: '',
     // numeroCtr: '',
@@ -61,7 +61,9 @@ export class PagamentosComponent extends BaseComponent implements OnInit {
   }
 
   getSearchParams(event: any) {
-    this.searchParams = this.filterGroup.value;
+    this.searchParams.formaPagamento.id = this.filterGroup.value.formaPagamento;
+    this.searchParams.ativo = this.filterGroup.value.ativo;
+    this.searchParams.instituicaoBancaria.id = this.filterGroup.value.instituicaoBancaria;
     return this.searchParams;
   }
 

@@ -2,6 +2,7 @@ import {FormGroup} from '@angular/forms';
 import {NotifierService} from 'angular-notifier';
 import {OnInit, ViewChild} from '@angular/core';
 import {Params} from '../model/params';
+import {isObject} from "rxjs/internal-compatibility";
 
 export abstract class BaseComponent implements OnInit {
 
@@ -79,14 +80,19 @@ export abstract class BaseComponent implements OnInit {
     for (const [key, value] of Object.entries(searchParams)) {
       countParam++;
       if (value !== undefined && value !== null && value !== '') {
-        if(key == 'nome'){
+        // @ts-ignore
+        if (value.id !== undefined && value.id !== '') {
+          // @ts-ignore
+          searchString += `${key}.id==${value.id};`;
+        } else if (key === 'nome') {
           searchString += `${key}==*${value}*;`;
-        } else if(key == 'placa'){
+        } else if (key === 'placa') {
           searchString += `${key}==*${value}*;`;
-        } else if (key !== 'ativo') {
-          searchString += `${key}==%${value}%;`;
-        } else {
-          searchString += `${key}==${value};`;
+        } else { // @ts-ignore
+          // @ts-ignore
+          if (value.id === undefined) {
+            searchString += `${key}==${value};`;
+          }
         }
       } else {
         searchString += `${key}!=null;`;

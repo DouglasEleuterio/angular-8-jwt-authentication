@@ -64,21 +64,23 @@
               <table class="table table-striped">
                 <thead>
                 <tr>
-                  <th>Código Histórico</th>
                   <th>Data da Transação</th>
                   <th>Quantidade Utilizada</th>
                   <th>Número CTR</th>
+                  <th>Tipo Descarte</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let entity of descartePorCombo">
-                  <td>{{entity.id}}</td>
                   <td>{{entity.dataDescarte | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                   <td>{{entity.quantidade}}</td>
                   <td style="text-align: center">
                     <a [routerLink]="['/invoice/', entity.ctr.id]"  title="Visualizar">
                       {{entity.ctr.numero}}
                     </a>
+                  </td>
+                  <td>
+                      <li *ngFor="let tipoDescarte of entity.ctr.tipoDescartes; index as i">{{tipoDescarte.nome}}</li>
                   </td>
                 </tr>
                 </tbody>

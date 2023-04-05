@@ -8,6 +8,8 @@ import {FormaPagamentoModel} from '../model/FormaPagamentoModel';
 import {InstituicaoBancariaModel} from '../model/instituicaobancaria-model';
 import {FormaPagamentoService} from '../_services/forma-pagamento.service';
 import {InstituicaoBancariaService} from '../_services/instituicao.bancaria.service';
+import {PagamentoModel} from '../model/pagamento-model';
+import {CtrModel} from '../model/ctr-model';
 
 @Component({
   selector: 'app-pagamentos',
@@ -19,12 +21,11 @@ export class PagamentosComponent extends BaseComponent implements OnInit {
   protected searchParams = {
     ativo: '',
     formaPagamento: new FormaPagamentoModel(),
-    instituicaoBancaria: new InstituicaoBancariaModel()
+    instituicaoBancaria: new InstituicaoBancariaModel(),
     // origem: '',
-    // transportadoraId: '',
+    //  pagamento: new PagamentoModel(),
     // numeroCtr: '',
-    // dataDe: '',
-    // dataAte: ''
+    dataPagamento: '',
   };
 
   transportadores: TransportadorModel[];
@@ -33,10 +34,12 @@ export class PagamentosComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.criarFormSearch();
-    // this.carregarTransportadores();
+    this.carregarTransportadores();
     this.obtemValor();
     this.carregarFormaPagamento();
     this.carregarIBancaria();
+    // this.searchParams.pagamento.ctr = new CtrModel();
+    // this.searchParams.pagamento.ctr.transportador = new TransportadorModel();
   }
 
   constructor(private pagamentoService: PagamentoService,
@@ -52,11 +55,12 @@ export class PagamentosComponent extends BaseComponent implements OnInit {
       ativo: new FormControl(''),
       formaPagamento: new FormControl(''),
       instituicaoBancaria: new FormControl(''),
-      // origem: new FormControl(''),
-      // transportadoraId: new FormControl(''),
-      // ctr: new FormControl(''),
-      // dataDe: new FormControl(''),
-      // dataAte: new FormControl(''),
+      dataDe: new FormControl(''),
+      dataAte: new FormControl(''),
+      origem: new FormControl(''),
+      // transportador: new FormControl(''),
+      ctr: new FormControl(''),
+      dataPagamento: new FormControl(''),
     });
   }
 
@@ -64,32 +68,102 @@ export class PagamentosComponent extends BaseComponent implements OnInit {
     this.searchParams.formaPagamento.id = this.filterGroup.value.formaPagamento;
     this.searchParams.ativo = this.filterGroup.value.ativo;
     this.searchParams.instituicaoBancaria.id = this.filterGroup.value.instituicaoBancaria;
+    this.buildDataPagamentoDeParam(this.filterGroup.value);
+    this.buildDataPagamentoAteParam(this.filterGroup.value);
     return this.searchParams;
   }
 
   carregarTransportadores() {
-    this.transportadorService.get().subscribe( transportadores => {
+    this.transportadorService.get().subscribe(transportadores => {
       this.transportadores = transportadores;
     });
   }
 
   carregarFormaPagamento() {
-    this.formaPagamentoService.get().subscribe( formaPgto => {
+    this.formaPagamentoService.get().subscribe(formaPgto => {
       this.formasPagamento = formaPgto;
     });
   }
 
   carregarIBancaria() {
-    this.instituicaoBancariaService.get().subscribe( iBancaria => {
+    this.instituicaoBancariaService.get().subscribe(iBancaria => {
       this.instituicaoBancaria = iBancaria;
     });
   }
 
   getFilters(event?: any): any {
-    return {page: event ? event.page - 1 : 0 , nomeFiler: new FormControl('')};
+    return {page: event ? event.page - 1 : 0, nomeFiler: new FormControl('')};
   }
 
   filtrar() {
     this.handlePageChange(0);
+  }
+
+  private buildDataPagamentoDeParam(filter: any) {
+    if (filter.dataDe) {
+      this.searchParams.dataPagamento = filter.dataDe;
+    }
+  }
+
+  private buildDataPagamentoAteParam(filter: any) {
+    if (filter.dataAte) {
+      this.searchParams.dataPagamento = filter.dataAte;
+    }
+  }
+
+  public convertObjToTxtParams(searchParams, pageNumber): string {
+    let searchString = `sort=dataPagamento,desc&page=${pageNumber.page === undefined ? 0 : pageNumber.page - 1}&search=`;
+    if (this.filterGroup.value.ativo) {
+      searchString += `ativo==${this.filterGroup.value.ativo}`;
+    } else if (!this.filterGroup.value.ativo) {
+      searchString += `ativo!=null`;
+    }
+    if (this.filterGroup.value.formaPagamento) {
+      searchString += `;formaPagamento.id==${this.filterGroup.value.formaPagamento}`;
+    }
+    if (this.filterGroup.value.instituicaoBancaria) {
+      searchString += `;instituicaoBancaria.id==${this.filterGroup.value.instituicaoBancaria}`;
+    }
+    if (this.filterGroup.value.dataDe) {
+      searchString += `;dataPagamento=ge=${this.filterGroup.value.dataDe}`;
+    }
+    if (this.filterGroup.value.dataAte) {
+      searchString += `;dataPagamento=le=${this.filterGroup.value.dataAte}`;
+    }
+    if (this.filterGroup.value.ctr) {
+      searchString += `;ctr.numero==*${this.filterGroup.value.ctr}*`;
+    }
+    if (this.filterGroup.value.origem) {
+      if (this.filterGroup.value.origem === 'ctr') {
+        searchString += `;ctr.id!=null`;
+      } else if (this.filterGroup.value.origem === 'combo') {
+        searchString += `;combo.id!=null`;
+      }
+    }
+
+    // if (this.filterGroup.value.transportador) {
+    //   searchString += `;ctr.transportador.id==${this.filterGroup.value.transportador}`;
+    //   searchString += `,combo.transportador.id==${this.filterGroup.value.transportador}`;
+    // }
+    return searchString += '!';
+  }
+
+  obtemValor(params?: any) {
+    this.pagamentoService.getOrderData().subscribe(
+      data => {
+        this.entities = data.content;
+        this.count = data.totalElements;
+        this.currentPage = data.number + 1;
+      }, err => {
+        console.log(err);
+      });
+  }
+
+  informaPagamento() {
+    window.alert('Funcionalidade não implementada, favor aguarde atualização.');
+  }
+
+  gerarRelatorio() {
+    window.alert('Funcionalidade não implementada, favor aguarde atualização.');
   }
 }

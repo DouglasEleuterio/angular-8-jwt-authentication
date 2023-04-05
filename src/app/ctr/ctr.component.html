@@ -60,8 +60,7 @@
                     <label>Veículo</label>
                     <select [(ngModel)]="veiculoSelecionado" id="veiculo"
                             class="form-control select2" style="width: 100%;" (change)="vinculaVeiculo()">
-                      <option *ngFor="let veiculo of veiculos" [ngValue]="veiculo"> Placa: {{veiculo.placa}} |
-                        Modelo: {{veiculo.modelo}} | Marca: {{veiculo.marca}}</option>
+                      <option *ngFor="let veiculo of veiculos" [ngValue]="veiculo"> {{veiculo.placa}} - {{veiculo.transportador.nome}}</option>
                     </select>
                   </div>
                   <div class="col-12">
@@ -69,7 +68,7 @@
                     <select [(ngModel)]="motoristaSelecionado" id="motorista"
                             class="form-control select2" style="width: 100%;" (change)="vinculaMotorista()">
                       <option *ngFor="let motorista of motoristas" [ngValue]="motorista">
-                        Nome: {{motorista.nome}} | Telefone: {{motorista.telefone}}</option>
+                        {{motorista.nome}} - {{motorista.telefone}}</option>
                     </select>
                   </div>
                 </mat-tab>
@@ -78,9 +77,8 @@
                     <label>Transportador</label>
                     <select [(ngModel)]="transportadorSelecionado" id="transportador"
                             class="form-control select2" style="width: 100%;" (change)="vinculaTransportador()">
-                      <option *ngFor="let transp of transportadores" [ngValue]="transp"> Razão
-                        Social: {{transp.razaoSocial}} |
-                        CNPJ: {{transp.cnpj}}</option>
+                      <option *ngFor="let transp of transportadores" [ngValue]="transp">{{transp.razaoSocial}} -
+                        {{transp.cnpj}}</option>
                     </select>
                   </div>
                 </mat-tab>
@@ -90,8 +88,8 @@
                     <select [(ngModel)]="geradorSelecionado" id="gerador"
                             class="form-control select2" style="width: 100%;" (change)="vinculaGerador()">
                       <option *ngFor="let gerador of geradores" [ngValue]="gerador">
-                        Nome: {{gerador.nome}} {{gerador.razaoSocial}} |
-                        Documento: {{gerador.cnpj}} {{gerador.cpf}}</option>
+                        {{gerador.nome}}  {{gerador.razaoSocial}}
+                        {{gerador.cnpj}} - {{gerador.cpf}}</option>
                     </select>
                   </div>
                 </mat-tab>
@@ -100,9 +98,7 @@
                     <label>Destinatario</label>
                     <select [(ngModel)]="destinatarioSelecionado" id="destinatario"
                             class="form-control select2" style="width: 100%;" (change)="vinculaDestinatario()">
-                      <option *ngFor="let destinatario of destinatarios" [ngValue]="destinatario"> Razão
-                        Social: {{destinatario.razaoSocial}} |
-                        CNPJ: {{destinatario.cnpj}}</option>
+                      <option *ngFor="let destinatario of destinatarios" [ngValue]="destinatario"> {{destinatario.razaoSocial}} - {{destinatario.cnpj}}</option>
                     </select>
                   </div>
                 </mat-tab>
@@ -182,7 +178,7 @@
                         id="pagamento"
                         placeholder="R$ 0.00">
                     </div>
-                    <div class="col-6 col-xs-12">
+                    <div class="col-6 col-xs-12" *ngIf="formaPagamentoSelecionado.nome !== 'Combo'" >
                       <label for="dataPagamento">Data Pagamento</label>
                       <input
                         (change)="vinculaDataPagamento()"

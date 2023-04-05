@@ -284,7 +284,7 @@ export class CtrComponent implements OnInit {
       return false;
     }
     if (this.ctr.geracao === undefined || this.ctr.geracao == null) {
-      this.notifier.notify('error', 'É necessário informar uma Data!');
+      this.notifier.notify('error', 'É necessário informar uma Data de Geração da CTR!');
       return false;
     }
     if (this.veiculoSelecionado === undefined || this.veiculoSelecionado.id === undefined) {

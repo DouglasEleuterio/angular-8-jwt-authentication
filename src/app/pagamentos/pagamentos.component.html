@@ -41,55 +41,54 @@
           </select>
         </div>
       </div>
-      <!--      <div class="row">-->
-      <!--        <div class="col-sm-12 col-md-6">-->
-      <!--          <label>Transportador</label>-->
-      <!--          <select-->
-      <!--            formControlName="transportadoraId"-->
-      <!--            id="transportador"-->
-      <!--            class="form-control select2" style="width: 100%;">-->
-      <!--            <option *ngFor="let transp of transportadores" [ngValue]="transp.id">-->
-      <!--              Razão Social: {{transp.razaoSocial}} | CNPJ: {{transp.cnpj}}</option>-->
-      <!--          </select>-->
-      <!--        </div>-->
-      <!--        <div class="col-sm-12 col-md-6">-->
-      <!--          <label for="origem">Origem</label>-->
-      <!--          <select id="origem"-->
-      <!--                  formControlName="origem"-->
-      <!--                  class="form-control select2"-->
-      <!--                  style="width: 100%;">-->
-      <!--            <option [ngValue]="null">Todos</option>-->
-      <!--            <option [ngValue]="'ctr'">CTR</option>-->
-      <!--            <option [ngValue]="'combo'">Combo</option>-->
-      <!--          </select>-->
-      <!--        </div>-->
-      <!--      </div>-->
       <div class="row">
-        <!--        <div class="col-sm-12 col-md-4">-->
-        <!--          <label for="numeroFiltro">Número CTR</label>-->
-        <!--          <input-->
-        <!--            formControlName="ctr"-->
-        <!--            type="number"-->
-        <!--            class="form-control"-->
-        <!--            id="numeroFiltro"-->
-        <!--            placeholder="Número CTR">-->
+        <div class="col-sm-12 col-md-3">
+          <label for="origem">Origem</label>
+          <select id="origem"
+                  formControlName="origem"
+                  class="form-control select2"
+                  style="width: 100%;">
+            <option [ngValue]="null">Todos</option>
+            <option [ngValue]="'ctr'">CTR</option>
+            <option [ngValue]="'combo'">Combo</option>
+          </select>
+        </div>
+        <div class="col-sm-12 col-md-3">
+          <label for="numeroFiltro">Número CTR</label>
+          <input
+            formControlName="ctr"
+            type="number"
+            class="form-control"
+            id="numeroFiltro"
+            placeholder="Número CTR">
+        </div>
+        <!--        <div class="col-sm-12 col-md-6">-->
+        <!--          <label>Transportador</label>-->
+        <!--          <select-->
+        <!--            formControlName="transportador"-->
+        <!--            id="transportador"-->
+        <!--            class="form-control select2" style="width: 100%;">-->
+        <!--            <option *ngFor="let transp of transportadores" [ngValue]="transp.id">-->
+        <!--              Razão Social: {{transp.razaoSocial}} | CNPJ: {{transp.cnpj}}</option>-->
+        <!--          </select>-->
         <!--        </div>-->
-<!--        <div class="col-sm-12 col-md-6">-->
-<!--          <label for="dataDe">Data Início</label>-->
-<!--          <input-->
-<!--            formControlName="dataDe"-->
-<!--            type="date"-->
-<!--            class="form-control"-->
-<!--            id="dataDe">-->
-<!--        </div>-->
-<!--        <div class="col-sm-12 col-md-6">-->
-<!--          <label for="dataAte">Data Fim</label>-->
-<!--          <input-->
-<!--            formControlName="dataAte"-->
-<!--            type="date"-->
-<!--            class="form-control"-->
-<!--            id="dataAte">-->
-<!--        </div>-->
+
+        <div class="col-sm-12 col-md-3">
+          <label for="dataDe">Data Início</label>
+          <input
+            formControlName="dataDe"
+            type="date"
+            class="form-control"
+            id="dataDe">
+        </div>
+        <div class="col-sm-12 col-md-3">
+          <label for="dataAte">Data Fim</label>
+          <input
+            formControlName="dataAte"
+            type="date"
+            class="form-control"
+            id="dataAte">
+        </div>
       </div>
     </div>
   </div>
@@ -98,7 +97,7 @@
       <!--      <button class="btn btn-warning float-left" (click)="limpar()">Limpar</button>-->
       <button class="btn btn-primary float-right" (click)="filtrar()">Buscar</button>
       <button class="btn btn-warning float-right" style="margin-right: 5px;" (click)="limparSearch()">Limpar</button>
-      <button class="btn btn-success float-left" (click)="filtrar()">Gerar Relatório</button>
+      <button class="btn btn-success float-left" (click)="gerarRelatorio()">Gerar Relatório</button>
     </div>
   </div>
   <div class="card-body">
@@ -128,12 +127,19 @@
             <td style="height: 15px"><b>{{entity.formaPagamento.nome}}</b></td>
             <td style="height: 15px"><b>{{entity.instituicaoBancaria.nome}}</b></td>
             <td style="height: 15px" *ngIf="entity.combo"><a href="#">Combo</a></td>
-            <td style="height: 15px" *ngIf="entity.ctr"><a [routerLink]="['/invoice/', entity.ctr.id]"  title="Visualizar">CTR</a></td>
+            <td style="height: 15px" *ngIf="entity.ctr">
+              <div><a [routerLink]="['/invoice/', entity.ctr.id]"
+              >CTR</a></div>
+              <small class="badge badge-secondary">{{entity.ctr.numero}}</small></td>
             <td style="height: 15px" *ngIf="!entity.ctr && !entity.combo"><b>Sem vínculo</b></td>
-            <td style="height: 15px" *ngIf="entity.ctr"><b >{{entity.ctr.transportador.nome}}</b></td>
-            <td style="height: 15px" *ngIf="entity.combo"><b >{{entity.combo.transportador.nome}}</b></td>
-            <td *ngIf="entity.formaPagamento.nome.includes('ABERTO') || entity.formaPagamento.nome.includes('Aberto')"><button type="button" title="Informar Pagamento" class="btn btn-success"><i class="icon-action fa fa-edit"></i></button> </td>
-            <td *ngIf="!entity.formaPagamento.nome.includes('ABERTO') || !entity.formaPagamento.nome.includes('Aberto')"> </td>
+            <td style="height: 15px" *ngIf="entity.ctr"><b>{{entity.ctr.transportador.nome}}</b></td>
+            <td style="height: 15px" *ngIf="entity.combo"><b>{{entity.combo.transportador.nome}}</b></td>
+            <td *ngIf="entity.formaPagamento.nome.includes('ABERTO') || entity.formaPagamento.nome.includes('Aberto')">
+              <button (click)="informaPagamento()" type="button" title="Informar Pagamento" class="btn btn-info"><i
+                class="icon-action fa fa-edit"></i></button>
+            </td>
+            <td
+              *ngIf="!entity.formaPagamento.nome.includes('ABERTO') || !entity.formaPagamento.nome.includes('Aberto')"></td>
             <td style="height: 15px" *ngIf="!entity.formaPagamento.nome.includes('Aberto')"><b></b></td>
           </tr>
           </tbody>

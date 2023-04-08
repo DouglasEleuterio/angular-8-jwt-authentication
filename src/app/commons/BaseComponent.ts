@@ -1,8 +1,9 @@
 import {FormGroup} from '@angular/forms';
 import {NotifierService} from 'angular-notifier';
-import {OnInit, ViewChild} from '@angular/core';
+import { OnInit, ViewChild, Directive } from '@angular/core';
 import {Params} from '../model/params';
 
+@Directive()
 export abstract class BaseComponent implements OnInit {
 
   @ViewChild('closebutton', {static: false}) closebutton;

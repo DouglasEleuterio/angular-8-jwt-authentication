@@ -135,8 +135,9 @@
             <td style="height: 15px" *ngIf="entity.ctr"><b>{{entity.ctr.transportador.nome}}</b></td>
             <td style="height: 15px" *ngIf="entity.combo"><b>{{entity.combo.transportador.nome}}</b></td>
             <td *ngIf="entity.formaPagamento.nome.includes('ABERTO') || entity.formaPagamento.nome.includes('Aberto')">
-              <button (click)="informaPagamento()" type="button" title="Informar Pagamento" class="btn btn-info"><i
-                class="icon-action fa fa-edit"></i></button>
+              <button (click)="informaPagamento(entity)" type="button" title="Informar Pagamento" class="btn btn-info">
+                <i
+                  class="icon-action fa fa-edit" data-toggle="modal" data-target="#modal-lg"></i></button>
             </td>
             <td
               *ngIf="!entity.formaPagamento.nome.includes('ABERTO') || !entity.formaPagamento.nome.includes('Aberto')"></td>
@@ -158,3 +159,42 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="modal-lg">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Informar Pagamento</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <label for="formaPagamentoB">Forma Pagamento</label>
+          <select id="formaPagamentoB"
+                  class="form-control select2"
+                  style="width: 100%;" [(ngModel)]="pagamentoAtualizar.formaPagamento" >
+            <option *ngFor="let formaPagamento of formasPagamento"
+                    [ngValue]="formaPagamento" >
+              {{formaPagamento.nome}}
+            </option>
+          </select>
+          <label for="dataPagamento">Data Pagamento</label>
+          <input
+            [(ngModel)]="pagamentoAtualizar.dataPagamento"
+            type="date"
+            class="form-control"
+            id="dataPagamento">
+        </div>
+      </div>
+    <div class="modal-footer justify-content-between">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" (click)="updatePagamento()" class="btn btn-primary">Save changes</button>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

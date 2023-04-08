@@ -40,4 +40,8 @@ export class PagamentoService extends BaseService<PagamentoModel> {
   public getOrderData(): Observable<any> {
     return this.http.get<PagamentoModel>(environment.apiUrl + this.getResource() + '?sort=dataPagamento,desc');
   }
+
+  update(entity, resource): Observable<any> {
+    return this.http.put(environment.apiUrl + resource + '/' + entity.id, entity, this.httpOptions);
+  }
 }

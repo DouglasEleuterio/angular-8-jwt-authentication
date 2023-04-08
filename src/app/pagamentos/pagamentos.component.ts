@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {BaseComponent} from '../commons/BaseComponent';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {PagamentoService} from '../_services/pagamento.service';
@@ -16,7 +16,7 @@ import {CtrModel} from '../model/ctr-model';
   templateUrl: './pagamentos.component.html',
   styleUrls: ['./pagamentos.component.css']
 })
-export class PagamentosComponent extends BaseComponent implements OnInit {
+export class PagamentosComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   protected searchParams = {
     ativo: '',
@@ -31,6 +31,9 @@ export class PagamentosComponent extends BaseComponent implements OnInit {
   transportadores: TransportadorModel[];
   formasPagamento: FormaPagamentoModel[];
   instituicaoBancaria: InstituicaoBancariaModel[];
+  pagamentoAtualizar: PagamentoModel = new PagamentoModel();
+
+  @ViewChild('formaPagamentoB', {static: false}) formaPagamentoB: ElementRef;
 
   ngOnInit() {
     this.criarFormSearch();
@@ -40,6 +43,12 @@ export class PagamentosComponent extends BaseComponent implements OnInit {
     this.carregarIBancaria();
     // this.searchParams.pagamento.ctr = new CtrModel();
     // this.searchParams.pagamento.ctr.transportador = new TransportadorModel();
+  }
+
+  ngAfterViewInit() {
+    this.formaPagamentoB.nativeElement.addEventListener('change', (event) => {
+      this.pagamentoAtualizar = event.target.value;
+    });
   }
 
   constructor(private pagamentoService: PagamentoService,
@@ -159,11 +168,27 @@ export class PagamentosComponent extends BaseComponent implements OnInit {
       });
   }
 
-  informaPagamento() {
-    window.alert('Funcionalidade não implementada, favor aguarde atualização.');
+  updatePagamento() {
+    const pagamento = new PagamentoModel();
+    pagamento.id = this.pagamentoAtualizar.id;
+    pagamento.formaPagamento = this.pagamentoAtualizar.formaPagamento;
+    pagamento.dataPagamento = this.pagamentoAtualizar.dataPagamento;
+    this.pagamentoService.update(pagamento, 'pagamento/atualizar').subscribe( data => {
+      this.obtemValor();
+    }, error => {
+      this.notifier.notify('error', 'Falha ao atualizar pagamento\n' + error.message);
+    });
+  }
+
+  informaPagamento(entity: any) {
+    this.pagamentoAtualizar = entity;
   }
 
   gerarRelatorio() {
     window.alert('Funcionalidade não implementada, favor aguarde atualização.');
+  }
+
+  atualizarValores(event: any) {
+    this.pagamentoAtualizar.formaPagamento = event;
   }
 }

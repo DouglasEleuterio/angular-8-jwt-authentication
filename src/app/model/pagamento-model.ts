@@ -9,7 +9,7 @@ export class PagamentoModel {
   id: string;
   dataPagamento: Date;
   valor: number;
-  formaPagamento: FormaPagamentoModel;
+  formaPagamento: FormaPagamentoModel = new FormaPagamentoModel();
   ativo: boolean;
   ctr: CtrModel;
   combo: ComboModel;

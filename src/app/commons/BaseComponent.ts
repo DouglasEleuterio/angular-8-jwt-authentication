@@ -2,7 +2,6 @@ import {FormGroup} from '@angular/forms';
 import {NotifierService} from 'angular-notifier';
 import {OnInit, ViewChild} from '@angular/core';
 import {Params} from '../model/params';
-import {isObject} from "rxjs/internal-compatibility";
 
 export abstract class BaseComponent implements OnInit {
 

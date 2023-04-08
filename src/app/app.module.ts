@@ -21,7 +21,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TipoDescarteComponent } from './tipo-descarte/tipo-descarte.component';
 import { FormaPagamentoComponent } from './forma-pagamento/forma-pagamento.component';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
-import { PagamentoComponent } from './pagamento/pagamento.component';
 import { TransportadorComponent } from './transportador/transportador.component';
 import { VeiculoComponent } from './veiculo/veiculo.component';
 import { GeradorComponent } from './gerador/gerador.component';
@@ -47,6 +46,7 @@ import { TipoDescarteListComponent } from './tipo-descarte/tipo-descarte-list/ti
 import { FormaPagamentoListComponent } from './forma-pagamento/forma-pagamento-list/forma-pagamento-list.component';
 import { InstituicaoBancariaComponent } from './instituicao-bancaria/instituicao-bancaria.component';
 import { PagamentosComponent } from './pagamentos/pagamentos.component';
+import { CarSelectComponent } from './select/car-select/car-select.component';
 
 /**
  * Custom angular notifier options
@@ -105,7 +105,6 @@ registerLocaleData(ptBr);
     ProfileComponent,
     TipoDescarteComponent,
     FormaPagamentoComponent,
-    PagamentoComponent,
     TransportadorComponent,
     VeiculoComponent,
     GeradorComponent,
@@ -123,7 +122,8 @@ registerLocaleData(ptBr);
     TipoDescarteListComponent,
     FormaPagamentoListComponent,
     InstituicaoBancariaComponent,
-    PagamentosComponent
+    PagamentosComponent,
+    CarSelectComponent
   ],
   imports: [
     BrowserModule,

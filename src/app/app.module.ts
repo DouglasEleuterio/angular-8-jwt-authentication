@@ -46,7 +46,6 @@ import { TipoDescarteListComponent } from './tipo-descarte/tipo-descarte-list/ti
 import { FormaPagamentoListComponent } from './forma-pagamento/forma-pagamento-list/forma-pagamento-list.component';
 import { InstituicaoBancariaComponent } from './instituicao-bancaria/instituicao-bancaria.component';
 import { PagamentosComponent } from './pagamentos/pagamentos.component';
-import { CarSelectComponent } from './select/car-select/car-select.component';
 
 /**
  * Custom angular notifier options
@@ -123,7 +122,6 @@ registerLocaleData(ptBr);
     FormaPagamentoListComponent,
     InstituicaoBancariaComponent,
     PagamentosComponent,
-    CarSelectComponent
   ],
   imports: [
     BrowserModule,

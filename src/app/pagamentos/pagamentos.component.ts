@@ -173,7 +173,7 @@ export class PagamentosComponent extends BaseComponent implements OnInit, AfterV
     pagamento.id = this.pagamentoAtualizar.id;
     pagamento.formaPagamento = this.pagamentoAtualizar.formaPagamento;
     pagamento.dataPagamento = this.pagamentoAtualizar.dataPagamento;
-    this.pagamentoService.update(pagamento, 'pagamento/atualizar').subscribe( data => {
+    this.pagamentoService.update(pagamento).subscribe( data => {
       this.obtemValor();
     }, error => {
       this.notifier.notify('error', 'Falha ao atualizar pagamento\n' + error.message);

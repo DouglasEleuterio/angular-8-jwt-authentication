@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BaseService} from './BaseService';
 import {PagamentoModel} from '../model/pagamento-model';
-import {Observable} from "rxjs";
-import {environment} from "../../environments/environment.prod";
+import {environment} from '../../environments/environment.prod';
+import {Observable} from 'rxjs';
 
 const PAGAMENTO_RESOURCE = 'pagamento';
 
@@ -39,9 +39,5 @@ export class PagamentoService extends BaseService<PagamentoModel> {
 
   public getOrderData(): Observable<any> {
     return this.http.get<PagamentoModel>(environment.apiUrl + this.getResource() + '?sort=dataPagamento,desc');
-  }
-
-  update(entity, resource): Observable<any> {
-    return this.http.put(environment.apiUrl + resource + '/' + entity.id, entity, this.httpOptions);
   }
 }

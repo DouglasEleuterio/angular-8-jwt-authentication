@@ -19,8 +19,8 @@ export class GeradorComponent extends BaseComponent implements OnInit {
   isEdicao = false;
   entities: GeradorModel[];
   protected searchParams = {nome: undefined, ativo: undefined};
-  @ViewChild('isFisica', null) isFisica: ElementRef;
-  @ViewChild('isJuridica', null) isJuridica: ElementRef;
+  @ViewChild('isFisica', {static: true}) isFisica: ElementRef;
+  @ViewChild('isJuridica', {static: true}) isJuridica: ElementRef;
 
   constructor(private geradorService: GeradorService,
               notifier: NotifierService,
